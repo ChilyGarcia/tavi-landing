@@ -3,19 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TAVI — Software para restaurantes con pedidos por QR</title>
+    <title>Tavi - Software de Gestión Gastronómica</title>
     <meta
       name="description"
-      content="TAVI ayuda a restaurantes a gestionar sedes, cartas, mesas con QR, pedidos y métricas."
+      content="Tavi ayuda a restaurantes a gestionar sedes, cartas, mesas con QR, pedidos y métricas desde un solo lugar."
     />
-    <meta name="author" content="TAVI" />
-    <meta property="og:title" content="TAVI — Software para restaurantes" />
+    <meta name="author" content="Tavi" />
+    <link rel="canonical" href="https://taviorders.com/" />
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://taviorders.com/" />
+    <meta property="og:site_name" content="Tavi" />
+    <meta property="og:title" content="Tavi - Software de Gestión Gastronómica" />
     <meta
       property="og:description"
-      content="Gestiona sedes, cartas, mesas con QR y pedidos. Hecho para restaurantes en Cúcuta."
+      content="Gestiona sedes, cartas, mesas con QR y pedidos desde un solo lugar. Hecho para restaurantes en Cúcuta."
     />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://taviorders.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_CO" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tavi - Software de Gestión Gastronómica" />
+    <meta
+      name="twitter:description"
+      content="Gestiona sedes, cartas, mesas con QR y pedidos desde un solo lugar. Hecho para restaurantes en Cúcuta."
+    />
+    <meta name="twitter:image" content="https://taviorders.com/og-image.jpg" />
+
     <link rel="icon" href="/tavi-logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="/tavi-logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,6 +42,43 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
     />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Tavi",
+          "url": "https://taviorders.com",
+          "logo": "https://taviorders.com/tavi-logo.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "telephone": "+57-317-368-7885",
+            "email": "soporte@tavi.app",
+            "areaServed": "CO",
+            "availableLanguage": ["es"]
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "Tavi",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Any",
+          "url": "https://taviorders.com",
+          "description": "Software de gestión gastronómica para restaurantes: cartas digitales, pedidos por código QR, gestión de sedes y métricas de ventas en tiempo real.",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://taviorders.com/#pricing",
+            "price": "55000",
+            "priceCurrency": "COP",
+            "category": "SaaS"
+          }
+        }
+      ]
+    </script>
   </head>
   <body>
     <div id="root"></div>

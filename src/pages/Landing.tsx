@@ -32,15 +32,17 @@ export function Landing() {
     <div className="min-h-screen bg-background text-foreground">
       <AnnouncementBar onDemo={() => setDemoOpen(true)} />
       <Nav onDemo={() => setDemoOpen(true)} />
-      <Hero onDemo={() => setDemoOpen(true)} />
-      <Marquee />
-      <Showcase />
-      <Features />
-      <HowItWorks />
-      <Stats />
-      <Testimonial />
-      <Pricing onDemo={() => setDemoOpen(true)} />
-      <FinalCta onDemo={() => setDemoOpen(true)} />
+      <main>
+        <Hero onDemo={() => setDemoOpen(true)} />
+        <Marquee />
+        <Showcase />
+        <Features />
+        <HowItWorks />
+        <Stats />
+        <Testimonial />
+        <Pricing onDemo={() => setDemoOpen(true)} />
+        <FinalCta onDemo={() => setDemoOpen(true)} />
+      </main>
       <Footer />
       <DemoModal open={demoOpen} onOpenChange={setDemoOpen} />
     </div>
@@ -197,6 +199,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             alt="Plato gourmet servido en un restaurante"
             width={1200}
             height={900}
+            fetchPriority="high"
             className="relative aspect-[4/3] w-full rounded-[2rem] object-cover shadow-[var(--shadow-lift)]"
           />
 
@@ -205,6 +208,8 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             src={foodBurger}
             alt=""
             aria-hidden
+            width={80}
+            height={80}
             className="tavi-float absolute -left-6 top-6 h-20 w-20 rounded-2xl border-4 border-background object-cover shadow-[var(--shadow-soft)]"
             style={{ ["--tavi-rot" as string]: "-8deg" }}
           />
@@ -212,6 +217,8 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             src={foodBowl}
             alt=""
             aria-hidden
+            width={64}
+            height={64}
             className="tavi-float-slow absolute -right-5 bottom-24 h-16 w-16 rounded-2xl border-4 border-background object-cover shadow-[var(--shadow-soft)]"
             style={{ ["--tavi-rot" as string]: "6deg" }}
           />
@@ -282,9 +289,24 @@ function Marquee() {
 
 function Showcase() {
   const dishes = [
-    { img: foodBurger, label: "Hamburguesas", desc: "Órdenes rápidas, ticket promedio arriba." },
-    { img: foodBowl, label: "Bowls & saludable", desc: "Personalización sin errores de cocina." },
-    { img: foodDessert, label: "Postres & café", desc: "Suma a cada mesa con un tap." },
+    {
+      img: foodBurger,
+      label: "Hamburguesas",
+      alt: "Hamburguesa gourmet en carta digital de restaurante gestionada con Tavi",
+      desc: "Órdenes rápidas, ticket promedio arriba.",
+    },
+    {
+      img: foodBowl,
+      label: "Bowls & saludable",
+      alt: "Bowl saludable listo para pedir por QR con el menú digital de Tavi",
+      desc: "Personalización sin errores de cocina.",
+    },
+    {
+      img: foodDessert,
+      label: "Postres & café",
+      alt: "Postre y café de cafetería publicados en la carta digital de Tavi",
+      desc: "Suma a cada mesa con un tap.",
+    },
   ];
   return (
     <section id="showcase" className="mx-auto max-w-6xl px-6 py-24">
@@ -301,7 +323,7 @@ function Showcase() {
         </p>
       </Reveal>
       <div className="mt-14 grid gap-6 md:grid-cols-3">
-        {dishes.map(({ img, label, desc }, i) => (
+        {dishes.map(({ img, label, alt, desc }, i) => (
           <Reveal
             key={label}
             delay={i * 120}
@@ -310,7 +332,10 @@ function Showcase() {
           >
             <img
               src={img}
-              alt={label}
+              alt={alt}
+              width={1024}
+              height={1024}
+              loading="lazy"
               className="aspect-[4/5] w-full object-cover transition duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
@@ -485,22 +510,24 @@ function Stats() {
 
 function Testimonial() {
   return (
-    <Reveal from="scale" className="mx-auto max-w-4xl px-6 py-24 text-center">
-      <Quote className="mx-auto h-10 w-10 text-primary/40" />
-      <blockquote className="mt-6 font-display text-3xl font-semibold leading-snug tracking-tight md:text-4xl">
-        “Con TAVI dejamos de perder pedidos entre mesas. Ahora la cocina fluye y vemos exactamente
-        qué se vende cada día.”
-      </blockquote>
-      <div className="mt-8 flex items-center justify-center gap-3">
-        <div className="grid h-12 w-12 place-items-center rounded-full bg-secondary text-lg font-bold text-secondary-foreground">
-          C
+    <section className="mx-auto max-w-4xl px-6 py-24 text-center">
+      <Reveal from="scale">
+        <Quote className="mx-auto h-10 w-10 text-primary/40" />
+        <blockquote className="mt-6 font-display text-3xl font-semibold leading-snug tracking-tight md:text-4xl">
+          “Con TAVI dejamos de perder pedidos entre mesas. Ahora la cocina fluye y vemos exactamente
+          qué se vende cada día.”
+        </blockquote>
+        <div className="mt-8 flex items-center justify-center gap-3">
+          <div className="grid h-12 w-12 place-items-center rounded-full bg-secondary text-lg font-bold text-secondary-foreground">
+            C
+          </div>
+          <div className="text-left">
+            <div className="font-semibold">Camila R.</div>
+            <div className="text-sm text-muted-foreground">Dueña · Café del Parque</div>
+          </div>
         </div>
-        <div className="text-left">
-          <div className="font-semibold">Camila R.</div>
-          <div className="text-sm text-muted-foreground">Dueña · Café del Parque</div>
-        </div>
-      </div>
-    </Reveal>
+      </Reveal>
+    </section>
   );
 }
 
