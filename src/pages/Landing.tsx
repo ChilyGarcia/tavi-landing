@@ -16,6 +16,9 @@ import {
   TrendingUp,
   Quote,
   Award,
+  Layers,
+  Users,
+  Workflow,
 } from "lucide-react";
 import heroDish from "@/assets/tavi-hero-dish.jpg";
 import foodBurger from "@/assets/tavi-food-burger.jpg";
@@ -373,7 +376,7 @@ function Features() {
     {
       icon: Award,
       title: "Fidelidad & Google Wallet",
-      desc: "Tarjetas VIP virtuales guardables en billeteras digitales con descuentos automáticos en caja.",
+      desc: "Tarjetas VIP virtuales guardables en billeteras digitales, con descuento aplicable al cobrar.",
       highlight: true,
     },
     {
@@ -384,12 +387,27 @@ function Features() {
     {
       icon: BarChart3,
       title: "Métricas en Vivo",
-      desc: "Reportes de ventas por producto, hora, sede y cliente recurrente.",
+      desc: "Reportes de ventas por producto, hora, sede y medio de pago, con exportación a Excel.",
     },
     {
       icon: ReceiptText,
       title: "Caja & Domicilios",
-      desc: "Control de arqueos diarios de caja, verificación de transferencias y repartidores.",
+      desc: "Apertura, cierre y arqueo diario con desglose por medio de pago, incluyendo pagos mixtos.",
+    },
+    {
+      icon: Layers,
+      title: "Pago Mixto Real",
+      desc: "Combina efectivo, tarjeta y transferencia en un mismo cobro, con el monto exacto de cada medio.",
+    },
+    {
+      icon: Users,
+      title: "Cuentas Separadas",
+      desc: "Divide la cuenta entre varios comensales, por persona o por ítems, sin perder el control de caja.",
+    },
+    {
+      icon: Workflow,
+      title: "Flujo QR Configurable",
+      desc: "Decide si los pedidos del menú QR van directo a cocina o pasan primero por confirmación en sala.",
     },
   ];
   return (
@@ -451,7 +469,7 @@ function HowItWorks() {
     {
       icon: ReceiptText,
       title: "Envía su pedido",
-      desc: "Elige, personaliza y paga. El pedido llega a cocina con el número de mesa.",
+      desc: "Elige, personaliza y confirma. El pedido llega a sala y cocina con el número de mesa.",
     },
     {
       icon: ChefHat,
@@ -636,104 +654,104 @@ function Pricing({ onDemo }: { onDemo: (plan?: string) => void }) {
                   }`}
                   style={plan.highlight ? { background: "var(--gradient-hero)" } : undefined}
                 >
-                {plan.highlight && (
-                  <>
-                    <div className="tavi-grain pointer-events-none absolute inset-0 opacity-20" />
-                    <span className="absolute right-5 top-5 rounded-full bg-white px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-foreground shadow-sm">
-                      Más Popular
-                    </span>
-                  </>
-                )}
-                <div>
-                  <div
-                    className={`relative text-sm font-semibold uppercase tracking-wide flex items-center gap-1.5 ${
-                      plan.highlight ? "opacity-90" : "text-muted-foreground"
-                    }`}
-                  >
-                    {Icon && (
-                      <Icon
-                        className={`h-4 w-4 transition duration-500 group-hover:scale-125 group-hover:-rotate-6 ${plan.highlight ? "text-amber-300" : "text-amber-500"}`}
-                      />
-                    )}
-                    {plan.name}
-                  </div>
-                  {billing === "anual" ? (
+                  {plan.highlight && (
                     <>
-                      <div className="relative mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                        <span className="font-display text-4xl font-bold tracking-tight">
-                          ${formatCOP(annualTotal)}
-                        </span>
-                        <span
-                          className={`text-sm ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
-                        >
-                          COP / año
-                        </span>
-                        <span
-                          className={`text-sm line-through ${plan.highlight ? "opacity-60" : "text-muted-foreground/60"}`}
-                        >
-                          ${formatCOP(regularAnnual)}
-                        </span>
-                        <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-secondary-foreground">
-                          -{ANNUAL_DISCOUNT_PCT}%
-                        </span>
-                      </div>
-                      <p
-                        className={`relative mt-1 text-xs ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
-                      >
-                        Equivale a ${formatCOP(monthlyEquivalent)} COP / mes · 2 meses gratis
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <div className="relative mt-3 flex items-baseline gap-1">
-                        <span className="font-display text-4xl font-bold tracking-tight">
-                          ${formatCOP(plan.monthly)}
-                        </span>
-                        <span
-                          className={`text-sm ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
-                        >
-                          COP / mes
-                        </span>
-                      </div>
-                      <p
-                        className={`relative mt-1 text-xs ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
-                      >
-                        Facturado mensualmente
-                      </p>
+                      <div className="tavi-grain pointer-events-none absolute inset-0 opacity-20" />
+                      <span className="absolute right-5 top-5 rounded-full bg-white px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-foreground shadow-sm">
+                        Más Popular
+                      </span>
                     </>
                   )}
-                  <p
-                    className={`relative mt-2 text-xs ${plan.highlight ? "opacity-90" : "text-muted-foreground"}`}
-                  >
-                    {plan.tagline}
-                  </p>
-                  <ul className="relative mt-6 space-y-2.5 text-xs">
-                    {plan.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2">
-                        <span
-                          className={`grid h-4 w-4 place-items-center rounded-full transition duration-300 group-hover:scale-110 ${
-                            plan.highlight
-                              ? "bg-white/20"
-                              : "bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-                          }`}
+                  <div>
+                    <div
+                      className={`relative text-sm font-semibold uppercase tracking-wide flex items-center gap-1.5 ${
+                        plan.highlight ? "opacity-90" : "text-muted-foreground"
+                      }`}
+                    >
+                      {Icon && (
+                        <Icon
+                          className={`h-4 w-4 transition duration-500 group-hover:scale-125 group-hover:-rotate-6 ${plan.highlight ? "text-amber-300" : "text-amber-500"}`}
+                        />
+                      )}
+                      {plan.name}
+                    </div>
+                    {billing === "anual" ? (
+                      <>
+                        <div className="relative mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                          <span className="font-display text-4xl font-bold tracking-tight">
+                            ${formatCOP(annualTotal)}
+                          </span>
+                          <span
+                            className={`text-sm ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
+                          >
+                            COP / año
+                          </span>
+                          <span
+                            className={`text-sm line-through ${plan.highlight ? "opacity-60" : "text-muted-foreground/60"}`}
+                          >
+                            ${formatCOP(regularAnnual)}
+                          </span>
+                          <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-secondary-foreground">
+                            -{ANNUAL_DISCOUNT_PCT}%
+                          </span>
+                        </div>
+                        <p
+                          className={`relative mt-1 text-xs ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
                         >
-                          <Check className="h-2.5 w-2.5" />
-                        </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <button
-                  onClick={() => onDemo(plan.name)}
-                  className={`relative mt-8 inline-flex w-full items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold transition duration-300 group-hover:gap-2.5 ${
-                    plan.highlight
-                      ? "bg-white font-bold text-foreground shadow-md hover:bg-white/90"
-                      : "border border-border bg-background hover:bg-muted"
-                  }`}
-                >
-                  Solicitar demo {plan.highlight && <ArrowRight className="h-4 w-4" />}
-                </button>
+                          Equivale a ${formatCOP(monthlyEquivalent)} COP / mes · 2 meses gratis
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <div className="relative mt-3 flex items-baseline gap-1">
+                          <span className="font-display text-4xl font-bold tracking-tight">
+                            ${formatCOP(plan.monthly)}
+                          </span>
+                          <span
+                            className={`text-sm ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
+                          >
+                            COP / mes
+                          </span>
+                        </div>
+                        <p
+                          className={`relative mt-1 text-xs ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
+                        >
+                          Facturado mensualmente
+                        </p>
+                      </>
+                    )}
+                    <p
+                      className={`relative mt-2 text-xs ${plan.highlight ? "opacity-90" : "text-muted-foreground"}`}
+                    >
+                      {plan.tagline}
+                    </p>
+                    <ul className="relative mt-6 space-y-2.5 text-xs">
+                      {plan.features.map((f) => (
+                        <li key={f} className="flex items-center gap-2">
+                          <span
+                            className={`grid h-4 w-4 place-items-center rounded-full transition duration-300 group-hover:scale-110 ${
+                              plan.highlight
+                                ? "bg-white/20"
+                                : "bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                            }`}
+                          >
+                            <Check className="h-2.5 w-2.5" />
+                          </span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => onDemo(plan.name)}
+                    className={`relative mt-8 inline-flex w-full items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold transition duration-300 group-hover:gap-2.5 ${
+                      plan.highlight
+                        ? "bg-white font-bold text-foreground shadow-md hover:bg-white/90"
+                        : "border border-border bg-background hover:bg-muted"
+                    }`}
+                  >
+                    Solicitar demo {plan.highlight && <ArrowRight className="h-4 w-4" />}
+                  </button>
                 </article>
               </Reveal>
             );

@@ -36,7 +36,7 @@ export function Support() {
     {
       icon: CreditCard,
       title: "Caja & Pagos",
-      desc: "Apertura y cierre de turnos, arqueos de caja y comprobación de transferencias.",
+      desc: "Apertura y cierre de turnos, arqueos de caja y desglose de pagos mixtos.",
     },
     {
       icon: ShieldCheck,
@@ -48,11 +48,11 @@ export function Support() {
   const faqs = [
     {
       q: "¿Cómo funciona la integración de tarjetas VIP con Google Wallet?",
-      a: "Tavi permite a los restaurantes generar pases digitales con código QR único para sus clientes VIP. El cliente escanea el QR o hace clic en el enlace recibido por WhatsApp para guardar instantáneamente la tarjeta en la app oficial de Google Wallet en su teléfono Android. Al comprar en el restaurante, el cajero digita o escanea la tarjeta y el sistema aplica automáticamente el descuento configurado.",
+      a: "Tavi permite a los restaurantes generar pases digitales con código QR único para sus clientes VIP. El cliente escanea el QR o hace clic en el enlace recibido por WhatsApp para guardar instantáneamente la tarjeta en la app oficial de Google Wallet en su teléfono Android. Al comprar en el restaurante, el cajero digita o escanea la tarjeta y aplica el descuento configurado.",
     },
     {
       q: "¿Qué hago si mi cliente no tiene Google Wallet instalado?",
-      a: "No te preocupes. La tarjeta de fidelidad también genera una versión web responsive que se puede abrir desde cualquier navegador (Chrome, Safari) o guardar en Apple Wallet para dispositivos iOS.",
+      a: "No te preocupes. La tarjeta de fidelidad también funciona como una tarjeta digital web: se abre desde cualquier navegador (Chrome, Safari) sin necesidad de instalar nada, ideal para clientes con iPhone.",
     },
     {
       q: "¿Cuáles son los canales oficiales de atención al cliente de Tavi?",
