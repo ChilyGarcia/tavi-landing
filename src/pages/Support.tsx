@@ -16,7 +16,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { TaviLogo } from "@/components/Logo";
-import { LOGIN_URL } from "@/lib/site-links";
+import { LOGIN_URL, WHATSAPP_PHONE_DISPLAY, WHATSAPP_URL } from "@/lib/site-links";
 
 export function Support() {
   const [search, setSearch] = useState("");
@@ -56,7 +56,7 @@ export function Support() {
     },
     {
       q: "¿Cuáles son los canales oficiales de atención al cliente de Tavi?",
-      a: "Ofrecemos atención prioritaria por WhatsApp directo (+57 300 000 0000) y correo electrónico oficial (soporte@tavi.app) de Lunes a Sábado de 8:00 AM a 8:00 PM (Hora de Colombia).",
+      a: `Ofrecemos atención prioritaria por WhatsApp directo (${WHATSAPP_PHONE_DISPLAY}) y correo electrónico oficial (soporte@tavi.app) de Lunes a Sábado de 8:00 AM a 8:00 PM (Hora de Colombia).`,
     },
     {
       q: "¿Cómo actualizo mi plan de tarjetas de fidelidad?",
@@ -200,7 +200,7 @@ export function Support() {
               </a>
 
               <a
-                href="https://wa.me/573000000000"
+                href={WHATSAPP_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm hover:border-emerald-400 transition"
@@ -210,7 +210,7 @@ export function Support() {
                 </div>
                 <div>
                   <div className="text-xs font-medium text-muted-foreground">WhatsApp Oficial</div>
-                  <div className="text-sm font-semibold">+57 300 000 0000</div>
+                  <div className="text-sm font-semibold">{WHATSAPP_PHONE_DISPLAY}</div>
                 </div>
               </a>
             </div>
