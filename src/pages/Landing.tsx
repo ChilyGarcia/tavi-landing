@@ -1,0 +1,764 @@
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import {
+  QrCode,
+  Store,
+  BarChart3,
+  ReceiptText,
+  ArrowRight,
+  Check,
+  Star,
+  ChefHat,
+  Smartphone,
+  ShieldCheck,
+  Sparkles,
+  Clock,
+  TrendingUp,
+  Quote,
+  Award,
+} from "lucide-react";
+import heroDish from "@/assets/tavi-hero-dish.jpg";
+import foodBurger from "@/assets/tavi-food-burger.jpg";
+import foodBowl from "@/assets/tavi-food-bowl.jpg";
+import foodDessert from "@/assets/tavi-food-dessert.jpg";
+import { DemoModal } from "@/components/DemoModal";
+import { TaviLogo } from "@/components/Logo";
+import { Reveal } from "@/components/Reveal";
+import { LOGIN_URL } from "@/lib/site-links";
+
+export function Landing() {
+  const [demoOpen, setDemoOpen] = useState(false);
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <AnnouncementBar onDemo={() => setDemoOpen(true)} />
+      <Nav onDemo={() => setDemoOpen(true)} />
+      <Hero onDemo={() => setDemoOpen(true)} />
+      <Marquee />
+      <Showcase />
+      <Features />
+      <HowItWorks />
+      <Stats />
+      <Testimonial />
+      <Pricing onDemo={() => setDemoOpen(true)} />
+      <FinalCta onDemo={() => setDemoOpen(true)} />
+      <Footer />
+      <DemoModal open={demoOpen} onOpenChange={setDemoOpen} />
+    </div>
+  );
+}
+
+function AnnouncementBar({ onDemo }: { onDemo: () => void }) {
+  return (
+    <div
+      className="animate-in fade-in slide-in-from-top-4 text-primary-foreground duration-500"
+      style={{ background: "var(--gradient-hero)" }}
+    >
+      <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-6 py-2 text-center text-xs font-medium sm:text-sm">
+        <Sparkles className="h-3.5 w-3.5 shrink-0" />
+        <span>Software para restaurantes con pedidos por QR — </span>
+        <button
+          onClick={onDemo}
+          className="hidden items-center gap-1 font-semibold underline underline-offset-2 hover:opacity-90 sm:inline-flex"
+        >
+          Solicitar demo <ArrowRight className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function Nav({ onDemo }: { onDemo: () => void }) {
+  return (
+    <header className="animate-in fade-in slide-in-from-top-2 sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md duration-500">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
+        <a href="#top">
+          <TaviLogo />
+        </a>
+        <nav className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/60 px-2 py-1 text-sm text-muted-foreground md:flex">
+          <a
+            href="#showcase"
+            className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
+          >
+            Cocinas
+          </a>
+          <a
+            href="#features"
+            className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
+          >
+            Funcionalidades
+          </a>
+          <a
+            href="#how"
+            className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
+          >
+            Cómo funciona
+          </a>
+          <a
+            href="#pricing"
+            className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
+          >
+            Precios
+          </a>
+        </nav>
+        <div className="flex items-center gap-2">
+          <a
+            href={LOGIN_URL}
+            className="rounded-full px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted"
+          >
+            Ingresar
+          </a>
+          <button
+            onClick={onDemo}
+            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-warm)] transition hover:opacity-95"
+          >
+            Solicitar demo <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function Hero({ onDemo }: { onDemo: () => void }) {
+  return (
+    <section
+      id="top"
+      className="relative overflow-hidden"
+      style={{ background: "var(--gradient-warm)" }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 15% 15%, oklch(0.78 0.14 75 / 0.35), transparent 42%), radial-gradient(circle at 85% 55%, oklch(0.55 0.17 35 / 0.22), transparent 46%)",
+        }}
+      />
+      <div className="mx-auto grid max-w-6xl gap-14 px-6 py-16 md:grid-cols-2 md:items-center md:py-24">
+        <div className="relative">
+          <Reveal>
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground shadow-[var(--shadow-soft)]">
+              <span className="flex h-1.5 w-1.5">
+                <span className="h-1.5 w-1.5 animate-ping rounded-full bg-primary opacity-75" />
+                <span className="-ml-1.5 h-1.5 w-1.5 rounded-full bg-primary" />
+              </span>
+              El sistema operativo de tu restaurante
+            </span>
+          </Reveal>
+          <Reveal delay={90}>
+            <h1 className="mt-5 font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-[4rem]">
+              De la mesa <br />
+              <span className="tavi-text-gradient">a la cocina</span>, sin fricción.
+            </h1>
+          </Reveal>
+          <Reveal delay={170}>
+            <p className="mt-5 max-w-lg text-lg text-muted-foreground">
+              TAVI une tus sedes, cartas, mesas con QR, pagos y métricas en una sola plataforma. Tus
+              clientes escanean y piden; tú te enfocas en cocinar.
+            </p>
+          </Reveal>
+          <Reveal delay={250}>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <button
+                onClick={onDemo}
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[var(--shadow-warm)] transition hover:-translate-y-0.5 hover:opacity-95"
+              >
+                Solicitar demo <ArrowRight className="h-4 w-4" />
+              </button>
+              <a
+                href={LOGIN_URL}
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-7 py-3.5 text-base font-semibold text-foreground transition hover:bg-muted"
+              >
+                Ya soy cliente
+              </a>
+            </div>
+          </Reveal>
+          <Reveal delay={330}>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <div className="flex items-center gap-1 text-secondary">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-current" />
+                ))}
+                <span className="ml-1.5 text-sm font-medium text-foreground">
+                  4.9/5 de restaurantes
+                </span>
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Desde <span className="font-semibold text-secondary">$55.000</span> COP / mes
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal from="scale" delay={200} className="relative">
+          <div className="absolute -inset-8 rounded-[2.5rem] bg-primary/10 blur-3xl" />
+          <div className="tavi-spin-slow pointer-events-none absolute -right-4 -top-4 h-24 w-24 rounded-full border-2 border-dashed border-accent/50" />
+          <img
+            src={heroDish}
+            alt="Plato gourmet servido en un restaurante"
+            width={1200}
+            height={900}
+            className="relative aspect-[4/3] w-full rounded-[2rem] object-cover shadow-[var(--shadow-lift)]"
+          />
+
+          {/* Floating ingredient chips */}
+          <img
+            src={foodBurger}
+            alt=""
+            aria-hidden
+            className="tavi-float absolute -left-6 top-6 h-20 w-20 rounded-2xl border-4 border-background object-cover shadow-[var(--shadow-soft)]"
+            style={{ ["--tavi-rot" as string]: "-8deg" }}
+          />
+          <img
+            src={foodBowl}
+            alt=""
+            aria-hidden
+            className="tavi-float-slow absolute -right-5 bottom-24 h-16 w-16 rounded-2xl border-4 border-background object-cover shadow-[var(--shadow-soft)]"
+            style={{ ["--tavi-rot" as string]: "6deg" }}
+          />
+
+          {/* QR card */}
+          <div className="absolute -bottom-6 -left-6 hidden rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-soft)] md:block">
+            <div className="flex items-center gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-secondary text-secondary-foreground">
+                <QrCode className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground">Mesa 12 · escaneó QR</div>
+                <div className="text-sm font-semibold">Nuevo pedido recibido</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Sales card */}
+          <div className="absolute -right-6 -top-4 hidden rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-soft)] md:block">
+            <div className="text-xs text-muted-foreground">Ventas hoy</div>
+            <div className="mt-1 font-display text-2xl font-bold text-primary">$1.240.000</div>
+            <div className="flex items-center gap-1 text-xs font-medium text-secondary">
+              <TrendingUp className="h-3.5 w-3.5" /> 18% vs ayer
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Marquee() {
+  const items = [
+    "Pizzerías",
+    "Cafeterías",
+    "Hamburgueserías",
+    "Comida rápida",
+    "Restaurantes de autor",
+    "Bares",
+    "Food trucks",
+    "Sushi",
+    "Panaderías",
+    "Cocinas ocultas",
+  ];
+  const loop = [...items, ...items];
+  return (
+    <section className="border-y border-border/60 bg-muted/40 py-6">
+      <Reveal>
+        <p className="mb-4 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          Diseñado para todo tipo de cocina
+        </p>
+      </Reveal>
+      <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
+        <div className="tavi-marquee-track gap-3">
+          {loop.map((item, i) => (
+            <span
+              key={i}
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2 text-sm font-medium text-foreground"
+            >
+              <ChefHat className="h-4 w-4 text-primary" /> {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Showcase() {
+  const dishes = [
+    { img: foodBurger, label: "Hamburguesas", desc: "Órdenes rápidas, ticket promedio arriba." },
+    { img: foodBowl, label: "Bowls & saludable", desc: "Personalización sin errores de cocina." },
+    { img: foodDessert, label: "Postres & café", desc: "Suma a cada mesa con un tap." },
+  ];
+  return (
+    <section id="showcase" className="mx-auto max-w-6xl px-6 py-24">
+      <Reveal className="mx-auto max-w-2xl text-center">
+        <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+          Tu carta, tu identidad
+        </span>
+        <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
+          Cada plato, listo para vender.
+        </h2>
+        <p className="mt-4 text-lg text-muted-foreground">
+          Publica tu carta con fotos, precios y disponibilidad en tiempo real. Lo que se agota,
+          desaparece de la mesa al instante.
+        </p>
+      </Reveal>
+      <div className="mt-14 grid gap-6 md:grid-cols-3">
+        {dishes.map(({ img, label, desc }, i) => (
+          <Reveal
+            key={label}
+            delay={i * 120}
+            from="scale"
+            className="group relative overflow-hidden rounded-3xl shadow-[var(--shadow-soft)]"
+          >
+            <img
+              src={img}
+              alt={label}
+              className="aspect-[4/5] w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+              <h3 className="font-display text-2xl font-bold">{label}</h3>
+              <p className="mt-1 text-sm text-white/85">{desc}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Features() {
+  const items = [
+    {
+      icon: Store,
+      title: "Multi-sede & Cartas",
+      desc: "Administra todas tus sedes, cartas y precios en tiempo real desde un único panel.",
+    },
+    {
+      icon: QrCode,
+      title: "Pedidos por QR",
+      desc: "Cada mesa tiene su QR único: el mesero y cocina saben exactamente dónde entregar.",
+    },
+    {
+      icon: Award,
+      title: "Fidelidad & Google Wallet",
+      desc: "Tarjetas VIP virtuales guardables en billeteras digitales con descuentos automáticos en caja.",
+      highlight: true,
+    },
+    {
+      icon: ChefHat,
+      title: "Pantalla de Cocina (KDS)",
+      desc: "Alertas de voz en tiempo real para la cocina con temporizadores y semáforos por tiempos.",
+    },
+    {
+      icon: BarChart3,
+      title: "Métricas en Vivo",
+      desc: "Reportes de ventas por producto, hora, sede y cliente recurrente.",
+    },
+    {
+      icon: ReceiptText,
+      title: "Caja & Domicilios",
+      desc: "Control de arqueos diarios de caja, verificación de transferencias y repartidores.",
+    },
+  ];
+  return (
+    <section id="features" className="bg-muted/40 py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <Reveal className="max-w-2xl">
+          <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
+            Todo lo que tu restaurante necesita.
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Diseñado para dueños que quieren operaciones ágiles, clientes leales e ingresos
+            recurrentes.
+          </p>
+        </Reveal>
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map(({ icon: Icon, title, desc, highlight }, i) => (
+            <Reveal
+              key={title}
+              delay={i * 90}
+              className={`group rounded-3xl border p-7 transition hover:-translate-y-1.5 hover:shadow-[var(--shadow-lift)] ${
+                highlight
+                  ? "border-indigo-300 bg-gradient-to-br from-indigo-50/70 to-purple-50/40 dark:from-indigo-950/40 dark:to-purple-950/20 dark:border-indigo-800"
+                  : "border-border bg-card"
+              }`}
+            >
+              <div
+                className={`grid h-12 w-12 place-items-center rounded-2xl transition group-hover:scale-110 ${
+                  highlight
+                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-none"
+                    : "bg-accent text-accent-foreground"
+                }`}
+              >
+                <Icon className="h-5 w-5" />
+              </div>
+              <div className="mt-5 flex items-center justify-between">
+                <h3 className="text-lg font-semibold">{title}</h3>
+                {highlight && (
+                  <span className="text-[10px] uppercase tracking-wider font-bold text-indigo-600 bg-indigo-100 dark:bg-indigo-950 dark:text-indigo-300 px-2 py-0.5 rounded-full">
+                    Nuevo
+                  </span>
+                )}
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HowItWorks() {
+  const steps = [
+    {
+      icon: Smartphone,
+      title: "El cliente escanea",
+      desc: "Abre la carta en su celular desde el QR de la mesa. Sin apps ni descargas.",
+    },
+    {
+      icon: ReceiptText,
+      title: "Envía su pedido",
+      desc: "Elige, personaliza y paga. El pedido llega a cocina con el número de mesa.",
+    },
+    {
+      icon: ChefHat,
+      title: "Tú cocinas y sirves",
+      desc: "El equipo ve todo en orden, sin gritos ni papelitos perdidos entre mesas.",
+    },
+  ];
+  return (
+    <section id="how" className="mx-auto max-w-6xl px-6 py-24">
+      <Reveal className="mx-auto max-w-2xl text-center">
+        <span className="inline-flex items-center gap-2 rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary">
+          Cómo funciona
+        </span>
+        <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
+          Tres pasos. Cero fricción.
+        </h2>
+      </Reveal>
+      <div className="relative mt-16 grid gap-8 md:grid-cols-3">
+        <div className="pointer-events-none absolute left-0 right-0 top-8 hidden border-t-2 border-dashed border-border md:block" />
+        {steps.map(({ icon: Icon, title, desc }, i) => (
+          <Reveal key={title} delay={i * 140} className="relative text-center">
+            <div className="relative mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-border bg-card text-primary shadow-[var(--shadow-soft)]">
+              <Icon className="h-7 w-7" />
+              <span className="absolute -right-2 -top-2 grid h-7 w-7 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground ring-4 ring-background">
+                {i + 1}
+              </span>
+            </div>
+            <h3 className="mt-6 text-xl font-semibold">{title}</h3>
+            <p className="mx-auto mt-2 max-w-xs text-sm text-muted-foreground">{desc}</p>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Stats() {
+  const stats = [
+    { value: "+35%", label: "más pedidos por mesa", icon: TrendingUp },
+    { value: "−4 min", label: "de espera por orden", icon: Clock },
+    { value: "100%", label: "de pagos verificados", icon: ShieldCheck },
+    { value: "24h", label: "para activar tu cuenta", icon: Sparkles },
+  ];
+  return (
+    <section
+      className="relative overflow-hidden py-20 text-primary-foreground"
+      style={{ background: "var(--gradient-dark)" }}
+    >
+      <div className="tavi-grain pointer-events-none absolute inset-0 opacity-30" />
+      <div className="pointer-events-none absolute -left-20 top-0 h-64 w-64 rounded-full bg-primary/30 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
+      <div className="relative mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 md:grid-cols-4">
+        {stats.map(({ value, label, icon: Icon }, i) => (
+          <Reveal key={label} delay={i * 100} from="scale" className="text-center">
+            <Icon className="mx-auto h-6 w-6 text-accent" />
+            <div className="mt-3 font-display text-4xl font-bold md:text-5xl">{value}</div>
+            <div className="mt-1 text-sm text-primary-foreground/70">{label}</div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Testimonial() {
+  return (
+    <Reveal from="scale" className="mx-auto max-w-4xl px-6 py-24 text-center">
+      <Quote className="mx-auto h-10 w-10 text-primary/40" />
+      <blockquote className="mt-6 font-display text-3xl font-semibold leading-snug tracking-tight md:text-4xl">
+        “Con TAVI dejamos de perder pedidos entre mesas. Ahora la cocina fluye y vemos exactamente
+        qué se vende cada día.”
+      </blockquote>
+      <div className="mt-8 flex items-center justify-center gap-3">
+        <div className="grid h-12 w-12 place-items-center rounded-full bg-secondary text-lg font-bold text-secondary-foreground">
+          C
+        </div>
+        <div className="text-left">
+          <div className="font-semibold">Camila R.</div>
+          <div className="text-sm text-muted-foreground">Dueña · Café del Parque</div>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+function Pricing({ onDemo }: { onDemo: () => void }) {
+  const baseFeatures = [
+    "POS de Caja y Turnos",
+    "Mesas con QR único",
+    "Pantalla Cocina con Voz",
+    "Módulo de Domicilios",
+    "Métricas de ventas en vivo",
+    "Sin tarjetas de fidelidad",
+  ];
+
+  const proFeatures = [
+    "Todo lo del Plan Base",
+    "Hasta 100 Tarjetas Fidelidad",
+    "Pases Google Wallet VIP",
+    "Descuentos automáticos en caja",
+    "Envío directo por WhatsApp",
+    "Soporte prioritario",
+  ];
+
+  const vipFeatures = [
+    "Todo lo del Plan Pro Fidelidad",
+    "Tarjetas Fidelidad ILIMITADAS",
+    "Marca blanca en Google Wallet",
+    "Sedes y cartas ilimitadas",
+    "Reportes de clientes recurrentes",
+    "Asesor de cuenta dedicado",
+  ];
+
+  return (
+    <section id="pricing" className="bg-muted/40 py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary">
+            Planes y Tarifas
+          </span>
+          <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
+            Elige el plan ideal para tu negocio.
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Planes flexibles adaptados al tamaño de tu operación y estrategia de fidelización.
+          </p>
+        </Reveal>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-3 items-stretch">
+          {/* Plan 1: Base */}
+          <Reveal
+            from="left"
+            className="flex flex-col justify-between rounded-3xl border border-border bg-card p-7"
+          >
+            <div>
+              <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                Plan Esencial
+              </div>
+              <div className="mt-3 flex items-baseline gap-1">
+                <span className="font-display text-4xl font-bold tracking-tight">$55.000</span>
+                <span className="text-sm text-muted-foreground">COP / mes</span>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Ideal para restaurantes que buscan ordenar la operación de caja y cocina.
+              </p>
+              <ul className="mt-6 space-y-2.5 text-xs">
+                {baseFeatures.map((f) => (
+                  <li key={f} className="flex items-center gap-2">
+                    <span className="grid h-4 w-4 place-items-center rounded-full bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                      <Check className="h-2.5 w-2.5" />
+                    </span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <button
+              onClick={onDemo}
+              className="mt-8 inline-flex w-full items-center justify-center rounded-full border border-border bg-background px-4 py-2.5 text-sm font-semibold transition hover:bg-muted"
+            >
+              Solicitar demo
+            </button>
+          </Reveal>
+
+          {/* Plan 2: Pro Fidelidad (Destacado) */}
+          <Reveal
+            from="scale"
+            delay={90}
+            className="relative flex flex-col justify-between overflow-hidden rounded-3xl border-2 border-indigo-500 p-7 text-primary-foreground shadow-[var(--shadow-warm)]"
+            style={{ background: "var(--gradient-hero)" }}
+          >
+            <div className="tavi-grain pointer-events-none absolute inset-0 opacity-20" />
+            <span className="absolute right-5 top-5 rounded-full bg-white text-indigo-950 font-bold px-3 py-0.5 text-[10px] uppercase tracking-wider shadow-sm">
+              Más Popular
+            </span>
+            <div>
+              <div className="relative text-sm font-semibold uppercase tracking-wide opacity-90 flex items-center gap-1.5">
+                <Award className="w-4 h-4 text-amber-300" /> Plan Pro Fidelidad
+              </div>
+              <div className="relative mt-3 flex items-baseline gap-1">
+                <span className="font-display text-4xl font-bold tracking-tight">$80.000</span>
+                <span className="text-sm opacity-80">COP / mes</span>
+              </div>
+              <p className="relative mt-2 text-xs opacity-90">
+                Aumenta tus ingresos recurrentes con tarjetas VIP en Google Wallet.
+              </p>
+              <ul className="relative mt-6 space-y-2.5 text-xs">
+                {proFeatures.map((f) => (
+                  <li key={f} className="flex items-center gap-2">
+                    <span className="grid h-4 w-4 place-items-center rounded-full bg-white/20">
+                      <Check className="h-2.5 w-2.5" />
+                    </span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <button
+              onClick={onDemo}
+              className="relative mt-8 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-white px-4 py-2.5 text-sm font-bold text-indigo-950 shadow-md transition hover:bg-slate-100"
+            >
+              Solicitar demo <ArrowRight className="h-4 w-4" />
+            </button>
+          </Reveal>
+
+          {/* Plan 3: VIP Ilimitado */}
+          <Reveal
+            from="right"
+            delay={180}
+            className="flex flex-col justify-between rounded-3xl border border-border bg-card p-7"
+          >
+            <div>
+              <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground flex items-center gap-1">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Plan VIP Ilimitado
+              </div>
+              <div className="mt-3 flex items-baseline gap-1">
+                <span className="font-display text-4xl font-bold tracking-tight">$100.000</span>
+                <span className="text-sm text-muted-foreground">COP / mes</span>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Para cadenas y restaurantes de alto flujo con tarjetas VIP ilimitadas.
+              </p>
+              <ul className="mt-6 space-y-2.5 text-xs">
+                {vipFeatures.map((f) => (
+                  <li key={f} className="flex items-center gap-2">
+                    <span className="grid h-4 w-4 place-items-center rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+                      <Check className="h-2.5 w-2.5" />
+                    </span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <button
+              onClick={onDemo}
+              className="mt-8 inline-flex w-full items-center justify-center rounded-full border border-border bg-background px-4 py-2.5 text-sm font-semibold transition hover:bg-muted"
+            >
+              Solicitar demo
+            </button>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FinalCta({ onDemo }: { onDemo: () => void }) {
+  return (
+    <section className="mx-auto max-w-6xl px-6 py-24">
+      <Reveal
+        from="scale"
+        className="relative overflow-hidden rounded-[2.5rem] px-8 py-16 text-center text-primary-foreground shadow-[var(--shadow-lift)] md:px-16"
+        style={{ background: "var(--gradient-dark)" }}
+      >
+        <div className="tavi-grain pointer-events-none absolute inset-0 opacity-25" />
+        <div className="pointer-events-none absolute -right-10 -top-10 h-52 w-52 rounded-full bg-primary/30 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-10 -left-10 h-52 w-52 rounded-full bg-accent/20 blur-3xl" />
+        <div className="relative mx-auto max-w-2xl">
+          <ChefHat className="mx-auto h-10 w-10 text-accent" />
+          <h2 className="mt-5 font-display text-4xl font-bold tracking-tight md:text-5xl">
+            Tu cocina merece una operación a su altura.
+          </h2>
+          <p className="mt-4 text-lg text-primary-foreground/80">
+            Activa TAVI en menos de 24 horas y lleva el control de tu cocina.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <button
+              onClick={onDemo}
+              className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-7 py-3.5 text-base font-semibold text-primary transition hover:-translate-y-0.5 hover:opacity-95"
+            >
+              Solicitar demo <ArrowRight className="h-4 w-4" />
+            </button>
+            <a
+              href={LOGIN_URL}
+              className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/30 px-7 py-3.5 text-base font-semibold text-primary-foreground transition hover:bg-primary-foreground/10"
+            >
+              Ingresar
+            </a>
+          </div>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-border bg-muted/30 py-12">
+      <div className="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-4">
+        <div className="md:col-span-2">
+          <TaviLogo badgeClassName="h-9 w-9" markClassName="h-5 w-5" wordmarkClassName="text-xl" />
+          <p className="mt-4 max-w-xs text-sm text-muted-foreground">
+            El sistema operativo para restaurantes que crecen. De la mesa a la cocina, sin fricción.
+          </p>
+        </div>
+        <div>
+          <div className="text-sm font-semibold">Producto</div>
+          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+            <li>
+              <a href="#features" className="hover:text-foreground">
+                Funcionalidades
+              </a>
+            </li>
+            <li>
+              <a href="#how" className="hover:text-foreground">
+                Cómo funciona
+              </a>
+            </li>
+            <li>
+              <a href="#pricing" className="hover:text-foreground">
+                Precios
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div className="text-sm font-semibold">Soporte & Ayuda</div>
+          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+            <li>
+              <Link to="/support" className="hover:text-foreground">
+                Centro de Ayuda
+              </Link>
+            </li>
+            <li>
+              <a href={LOGIN_URL} className="hover:text-foreground">
+                Ingresar
+              </a>
+            </li>
+            <li>
+              <a href="#showcase" className="hover:text-foreground">
+                Ver cocinas
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="mx-auto mt-10 flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-border px-6 pt-6 text-sm text-muted-foreground md:flex-row">
+        <p>© {new Date().getFullYear()} TAVI. Hecho con sazón.</p>
+        <p>Cúcuta, Colombia</p>
+      </div>
+    </footer>
+  );
+}
