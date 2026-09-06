@@ -25,26 +25,34 @@ import { DemoModal } from "@/components/DemoModal";
 import { TaviLogo } from "@/components/Logo";
 import { Reveal } from "@/components/Reveal";
 import { LOGIN_URL } from "@/lib/site-links";
+import { ANNUAL_DISCOUNT_PCT, formatCOP, PRICING_PLANS } from "@/lib/pricing-plans";
 
 export function Landing() {
   const [demoOpen, setDemoOpen] = useState(false);
+  const [demoPlan, setDemoPlan] = useState<string | undefined>(undefined);
+
+  function openDemo(plan?: string) {
+    setDemoPlan(plan);
+    setDemoOpen(true);
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <AnnouncementBar onDemo={() => setDemoOpen(true)} />
-      <Nav onDemo={() => setDemoOpen(true)} />
+      <AnnouncementBar onDemo={() => openDemo()} />
+      <Nav onDemo={() => openDemo()} />
       <main>
-        <Hero onDemo={() => setDemoOpen(true)} />
+        <Hero onDemo={() => openDemo()} />
         <Marquee />
         <Showcase />
         <Features />
         <HowItWorks />
         <Stats />
         <Testimonial />
-        <Pricing onDemo={() => setDemoOpen(true)} />
-        <FinalCta onDemo={() => setDemoOpen(true)} />
+        <Pricing onDemo={openDemo} />
+        <FinalCta onDemo={() => openDemo()} />
       </main>
       <Footer />
-      <DemoModal open={demoOpen} onOpenChange={setDemoOpen} />
+      <DemoModal open={demoOpen} onOpenChange={setDemoOpen} initialPlan={demoPlan} />
     </div>
   );
 }
@@ -531,33 +539,27 @@ function Testimonial() {
   );
 }
 
-function Pricing({ onDemo }: { onDemo: () => void }) {
-  const baseFeatures = [
-    "POS de Caja y Turnos",
-    "Mesas con QR único",
-    "Pantalla Cocina con Voz",
-    "Módulo de Domicilios",
-    "Métricas de ventas en vivo",
-    "Sin tarjetas de fidelidad",
-  ];
+type BillingCycle = "mensual" | "anual";
 
-  const proFeatures = [
-    "Todo lo del Plan Base",
-    "Hasta 100 Tarjetas Fidelidad",
-    "Pases Google Wallet VIP",
-    "Descuentos automáticos en caja",
-    "Envío directo por WhatsApp",
-    "Soporte prioritario",
-  ];
+const PLAN_COMPARISON_ROWS: { label: string; values: [string, string, string] }[] = [
+  {
+    label: "POS de Caja, Turnos y Arqueo",
+    values: ["✓", "✓", "✓"],
+  },
+  { label: "Menú digital con Mesas QR", values: ["✓", "✓", "✓"] },
+  { label: "Sala, Comandero y mapa de mesas", values: ["✓", "✓", "✓"] },
+  { label: "Pantalla de Cocina (KDS)", values: ["✓", "✓", "✓"] },
+  { label: "Domicilios y cobertura por zonas", values: ["✓", "✓", "✓"] },
+  { label: "Multi-sede y personal (roles)", values: ["✓", "✓", "✓"] },
+  { label: "Marca propia (logo y colores)", values: ["✓", "✓", "✓"] },
+  { label: "Tarjetas de Fidelidad VIP", values: ["—", "Hasta 100", "Ilimitadas"] },
+  { label: "Pase Google Wallet & Referidos", values: ["—", "✓", "✓"] },
+  { label: "Marca blanca en el pase Wallet", values: ["—", "—", "✓"] },
+  { label: "Soporte", values: ["Estándar", "Prioritario", "Asesor dedicado"] },
+];
 
-  const vipFeatures = [
-    "Todo lo del Plan Pro Fidelidad",
-    "Tarjetas Fidelidad ILIMITADAS",
-    "Marca blanca en Google Wallet",
-    "Sedes y cartas ilimitadas",
-    "Reportes de clientes recurrentes",
-    "Asesor de cuenta dedicado",
-  ];
+function Pricing({ onDemo }: { onDemo: (plan?: string) => void }) {
+  const [billing, setBilling] = useState<BillingCycle>("mensual");
 
   return (
     <section id="pricing" className="bg-muted/40 py-24">
@@ -570,123 +572,215 @@ function Pricing({ onDemo }: { onDemo: () => void }) {
             Elige el plan ideal para tu negocio.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Planes flexibles adaptados al tamaño de tu operación y estrategia de fidelización.
+            Todos los planes incluyen el sistema operativo completo de tu restaurante. La diferencia
+            está en la fidelización de tus clientes.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3 items-stretch">
-          {/* Plan 1: Base */}
-          <Reveal
-            from="left"
-            className="flex flex-col justify-between rounded-3xl border border-border bg-card p-7"
-          >
-            <div>
-              <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                Plan Esencial
-              </div>
-              <div className="mt-3 flex items-baseline gap-1">
-                <span className="font-display text-4xl font-bold tracking-tight">$55.000</span>
-                <span className="text-sm text-muted-foreground">COP / mes</span>
-              </div>
-              <p className="mt-2 text-xs text-muted-foreground">
-                Ideal para restaurantes que buscan ordenar la operación de caja y cocina.
-              </p>
-              <ul className="mt-6 space-y-2.5 text-xs">
-                {baseFeatures.map((f) => (
-                  <li key={f} className="flex items-center gap-2">
-                    <span className="grid h-4 w-4 place-items-center rounded-full bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                      <Check className="h-2.5 w-2.5" />
-                    </span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <Reveal delay={80} className="mt-8 flex justify-center">
+          <div className="inline-flex items-center gap-1 rounded-full border border-border bg-card p-1 text-sm font-semibold">
             <button
-              onClick={onDemo}
-              className="mt-8 inline-flex w-full items-center justify-center rounded-full border border-border bg-background px-4 py-2.5 text-sm font-semibold transition hover:bg-muted"
+              type="button"
+              onClick={() => setBilling("mensual")}
+              aria-pressed={billing === "mensual"}
+              className={`rounded-full px-5 py-2 transition ${
+                billing === "mensual"
+                  ? "bg-primary text-primary-foreground shadow-[var(--shadow-soft)]"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
-              Solicitar demo
+              Mensual
             </button>
-          </Reveal>
+            <button
+              type="button"
+              onClick={() => setBilling("anual")}
+              aria-pressed={billing === "anual"}
+              className={`inline-flex items-center gap-2 rounded-full px-5 py-2 transition ${
+                billing === "anual"
+                  ? "bg-primary text-primary-foreground shadow-[var(--shadow-soft)]"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Anual
+              <span
+                className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+                  billing === "anual"
+                    ? "bg-white/20 text-primary-foreground"
+                    : "bg-secondary/15 text-secondary"
+                }`}
+              >
+                Ahorra {ANNUAL_DISCOUNT_PCT}%
+              </span>
+            </button>
+          </div>
+        </Reveal>
 
-          {/* Plan 2: Pro Fidelidad (Destacado) */}
-          <Reveal
-            from="scale"
-            delay={90}
-            className="relative flex flex-col justify-between overflow-hidden rounded-3xl border-2 border-indigo-500 p-7 text-primary-foreground shadow-[var(--shadow-warm)]"
-            style={{ background: "var(--gradient-hero)" }}
-          >
-            <div className="tavi-grain pointer-events-none absolute inset-0 opacity-20" />
-            <span className="absolute right-5 top-5 rounded-full bg-white text-indigo-950 font-bold px-3 py-0.5 text-[10px] uppercase tracking-wider shadow-sm">
-              Más Popular
-            </span>
-            <div>
-              <div className="relative text-sm font-semibold uppercase tracking-wide opacity-90 flex items-center gap-1.5">
-                <Award className="w-4 h-4 text-amber-300" /> Plan Pro Fidelidad
-              </div>
-              <div className="relative mt-3 flex items-baseline gap-1">
-                <span className="font-display text-4xl font-bold tracking-tight">$80.000</span>
-                <span className="text-sm opacity-80">COP / mes</span>
-              </div>
-              <p className="relative mt-2 text-xs opacity-90">
-                Aumenta tus ingresos recurrentes con tarjetas VIP en Google Wallet.
-              </p>
-              <ul className="relative mt-6 space-y-2.5 text-xs">
-                {proFeatures.map((f) => (
-                  <li key={f} className="flex items-center gap-2">
-                    <span className="grid h-4 w-4 place-items-center rounded-full bg-white/20">
-                      <Check className="h-2.5 w-2.5" />
+        <div className="mt-10 grid gap-6 md:grid-cols-3 items-stretch">
+          {PRICING_PLANS.map((plan, i) => {
+            const annualTotal = plan.monthly * 10;
+            const regularAnnual = plan.monthly * 12;
+            const monthlyEquivalent = Math.round(annualTotal / 12);
+            const Icon = plan.icon;
+            return (
+              <Reveal
+                key={plan.id}
+                from={i === 0 ? "left" : i === 2 ? "right" : "scale"}
+                delay={i * 90}
+                className="h-full"
+              >
+                <article
+                  className={`tavi-plan-card group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl p-7 ${
+                    plan.highlight
+                      ? "tavi-plan-card--highlight text-primary-foreground shadow-[var(--shadow-warm)]"
+                      : "border border-border bg-card hover:border-primary/35"
+                  }`}
+                  style={plan.highlight ? { background: "var(--gradient-hero)" } : undefined}
+                >
+                {plan.highlight && (
+                  <>
+                    <div className="tavi-grain pointer-events-none absolute inset-0 opacity-20" />
+                    <span className="absolute right-5 top-5 rounded-full bg-white px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-foreground shadow-sm">
+                      Más Popular
                     </span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <button
-              onClick={onDemo}
-              className="relative mt-8 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-white px-4 py-2.5 text-sm font-bold text-indigo-950 shadow-md transition hover:bg-slate-100"
-            >
-              Solicitar demo <ArrowRight className="h-4 w-4" />
-            </button>
-          </Reveal>
-
-          {/* Plan 3: VIP Ilimitado */}
-          <Reveal
-            from="right"
-            delay={180}
-            className="flex flex-col justify-between rounded-3xl border border-border bg-card p-7"
-          >
-            <div>
-              <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Plan VIP Ilimitado
-              </div>
-              <div className="mt-3 flex items-baseline gap-1">
-                <span className="font-display text-4xl font-bold tracking-tight">$100.000</span>
-                <span className="text-sm text-muted-foreground">COP / mes</span>
-              </div>
-              <p className="mt-2 text-xs text-muted-foreground">
-                Para cadenas y restaurantes de alto flujo con tarjetas VIP ilimitadas.
-              </p>
-              <ul className="mt-6 space-y-2.5 text-xs">
-                {vipFeatures.map((f) => (
-                  <li key={f} className="flex items-center gap-2">
-                    <span className="grid h-4 w-4 place-items-center rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
-                      <Check className="h-2.5 w-2.5" />
-                    </span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <button
-              onClick={onDemo}
-              className="mt-8 inline-flex w-full items-center justify-center rounded-full border border-border bg-background px-4 py-2.5 text-sm font-semibold transition hover:bg-muted"
-            >
-              Solicitar demo
-            </button>
-          </Reveal>
+                  </>
+                )}
+                <div>
+                  <div
+                    className={`relative text-sm font-semibold uppercase tracking-wide flex items-center gap-1.5 ${
+                      plan.highlight ? "opacity-90" : "text-muted-foreground"
+                    }`}
+                  >
+                    {Icon && (
+                      <Icon
+                        className={`h-4 w-4 transition duration-500 group-hover:scale-125 group-hover:-rotate-6 ${plan.highlight ? "text-amber-300" : "text-amber-500"}`}
+                      />
+                    )}
+                    {plan.name}
+                  </div>
+                  {billing === "anual" ? (
+                    <>
+                      <div className="relative mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                        <span className="font-display text-4xl font-bold tracking-tight">
+                          ${formatCOP(annualTotal)}
+                        </span>
+                        <span
+                          className={`text-sm ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
+                        >
+                          COP / año
+                        </span>
+                        <span
+                          className={`text-sm line-through ${plan.highlight ? "opacity-60" : "text-muted-foreground/60"}`}
+                        >
+                          ${formatCOP(regularAnnual)}
+                        </span>
+                        <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-secondary-foreground">
+                          -{ANNUAL_DISCOUNT_PCT}%
+                        </span>
+                      </div>
+                      <p
+                        className={`relative mt-1 text-xs ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
+                      >
+                        Equivale a ${formatCOP(monthlyEquivalent)} COP / mes · 2 meses gratis
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="relative mt-3 flex items-baseline gap-1">
+                        <span className="font-display text-4xl font-bold tracking-tight">
+                          ${formatCOP(plan.monthly)}
+                        </span>
+                        <span
+                          className={`text-sm ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
+                        >
+                          COP / mes
+                        </span>
+                      </div>
+                      <p
+                        className={`relative mt-1 text-xs ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
+                      >
+                        Facturado mensualmente
+                      </p>
+                    </>
+                  )}
+                  <p
+                    className={`relative mt-2 text-xs ${plan.highlight ? "opacity-90" : "text-muted-foreground"}`}
+                  >
+                    {plan.tagline}
+                  </p>
+                  <ul className="relative mt-6 space-y-2.5 text-xs">
+                    {plan.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2">
+                        <span
+                          className={`grid h-4 w-4 place-items-center rounded-full transition duration-300 group-hover:scale-110 ${
+                            plan.highlight
+                              ? "bg-white/20"
+                              : "bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                          }`}
+                        >
+                          <Check className="h-2.5 w-2.5" />
+                        </span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button
+                  onClick={() => onDemo(plan.name)}
+                  className={`relative mt-8 inline-flex w-full items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold transition duration-300 group-hover:gap-2.5 ${
+                    plan.highlight
+                      ? "bg-white font-bold text-foreground shadow-md hover:bg-white/90"
+                      : "border border-border bg-background hover:bg-muted"
+                  }`}
+                >
+                  Solicitar demo {plan.highlight && <ArrowRight className="h-4 w-4" />}
+                </button>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
+
+        <Reveal delay={120} className="mt-14">
+          <h3 className="text-center font-display text-xl font-bold tracking-tight">
+            ¿Cuál es la diferencia real entre planes?
+          </h3>
+          <div className="mt-6 overflow-x-auto rounded-2xl border border-border bg-card">
+            <table className="w-full min-w-[560px] text-sm">
+              <thead>
+                <tr className="border-b border-border text-left text-xs uppercase tracking-wide text-muted-foreground">
+                  <th className="p-4 font-semibold">Funcionalidad</th>
+                  {PRICING_PLANS.map((plan) => (
+                    <th key={plan.id} className="p-4 text-center font-semibold">
+                      {plan.name}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {PLAN_COMPARISON_ROWS.map((row, i) => (
+                  <tr key={row.label} className={i % 2 === 1 ? "bg-muted/40" : undefined}>
+                    <td className="p-4 text-muted-foreground">{row.label}</td>
+                    {row.values.map((value, j) => (
+                      <td key={j} className="p-4 text-center font-medium">
+                        {value === "—" ? (
+                          <span className="text-muted-foreground/50">—</span>
+                        ) : value === "✓" ? (
+                          <Check className="mx-auto h-4 w-4 text-secondary" />
+                        ) : (
+                          value
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            Los 3 planes comparten el mismo sistema operativo (caja, cocina, sala, domicilios y
+            multi-sede). La fidelización de clientes es lo que escala según el plan.
+          </p>
+        </Reveal>
       </div>
     </section>
   );
