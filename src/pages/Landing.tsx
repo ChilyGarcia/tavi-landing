@@ -19,6 +19,8 @@ import {
   Layers,
   Users,
   Workflow,
+  Printer,
+  MonitorPlay,
 } from "lucide-react";
 import heroDish from "@/assets/tavi-hero-dish.jpg";
 import foodBurger from "@/assets/tavi-food-burger.jpg";
@@ -45,6 +47,7 @@ export function Landing() {
       <Nav onDemo={() => openDemo()} />
       <main>
         <Hero onDemo={() => openDemo()} />
+        <SocialProof />
         <Marquee />
         <Showcase />
         <ValueProposition />
@@ -74,7 +77,7 @@ function AnnouncementBar({ onDemo }: { onDemo: () => void }) {
           onClick={onDemo}
           className="hidden items-center gap-1 font-semibold underline underline-offset-2 hover:opacity-90 sm:inline-flex"
         >
-          Crea tu cuenta <ArrowRight className="h-3.5 w-3.5" />
+          Prueba el sistema en vivo <ArrowRight className="h-3.5 w-3.5" />
         </button>
       </div>
     </div>
@@ -125,7 +128,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
             onClick={onDemo}
             className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-warm)] transition hover:opacity-95"
           >
-            Crea tu cuenta <ArrowRight className="h-4 w-4" />
+            Prueba el sistema en vivo <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>
@@ -175,7 +178,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
                 onClick={onDemo}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[var(--shadow-warm)] transition hover:-translate-y-0.5 hover:opacity-95"
               >
-                Crea tu cuenta <ArrowRight className="h-4 w-4" />
+                Prueba el sistema en vivo <ArrowRight className="h-4 w-4" />
               </button>
               <a
                 href={LOGIN_URL}
@@ -256,6 +259,28 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             </div>
           </div>
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function SocialProof() {
+  return (
+    <section className="border-t border-border/60 bg-muted/20 py-10">
+      <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 px-6 text-center">
+        <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+          Tecnología probada diariamente en <strong className="text-foreground">operaciones de alto volumen</strong> como:
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 text-base font-bold text-muted-foreground/80 md:text-lg">
+          <span className="flex items-center gap-2.5 transition-colors hover:text-foreground">
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-background text-sm shadow-sm ring-1 ring-border">M</span>
+            Mijaos
+          </span>
+          <span className="flex items-center gap-2.5 transition-colors hover:text-foreground">
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-background text-sm shadow-sm ring-1 ring-border">SP</span>
+            Sr Pizza Pan
+          </span>
+        </div>
       </div>
     </section>
   );
@@ -363,14 +388,58 @@ function Showcase() {
 
 function ValueProposition() {
   return (
-    <section className="mx-auto max-w-4xl px-6 py-20 text-center">
-      <Reveal from="scale">
+    <section className="mx-auto max-w-5xl px-6 py-24">
+      <Reveal className="text-center">
         <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
-          ¿Por qué invertir en TAVI si hay QR gratis?
+          Lo "Gratis" sale muy caro.
         </h2>
-        <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-          Más que un simple menú en PDF. Es la <strong>única conexión directa entre la mesa de tu cliente y la pantalla de tu cocina</strong>, sin que el mesero tenga que transcribir absolutamente nada.
+        <p className="mt-4 text-lg text-muted-foreground">
+          Descubre por qué los restaurantes serios prefieren invertir en TAVI en lugar de usar un menú en PDF gratuito.
         </p>
+      </Reveal>
+      <Reveal delay={100} className="mt-12">
+        <div className="grid overflow-hidden rounded-3xl border border-border bg-card shadow-sm md:grid-cols-2">
+          {/* Columna Gratis */}
+          <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-border bg-muted/20">
+            <h3 className="text-xl font-bold text-muted-foreground mb-6 flex items-center gap-2">
+              <span className="text-destructive">×</span> Menú QR Gratuito
+            </h3>
+            <ul className="space-y-4 text-sm text-muted-foreground">
+              <li className="flex gap-3">
+                <span className="shrink-0 text-destructive mt-0.5">×</span>
+                <span>Los pedidos llegan por WhatsApp y se pierden entre mensajes personales.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="shrink-0 text-destructive mt-0.5">×</span>
+                <span>El mesero o cajero tiene que transcribir todo el pedido a mano al sistema.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="shrink-0 text-destructive mt-0.5">×</span>
+                <span>No hay fidelización. El cliente come y se va sin dejar datos.</span>
+              </li>
+            </ul>
+          </div>
+          {/* Columna Tavi */}
+          <div className="p-8 md:p-10" style={{ background: "var(--gradient-soft)" }}>
+            <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-2">
+              <Check className="h-5 w-5 text-secondary" /> Sistema TAVI
+            </h3>
+            <ul className="space-y-4 text-sm font-medium">
+              <li className="flex gap-3">
+                <Check className="h-4 w-4 shrink-0 text-secondary mt-0.5" />
+                <span>El pedido viaja directo desde la mesa hasta la pantalla de la cocina (KDS).</span>
+              </li>
+              <li className="flex gap-3">
+                <Check className="h-4 w-4 shrink-0 text-secondary mt-0.5" />
+                <span>El cierre de caja cuadra al centavo, sin importar si pagan en efectivo o tarjeta.</span>
+              </li>
+              <li className="flex gap-3">
+                <Check className="h-4 w-4 shrink-0 text-secondary mt-0.5" />
+                <span>Tarjetas VIP en Google Wallet que aseguran que el cliente vuelva a comprar.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </Reveal>
     </section>
   );
@@ -411,13 +480,21 @@ function Features() {
     },
     {
       icon: Layers,
-      title: "Cobra mesas grandes sin dolores de cabeza",
-      desc: "Divide cuentas y combina efectivo con tarjeta en un solo clic.",
+      title: "Cero Descuadres de Caja",
+      desc: "Divide cuentas fácilmente y combina efectivo, tarjeta o transferencia en una sola mesa sin perder plata.",
+      highlight: true,
     },
     {
-      icon: Workflow,
-      title: "Flujo QR Configurable",
-      desc: "Decide si los pedidos del menú QR van directo a cocina o pasan primero por confirmación en sala.",
+      icon: MonitorPlay,
+      title: "Pantallas Públicas de Llamado",
+      desc: "Avisa visualmente a tus clientes cuando su pedido está listo. Ideal para Fast Food y Food Trucks.",
+      highlight: true,
+    },
+    {
+      icon: Printer,
+      title: "Impresión Automática (Hardware)",
+      desc: "100% compatible con impresoras térmicas. Imprime tickets de caja y comandas físicas si lo necesitas.",
+      highlight: true,
     },
   ];
   return (
@@ -759,7 +836,7 @@ function Pricing({ onDemo }: { onDemo: (plan?: string) => void }) {
                         : "border border-border bg-background hover:bg-muted"
                     }`}
                   >
-                    Crea tu cuenta {plan.highlight && <ArrowRight className="h-4 w-4" />}
+                    Prueba el sistema en vivo {plan.highlight && <ArrowRight className="h-4 w-4" />}
                   </button>
                 </article>
               </Reveal>
@@ -837,7 +914,7 @@ function FinalCta({ onDemo }: { onDemo: () => void }) {
               onClick={onDemo}
               className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-7 py-3.5 text-base font-semibold text-primary transition hover:-translate-y-0.5 hover:opacity-95"
             >
-              Crea tu cuenta <ArrowRight className="h-4 w-4" />
+              Prueba el sistema en vivo <ArrowRight className="h-4 w-4" />
             </button>
             <a
               href={LOGIN_URL}
