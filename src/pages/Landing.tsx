@@ -47,6 +47,7 @@ export function Landing() {
         <Hero onDemo={() => openDemo()} />
         <Marquee />
         <Showcase />
+        <ValueProposition />
         <Features />
         <HowItWorks />
         <Stats />
@@ -73,7 +74,7 @@ function AnnouncementBar({ onDemo }: { onDemo: () => void }) {
           onClick={onDemo}
           className="hidden items-center gap-1 font-semibold underline underline-offset-2 hover:opacity-90 sm:inline-flex"
         >
-          Solicitar demo <ArrowRight className="h-3.5 w-3.5" />
+          Crea tu cuenta <ArrowRight className="h-3.5 w-3.5" />
         </button>
       </div>
     </div>
@@ -124,7 +125,7 @@ function Nav({ onDemo }: { onDemo: () => void }) {
             onClick={onDemo}
             className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-warm)] transition hover:opacity-95"
           >
-            Solicitar demo <ArrowRight className="h-4 w-4" />
+            Crea tu cuenta <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>
@@ -165,8 +166,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
           </Reveal>
           <Reveal delay={170}>
             <p className="mt-5 max-w-lg text-lg text-muted-foreground">
-              TAVI une tus sedes, cartas, mesas con QR, pagos y métricas en una sola plataforma. Tus
-              clientes escanean y piden; tú te enfocas en cocinar.
+              Une tus mesas, cocina y caja en una sola plataforma. Aumenta tus pedidos un 35% y elimina los errores de comandas.
             </p>
           </Reveal>
           <Reveal delay={250}>
@@ -175,7 +175,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
                 onClick={onDemo}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[var(--shadow-warm)] transition hover:-translate-y-0.5 hover:opacity-95"
               >
-                Solicitar demo <ArrowRight className="h-4 w-4" />
+                Crea tu cuenta <ArrowRight className="h-4 w-4" />
               </button>
               <a
                 href={LOGIN_URL}
@@ -361,6 +361,21 @@ function Showcase() {
   );
 }
 
+function ValueProposition() {
+  return (
+    <section className="mx-auto max-w-4xl px-6 py-20 text-center">
+      <Reveal from="scale">
+        <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
+          ¿Por qué invertir en TAVI si hay QR gratis?
+        </h2>
+        <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+          Más que un simple menú en PDF. Es la <strong>única conexión directa entre la mesa de tu cliente y la pantalla de tu cocina</strong>, sin que el mesero tenga que transcribir absolutamente nada.
+        </p>
+      </Reveal>
+    </section>
+  );
+}
+
 function Features() {
   const items = [
     {
@@ -381,8 +396,8 @@ function Features() {
     },
     {
       icon: ChefHat,
-      title: "Pantalla de Cocina (KDS)",
-      desc: "Alertas de voz en tiempo real para la cocina con temporizadores y semáforos por tiempos.",
+      title: "Elimina errores y tiempos muertos en cocina",
+      desc: "El pedido aparece directo en pantalla con alertas de voz, sin gritos ni papelitos perdidos.",
     },
     {
       icon: BarChart3,
@@ -396,13 +411,8 @@ function Features() {
     },
     {
       icon: Layers,
-      title: "Pago Mixto Real",
-      desc: "Combina efectivo, tarjeta y transferencia en un mismo cobro, con el monto exacto de cada medio.",
-    },
-    {
-      icon: Users,
-      title: "Cuentas Separadas",
-      desc: "Divide la cuenta entre varios comensales, por persona o por ítems, sin perder el control de caja.",
+      title: "Cobra mesas grandes sin dolores de cabeza",
+      desc: "Divide cuentas y combina efectivo con tarjeta en un solo clic.",
     },
     {
       icon: Workflow,
@@ -540,16 +550,15 @@ function Testimonial() {
       <Reveal from="scale">
         <Quote className="mx-auto h-10 w-10 text-primary/40" />
         <blockquote className="mt-6 font-display text-3xl font-semibold leading-snug tracking-tight md:text-4xl">
-          “Con TAVI dejamos de perder pedidos entre mesas. Ahora la cocina fluye y vemos exactamente
-          qué se vende cada día.”
+          “Desde que usamos TAVI la operación cambió por completo. Ya no hay errores anotando en papel, las comandas llegan directo a cocina al instante y podemos atender muchas más mesas en hora pico.”
         </blockquote>
         <div className="mt-8 flex items-center justify-center gap-3">
           <div className="grid h-12 w-12 place-items-center rounded-full bg-secondary text-lg font-bold text-secondary-foreground">
-            C
+            M
           </div>
           <div className="text-left">
-            <div className="font-semibold">Camila R.</div>
-            <div className="text-sm text-muted-foreground">Dueña · Café del Parque</div>
+            <div className="font-semibold">Gerencia</div>
+            <div className="text-sm text-muted-foreground">Mijaos · Comidas de Película</div>
           </div>
         </div>
       </Reveal>
@@ -750,7 +759,7 @@ function Pricing({ onDemo }: { onDemo: (plan?: string) => void }) {
                         : "border border-border bg-background hover:bg-muted"
                     }`}
                   >
-                    Solicitar demo {plan.highlight && <ArrowRight className="h-4 w-4" />}
+                    Crea tu cuenta {plan.highlight && <ArrowRight className="h-4 w-4" />}
                   </button>
                 </article>
               </Reveal>
@@ -828,7 +837,7 @@ function FinalCta({ onDemo }: { onDemo: () => void }) {
               onClick={onDemo}
               className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-7 py-3.5 text-base font-semibold text-primary transition hover:-translate-y-0.5 hover:opacity-95"
             >
-              Solicitar demo <ArrowRight className="h-4 w-4" />
+              Crea tu cuenta <ArrowRight className="h-4 w-4" />
             </button>
             <a
               href={LOGIN_URL}
