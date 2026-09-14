@@ -53,6 +53,7 @@ export function Landing() {
         <ValueProposition />
         <Features />
         <HowItWorks />
+        <MenuDemo />
         <Stats />
         <Testimonial />
         <Pricing onDemo={openDemo} />
@@ -588,6 +589,45 @@ function HowItWorks() {
             <p className="mx-auto mt-2 max-w-xs text-sm text-muted-foreground">{desc}</p>
           </Reveal>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function MenuDemo() {
+  return (
+    <section className="mx-auto max-w-6xl px-6 py-24">
+      <div className="grid gap-12 md:grid-cols-2 md:items-center">
+        <Reveal>
+          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+            Experiencia Interactiva
+          </span>
+          <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
+            Ponte en los zapatos de tus clientes.
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Así es exactamente como tus clientes verán tu menú al escanear el QR desde su mesa. Sin apps, sin descargas, rápido y directamente desde su navegador.
+          </p>
+          <p className="mt-6 font-medium text-foreground flex items-center gap-2">
+            Navega por este menú de prueba 👉
+          </p>
+        </Reveal>
+        
+        <Reveal from="right" className="flex justify-center md:justify-end">
+          <div className="relative mx-auto w-full max-w-[320px] rounded-[3rem] border-[12px] border-zinc-900 bg-zinc-900 shadow-2xl">
+            {/* Notch */}
+            <div className="absolute left-1/2 top-0 z-10 h-6 w-32 -translate-x-1/2 rounded-b-3xl bg-zinc-900"></div>
+            
+            <div className="relative aspect-[9/19] w-full overflow-hidden rounded-[2rem] bg-background">
+              <iframe 
+                src="https://app.taviorders.com/menu/fqoruy0ypki"
+                className="h-full w-full border-0"
+                title="Menú Digital de Demostración"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
