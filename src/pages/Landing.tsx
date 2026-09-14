@@ -171,9 +171,11 @@ function Nav({ onDemo }: { onDemo: () => void }) {
           </a>
           <button
             onClick={onDemo}
-            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-warm)] transition hover:opacity-95"
+            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-warm)] transition hover:opacity-95 whitespace-nowrap"
           >
-            Prueba el sistema en vivo <ArrowRight className="h-4 w-4" />
+            <span className="hidden sm:inline">Prueba el sistema en vivo</span>
+            <span className="sm:hidden">Demo</span>
+            <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>
@@ -673,43 +675,43 @@ function HowItWorks() {
   ];
 
   return (
-    <section id="how" className="mx-auto max-w-6xl px-6 py-32">
+    <section id="how" className="mx-auto max-w-6xl px-6 py-24 md:py-32">
       <Reveal className="mx-auto max-w-3xl text-center">
-        <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
+        <h2 className="font-display text-3xl font-bold tracking-tight md:text-5xl">
           Tres pasos. <span className="text-muted-foreground">Cero fricción.</span>
         </h2>
-        <p className="mt-6 text-lg text-muted-foreground">
+        <p className="mt-4 md:mt-6 text-base md:text-lg text-muted-foreground">
           Diseñado para que tu equipo se concentre en lo importante: preparar comida increíble y atender excelente. Del resto nos encargamos nosotros.
         </p>
       </Reveal>
       
-      <div className="relative mt-24">
+      <div className="relative mt-16 md:mt-24">
         {/* Refined subtle connecting line for desktop */}
         <div className="hidden md:block absolute top-[2.5rem] left-[16.66%] right-[16.66%] h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
         
-        <div className="grid gap-16 md:gap-8 md:grid-cols-3">
+        <div className="grid gap-12 md:gap-8 md:grid-cols-3">
           {steps.map(({ icon: Icon, title, desc }, i) => (
             <Reveal key={title} delay={i * 150} className="relative text-center group">
               
               {/* Elegant floating icon container */}
-              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-border/60 bg-background/50 shadow-sm backdrop-blur-md relative z-10 transition-transform duration-700 group-hover:scale-110">
+              <div className="mx-auto flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full border border-border/60 bg-background/50 shadow-sm backdrop-blur-md relative z-10 transition-transform duration-700 group-hover:scale-110">
                 
                 {/* Hover Glow */}
                 <div className="absolute inset-0 rounded-full bg-primary/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 
-                <Icon className="h-7 w-7 text-foreground transition-colors duration-700 group-hover:text-primary" />
+                <Icon className="h-6 w-6 md:h-7 md:w-7 text-foreground transition-colors duration-700 group-hover:text-primary" />
                 
                 {/* Minimalist step number badge */}
-                <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-foreground text-[10px] font-bold text-background ring-4 ring-background transition-transform duration-500 group-hover:scale-110">
+                <div className="absolute -top-1 -right-1 flex h-5 w-5 md:h-6 md:w-6 items-center justify-center rounded-full bg-foreground text-[9px] md:text-[10px] font-bold text-background ring-4 ring-background transition-transform duration-500 group-hover:scale-110">
                   0{i + 1}
                 </div>
               </div>
               
-              <div className="mt-10">
-                <h3 className="font-display text-xl font-bold text-foreground transition-colors duration-300">
+              <div className="mt-5 md:mt-10">
+                <h3 className="font-display text-lg md:text-xl font-bold text-foreground transition-colors duration-300">
                   {title}
                 </h3>
-                <p className="mx-auto mt-3 max-w-[17rem] text-sm text-muted-foreground leading-relaxed">
+                <p className="mx-auto mt-2 md:mt-3 max-w-[17rem] text-sm text-muted-foreground leading-relaxed">
                   {desc}
                 </p>
               </div>
@@ -1073,16 +1075,16 @@ function FinalCta({ onDemo }: { onDemo: () => void }) {
           <p className="mt-4 text-lg text-primary-foreground/80">
             Activa TAVI en menos de 24 horas y lleva el control de tu cocina.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
             <button
               onClick={onDemo}
-              className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-7 py-3.5 text-base font-semibold text-primary transition hover:-translate-y-0.5 hover:opacity-95"
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-primary-foreground px-7 py-3.5 text-base font-semibold text-primary transition hover:-translate-y-0.5 hover:opacity-95 whitespace-nowrap"
             >
               Prueba el sistema en vivo <ArrowRight className="h-4 w-4" />
             </button>
             <a
               href={LOGIN_URL}
-              className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/30 px-7 py-3.5 text-base font-semibold text-primary-foreground transition hover:bg-primary-foreground/10"
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full border border-primary-foreground/30 px-7 py-3.5 text-base font-semibold text-primary-foreground transition hover:bg-primary-foreground/10"
             >
               Ingresar
             </a>
@@ -1095,58 +1097,93 @@ function FinalCta({ onDemo }: { onDemo: () => void }) {
 
 function Footer() {
   return (
-    <footer className="border-t border-border bg-muted/30 py-12">
-      <div className="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-4">
-        <div className="md:col-span-2">
-          <TaviLogo badgeClassName="h-9 w-9" markClassName="h-5 w-5" wordmarkClassName="text-xl" />
-          <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-            El sistema operativo para restaurantes que crecen. De la mesa a la cocina, sin fricción.
+    <footer className="relative border-t border-border bg-card py-16 overflow-hidden">
+      {/* Decorative subtle background elements */}
+      <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-primary/5 blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-secondary/5 blur-[100px] pointer-events-none" />
+      
+      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-12">
+        <div className="md:col-span-5 lg:col-span-4">
+          <TaviLogo badgeClassName="h-9 w-9 shadow-sm" markClassName="h-5 w-5" wordmarkClassName="text-xl" />
+          <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground">
+            El sistema operativo para restaurantes que crecen. Une tus mesas, cocina y caja en una sola plataforma rápida y sin fricción.
           </p>
+          <div className="mt-6 flex items-center gap-4">
+            <a href="https://www.instagram.com/taviorders" target="_blank" rel="noopener noreferrer" className="grid h-10 w-10 place-items-center rounded-full border border-border/50 bg-muted/30 text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary">
+              <span className="sr-only">Instagram</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61592854388655" target="_blank" rel="noopener noreferrer" className="grid h-10 w-10 place-items-center rounded-full border border-border/50 bg-muted/30 text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary">
+              <span className="sr-only">Facebook</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@taviorders" target="_blank" rel="noopener noreferrer" className="grid h-10 w-10 place-items-center rounded-full border border-border/50 bg-muted/30 text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary">
+              <span className="sr-only">TikTok</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+            </a>
+          </div>
         </div>
-        <div>
-          <div className="text-sm font-semibold">Producto</div>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li>
-              <a href="#features" className="hover:text-foreground">
-                Funcionalidades
-              </a>
-            </li>
-            <li>
-              <a href="#how" className="hover:text-foreground">
-                Cómo funciona
-              </a>
-            </li>
-            <li>
-              <a href="#pricing" className="hover:text-foreground">
-                Precios
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <div className="text-sm font-semibold">Soporte & Ayuda</div>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li>
-              <Link to="/support" className="hover:text-foreground">
-                Centro de Ayuda
-              </Link>
-            </li>
-            <li>
-              <a href={LOGIN_URL} className="hover:text-foreground">
-                Ingresar
-              </a>
-            </li>
-            <li>
-              <a href="#showcase" className="hover:text-foreground">
-                Ver cocinas
-              </a>
-            </li>
-          </ul>
+        
+        <div className="md:col-span-7 lg:col-span-8 lg:ml-auto">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:gap-12">
+            <div>
+              <h3 className="text-sm font-bold tracking-wider text-foreground">Producto</h3>
+              <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
+                <li>
+                  <a href="#features" className="transition-colors hover:text-primary">Funcionalidades</a>
+                </li>
+                <li>
+                  <a href="#how" className="transition-colors hover:text-primary">Cómo funciona</a>
+                </li>
+                <li>
+                  <a href="#pricing" className="transition-colors hover:text-primary">Precios</a>
+                </li>
+                <li>
+                  <a href="#showcase" className="transition-colors hover:text-primary">Casos de éxito</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-bold tracking-wider text-foreground">Soporte</h3>
+              <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
+                <li>
+                  <Link to="/support" className="transition-colors hover:text-primary">Centro de Ayuda</Link>
+                </li>
+                <li>
+                  <a href="#" className="transition-colors hover:text-primary">Guías y tutoriales</a>
+                </li>
+                <li>
+                  <a href="#" className="transition-colors hover:text-primary">Contacto</a>
+                </li>
+              </ul>
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <h3 className="text-sm font-bold tracking-wider text-foreground">Legal</h3>
+              <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
+                <li>
+                  <a href="#" className="transition-colors hover:text-primary">Términos de servicio</a>
+                </li>
+                <li>
+                  <a href="#" className="transition-colors hover:text-primary">Privacidad</a>
+                </li>
+                <li>
+                  <a href="#" className="transition-colors hover:text-primary">Cookies</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="mx-auto mt-10 flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-border px-6 pt-6 text-sm text-muted-foreground md:flex-row">
-        <p>© {new Date().getFullYear()} TAVI. Hecho con sazón.</p>
-        <p>Cúcuta, Colombia</p>
+      
+      <div className="relative mx-auto mt-16 max-w-6xl px-6">
+        <div className="flex flex-col-reverse items-center justify-between gap-5 border-t border-border/60 pt-8 md:flex-row">
+          <p className="text-sm text-muted-foreground/80">
+            © {new Date().getFullYear()} TAVI. <span className="hidden sm:inline">Todos los derechos reservados.</span>
+          </p>
+          <div className="flex items-center gap-1.5 text-sm font-medium text-foreground">
+            <span className="text-muted-foreground">Hecho con sazón en</span> 🇨🇴 <span className="ml-1 tracking-tight">Cúcuta, Colombia</span>
+          </div>
+        </div>
       </div>
     </footer>
   );
