@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   QrCode,
   Store,
@@ -86,33 +86,77 @@ function AnnouncementBar({ onDemo }: { onDemo: () => void }) {
 }
 
 function Nav({ onDemo }: { onDemo: () => void }) {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    if (id === 'top') {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    const element = document.getElementById(id);
+    if (element) {
+      const navHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - navHeight;
+      window.scrollTo({
+         top: offsetPosition,
+         behavior: "smooth"
+      });
+    }
+  };
+
   return (
-    <header className="animate-in fade-in slide-in-from-top-2 sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md duration-500">
+    <header 
+      className={`sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md transition-transform duration-300 ease-in-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
-        <a href="#top">
+        <a href="#top" onClick={(e) => scrollToSection(e, "top")}>
           <TaviLogo />
         </a>
         <nav className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/60 px-2 py-1 text-sm text-muted-foreground md:flex">
           <a
             href="#showcase"
+            onClick={(e) => scrollToSection(e, "showcase")}
             className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
           >
             Cocinas
           </a>
           <a
             href="#features"
+            onClick={(e) => scrollToSection(e, "features")}
             className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
           >
             Funcionalidades
           </a>
           <a
             href="#how"
+            onClick={(e) => scrollToSection(e, "how")}
             className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
           >
             Cómo funciona
           </a>
           <a
             href="#pricing"
+            onClick={(e) => scrollToSection(e, "pricing")}
             className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
           >
             Precios
@@ -153,15 +197,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
       />
       <div className="mx-auto grid max-w-6xl gap-14 px-6 py-16 md:grid-cols-2 md:items-center md:py-24">
         <div className="relative">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground shadow-[var(--shadow-soft)]">
-              <span className="flex h-1.5 w-1.5">
-                <span className="h-1.5 w-1.5 animate-ping rounded-full bg-primary opacity-75" />
-                <span className="-ml-1.5 h-1.5 w-1.5 rounded-full bg-primary" />
-              </span>
-              El sistema operativo de tu restaurante
-            </span>
-          </Reveal>
+ 
           <Reveal delay={90}>
             <h1 className="mt-5 font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-[4rem]">
               De la mesa <br />
@@ -289,34 +325,43 @@ function SocialProof() {
 
 function Marquee() {
   const items = [
-    "Pizzerías",
-    "Cafeterías",
-    "Hamburgueserías",
-    "Comida rápida",
-    "Restaurantes de autor",
-    "Bares",
-    "Food trucks",
-    "Sushi",
-    "Panaderías",
-    "Cocinas ocultas",
+    { name: "Pizzerías", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=256&h=256&fit=crop" },
+    { name: "Cafeterías", image: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=256&h=256&fit=crop" },
+    { name: "Hamburguesas", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=256&h=256&fit=crop" },
+    { name: "Sushi", image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=256&h=256&fit=crop" },
+    { name: "Bares", image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=256&h=256&fit=crop" },
+    { name: "Panaderías", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=256&h=256&fit=crop" },
+    { name: "Saludable", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=256&h=256&fit=crop" },
+    { name: "Autor", image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=256&h=256&fit=crop" },
   ];
-  const loop = [...items, ...items];
+  const loop = [...items, ...items, ...items];
+  
   return (
-    <section className="border-y border-border/60 bg-muted/40 py-6">
+    <section className="border-y border-border/60 bg-muted/40 py-12">
       <Reveal>
-        <p className="mb-4 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="mb-8 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
           Diseñado para todo tipo de cocina
         </p>
       </Reveal>
       <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
-        <div className="tavi-marquee-track gap-3">
+        <div className="tavi-marquee-track gap-4">
           {loop.map((item, i) => (
-            <span
+            <div
               key={i}
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2 text-sm font-medium text-foreground"
+              className="relative overflow-hidden rounded-2xl flex-shrink-0 w-36 h-36 md:w-44 md:h-44 group border border-border/50 shadow-sm"
             >
-              <ChefHat className="h-4 w-4 text-primary" /> {item}
-            </span>
+              <img 
+                src={item.image} 
+                alt={item.name} 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 transition-colors group-hover:bg-black/40" />
+              <div className="absolute inset-0 flex items-end justify-center p-4">
+                <span className="text-white font-bold text-center text-sm md:text-base drop-shadow-md">
+                  {item.name}
+                </span>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -452,93 +497,154 @@ function Features() {
       icon: Store,
       title: "Multi-sede & Cartas",
       desc: "Administra todas tus sedes, cartas y precios en tiempo real desde un único panel.",
+      span: "md:col-span-2 lg:col-span-2",
+      gradient: "from-orange-500/10 to-amber-500/5",
+      iconColor: "text-orange-500",
+      bgIcon: "text-orange-500/5",
     },
     {
       icon: QrCode,
       title: "Pedidos por QR",
       desc: "Cada mesa tiene su QR único: el mesero y cocina saben exactamente dónde entregar.",
+      span: "md:col-span-1 lg:col-span-1",
+      gradient: "from-blue-500/10 to-cyan-500/5",
+      iconColor: "text-blue-500",
+      bgIcon: "text-blue-500/5",
     },
     {
       icon: Award,
       title: "Fidelidad & Google Wallet",
       desc: "Tarjetas VIP virtuales guardables en billeteras digitales, con descuento aplicable al cobrar.",
+      span: "md:col-span-1 lg:col-span-1",
       highlight: true,
+      gradient: "from-indigo-600 to-purple-600",
+      iconColor: "text-white",
+      bgIcon: "text-white/10",
     },
     {
       icon: ChefHat,
       title: "Elimina errores y tiempos muertos en cocina",
-      desc: "El pedido aparece directo en pantalla con alertas de voz, sin gritos ni papelitos perdidos.",
+      desc: "El pedido aparece directo en pantalla con alertas de voz, sin gritos ni papelitos.",
+      span: "md:col-span-2 lg:col-span-2",
+      gradient: "from-emerald-500/10 to-green-500/5",
+      iconColor: "text-emerald-500",
+      bgIcon: "text-emerald-500/5",
     },
     {
       icon: BarChart3,
       title: "Métricas en Vivo",
-      desc: "Reportes de ventas por producto, hora, sede y medio de pago, con exportación a Excel.",
-    },
-    {
-      icon: ReceiptText,
-      title: "Caja & Domicilios",
-      desc: "Apertura, cierre y arqueo diario con desglose por medio de pago, incluyendo pagos mixtos.",
+      desc: "Reportes de ventas por producto, hora, sede y medio de pago.",
+      span: "md:col-span-2 lg:col-span-1",
+      gradient: "from-pink-500/10 to-rose-500/5",
+      iconColor: "text-pink-500",
+      bgIcon: "text-pink-500/5",
     },
     {
       icon: Layers,
       title: "Cero Descuadres de Caja",
-      desc: "Divide cuentas fácilmente y combina efectivo, tarjeta o transferencia en una sola mesa sin perder plata.",
+      desc: "Divide cuentas fácilmente y combina efectivo, tarjeta o transferencia en una sola mesa.",
+      span: "md:col-span-1 lg:col-span-1",
       highlight: true,
+      gradient: "from-violet-600 to-fuchsia-600",
+      iconColor: "text-white",
+      bgIcon: "text-white/10",
+    },
+    {
+      icon: ReceiptText,
+      title: "Caja & Domicilios",
+      desc: "Apertura, cierre y arqueo diario con desglose por medio de pago.",
+      span: "md:col-span-1 lg:col-span-1",
+      gradient: "from-yellow-500/10 to-orange-500/5",
+      iconColor: "text-yellow-500",
+      bgIcon: "text-yellow-500/5",
     },
     {
       icon: MonitorPlay,
-      title: "Pantallas Públicas de Llamado",
-      desc: "Avisa visualmente a tus clientes cuando su pedido está listo. Ideal para Fast Food y Food Trucks.",
-      highlight: true,
+      title: "Pantallas de Llamado",
+      desc: "Avisa visualmente a tus clientes cuando su pedido está listo.",
+      span: "md:col-span-1 lg:col-span-2",
+      gradient: "from-cyan-500/10 to-blue-500/5",
+      iconColor: "text-cyan-500",
+      bgIcon: "text-cyan-500/5",
     },
     {
       icon: Printer,
-      title: "Impresión Automática (Hardware)",
-      desc: "100% compatible con impresoras térmicas. Imprime tickets de caja y comandas físicas si lo necesitas.",
-      highlight: true,
+      title: "Impresión Automática",
+      desc: "100% compatible con impresoras térmicas para tickets y comandas.",
+      span: "md:col-span-1 lg:col-span-1",
+      gradient: "from-slate-500/10 to-zinc-500/5",
+      iconColor: "text-slate-500",
+      bgIcon: "text-slate-500/5",
     },
   ];
+  
   return (
-    <section id="features" className="bg-muted/40 py-24">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="features" className="bg-muted/30 py-24 relative overflow-hidden">
+      {/* Background glow effects */}
+      <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[128px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-[128px] pointer-events-none" />
+      
+      <div className="mx-auto max-w-6xl px-6 relative z-10">
         <Reveal className="max-w-2xl">
           <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
             Todo lo que tu restaurante necesita.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Diseñado para dueños que quieren operaciones ágiles, clientes leales e ingresos
-            recurrentes.
+            Diseñado para dueños que quieren operaciones ágiles, clientes leales e ingresos recurrentes.
           </p>
         </Reveal>
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(({ icon: Icon, title, desc, highlight }, i) => (
+        
+        <div className="mt-16 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
+          {items.map(({ icon: Icon, title, desc, highlight, span, gradient, iconColor, bgIcon }, i) => (
             <Reveal
               key={title}
-              delay={i * 90}
-              className={`group rounded-3xl border p-7 transition hover:-translate-y-1.5 hover:shadow-[var(--shadow-lift)] ${
+              delay={i * 70}
+              className={`group relative overflow-hidden rounded-3xl border transition-all duration-500 hover:-translate-y-1 hover:shadow-xl ${span} ${
                 highlight
-                  ? "border-indigo-300 bg-gradient-to-br from-indigo-50/70 to-purple-50/40 dark:from-indigo-950/40 dark:to-purple-950/20 dark:border-indigo-800"
-                  : "border-border bg-card"
+                  ? "border-transparent text-white shadow-lg"
+                  : "border-border/60 bg-card/50 backdrop-blur-sm hover:border-primary/30"
               }`}
             >
-              <div
-                className={`grid h-12 w-12 place-items-center rounded-2xl transition group-hover:scale-110 ${
-                  highlight
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-none"
-                    : "bg-accent text-accent-foreground"
-                }`}
-              >
-                <Icon className="h-5 w-5" />
+              {/* Highlight card gradient background */}
+              {highlight && (
+                <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90`} />
+              )}
+              
+              {/* Non-highlight subtle gradient */}
+              {!highlight && (
+                <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-100`} />
+              )}
+
+              {/* Large background icon for visual flair */}
+              <Icon className={`absolute -right-6 -bottom-6 h-40 w-40 ${bgIcon} transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-12`} />
+              
+              <div className="relative z-10 flex h-full flex-col p-8">
+                <div className="flex items-center justify-between">
+                  <div
+                    className={`grid h-14 w-14 place-items-center rounded-2xl shadow-sm transition-transform duration-500 group-hover:scale-110 ${
+                      highlight
+                        ? "bg-white/20 backdrop-blur-md"
+                        : "bg-background border border-border/50"
+                    }`}
+                  >
+                    <Icon className={`h-6 w-6 ${iconColor}`} />
+                  </div>
+                  {highlight && (
+                    <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md">
+                      Nuevo
+                    </span>
+                  )}
+                </div>
+                
+                <div className="mt-auto pt-10">
+                  <h3 className={`text-xl font-bold ${highlight ? "text-white" : "text-foreground"}`}>
+                    {title}
+                  </h3>
+                  <p className={`mt-3 text-sm leading-relaxed ${highlight ? "text-white/80" : "text-muted-foreground"}`}>
+                    {desc}
+                  </p>
+                </div>
               </div>
-              <div className="mt-5 flex items-center justify-between">
-                <h3 className="text-lg font-semibold">{title}</h3>
-                {highlight && (
-                  <span className="text-[10px] uppercase tracking-wider font-bold text-indigo-600 bg-indigo-100 dark:bg-indigo-950 dark:text-indigo-300 px-2 py-0.5 rounded-full">
-                    Nuevo
-                  </span>
-                )}
-              </div>
-              <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
             </Reveal>
           ))}
         </div>
@@ -565,30 +671,51 @@ function HowItWorks() {
       desc: "El equipo ve todo en orden, sin gritos ni papelitos perdidos entre mesas.",
     },
   ];
+
   return (
-    <section id="how" className="mx-auto max-w-6xl px-6 py-24">
-      <Reveal className="mx-auto max-w-2xl text-center">
-        <span className="inline-flex items-center gap-2 rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary">
-          Cómo funciona
-        </span>
-        <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
-          Tres pasos. Cero fricción.
+    <section id="how" className="mx-auto max-w-6xl px-6 py-32">
+      <Reveal className="mx-auto max-w-3xl text-center">
+        <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
+          Tres pasos. <span className="text-muted-foreground">Cero fricción.</span>
         </h2>
+        <p className="mt-6 text-lg text-muted-foreground">
+          Diseñado para que tu equipo se concentre en lo importante: preparar comida increíble y atender excelente. Del resto nos encargamos nosotros.
+        </p>
       </Reveal>
-      <div className="relative mt-16 grid gap-8 md:grid-cols-3">
-        <div className="pointer-events-none absolute left-0 right-0 top-8 hidden border-t-2 border-dashed border-border md:block" />
-        {steps.map(({ icon: Icon, title, desc }, i) => (
-          <Reveal key={title} delay={i * 140} className="relative text-center">
-            <div className="relative mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-border bg-card text-primary shadow-[var(--shadow-soft)]">
-              <Icon className="h-7 w-7" />
-              <span className="absolute -right-2 -top-2 grid h-7 w-7 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground ring-4 ring-background">
-                {i + 1}
-              </span>
-            </div>
-            <h3 className="mt-6 text-xl font-semibold">{title}</h3>
-            <p className="mx-auto mt-2 max-w-xs text-sm text-muted-foreground">{desc}</p>
-          </Reveal>
-        ))}
+      
+      <div className="relative mt-24">
+        {/* Refined subtle connecting line for desktop */}
+        <div className="hidden md:block absolute top-[2.5rem] left-[16.66%] right-[16.66%] h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
+        
+        <div className="grid gap-16 md:gap-8 md:grid-cols-3">
+          {steps.map(({ icon: Icon, title, desc }, i) => (
+            <Reveal key={title} delay={i * 150} className="relative text-center group">
+              
+              {/* Elegant floating icon container */}
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-border/60 bg-background/50 shadow-sm backdrop-blur-md relative z-10 transition-transform duration-700 group-hover:scale-110">
+                
+                {/* Hover Glow */}
+                <div className="absolute inset-0 rounded-full bg-primary/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                
+                <Icon className="h-7 w-7 text-foreground transition-colors duration-700 group-hover:text-primary" />
+                
+                {/* Minimalist step number badge */}
+                <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-foreground text-[10px] font-bold text-background ring-4 ring-background transition-transform duration-500 group-hover:scale-110">
+                  0{i + 1}
+                </div>
+              </div>
+              
+              <div className="mt-10">
+                <h3 className="font-display text-xl font-bold text-foreground transition-colors duration-300">
+                  {title}
+                </h3>
+                <p className="mx-auto mt-3 max-w-[17rem] text-sm text-muted-foreground leading-relaxed">
+                  {desc}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
