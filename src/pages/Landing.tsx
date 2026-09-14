@@ -615,9 +615,6 @@ function MenuDemo() {
         
         <Reveal from="right" className="flex justify-center md:justify-end">
           <div className="relative mx-auto w-full max-w-[320px] rounded-[3rem] border-[12px] border-zinc-900 bg-zinc-900 shadow-2xl">
-            {/* Notch */}
-            <div className="absolute left-1/2 top-0 z-10 h-6 w-32 -translate-x-1/2 rounded-b-3xl bg-zinc-900"></div>
-            
             <div className="relative aspect-[9/19] w-full overflow-hidden rounded-[2rem] bg-background">
               <iframe 
                 src="https://app.taviorders.com/menu/fqoruy0ypki"
