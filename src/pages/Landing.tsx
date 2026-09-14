@@ -22,7 +22,10 @@ import {
   Printer,
   MonitorPlay,
 } from "lucide-react";
-import heroDish from "@/assets/tavi-hero-dish.jpg";
+import taviDesktop from "@/assets/tavi-desktop.png";
+import taviTablet from "@/assets/tavi-tablet.png";
+import taviMobile from "@/assets/tavi-mobile.png";
+import heroImg from "@/assets/tavi-hero.jpg";
 import foodBurger from "@/assets/tavi-food-burger.jpg";
 import foodBowl from "@/assets/tavi-food-bowl.jpg";
 import foodDessert from "@/assets/tavi-food-dessert.jpg";
@@ -42,7 +45,7 @@ export function Landing() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <AnnouncementBar onDemo={() => openDemo()} />
       <Nav onDemo={() => openDemo()} />
       <main>
@@ -198,105 +201,99 @@ function Hero({ onDemo }: { onDemo: () => void }) {
         }}
       />
       <div className="mx-auto grid max-w-6xl gap-14 px-6 py-16 md:grid-cols-2 md:items-center md:py-24">
+        
+        {/* Left Side: Text & CTAs */}
         <div className="relative">
- 
           <Reveal delay={90}>
-            <h1 className="mt-5 font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-[4rem]">
-              De la mesa <br />
-              <span className="tavi-text-gradient">a la cocina</span>, sin fricción.
+
+            <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-[4rem]">
+              Control total <br />
+              <span className="tavi-text-gradient">sin complicaciones</span>.
             </h1>
           </Reveal>
+          
           <Reveal delay={170}>
-            <p className="mt-5 max-w-lg text-lg text-muted-foreground">
-              Une tus mesas, cocina y caja en una sola plataforma. Aumenta tus pedidos un 35% y elimina los errores de comandas.
+            <p className="mt-6 max-w-lg text-lg text-muted-foreground leading-relaxed">
+              TAVI es el sistema operativo que centraliza tus pedidos, agiliza tu cocina y cuadra tus ventas. Despídete de los errores manuales y enfócate en crecer tu restaurante.
             </p>
           </Reveal>
+          
           <Reveal delay={250}>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <button
                 onClick={onDemo}
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[var(--shadow-warm)] transition hover:-translate-y-0.5 hover:opacity-95"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition-all hover:-translate-y-0.5 hover:bg-primary/95"
               >
-                Prueba el sistema en vivo <ArrowRight className="h-4 w-4" />
+                Prueba el sistema en vivo <ArrowRight className="h-5 w-5" />
               </button>
-              <a
-                href={LOGIN_URL}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-7 py-3.5 text-base font-semibold text-foreground transition hover:bg-muted"
-              >
-                Ya soy cliente
-              </a>
+              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                <Check className="h-4 w-4 text-secondary" /> Sin tarjeta de crédito
+              </div>
             </div>
           </Reveal>
+          
           <Reveal delay={330}>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <div className="flex items-center gap-1 text-secondary">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
-                ))}
-                <span className="ml-1.5 text-sm font-medium text-foreground">
-                  4.9/5 de restaurantes
+            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-border/50 pt-6">
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-1 text-secondary">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <span className="text-sm font-medium text-foreground">
+                  Valorado por +500 restaurantes
                 </span>
               </div>
-              <div className="text-sm text-muted-foreground">
-                Desde <span className="font-semibold text-secondary">$55.000</span> COP / mes
+              <div className="h-10 w-px bg-border/50 hidden sm:block"></div>
+              <div className="flex flex-col gap-1">
+                <span className="text-sm font-medium text-muted-foreground">Planes desde</span>
+                <span className="text-lg font-bold text-foreground">
+                  $55.000 <span className="text-xs font-normal text-muted-foreground">COP/mes</span>
+                </span>
               </div>
             </div>
           </Reveal>
         </div>
 
-        <Reveal from="scale" delay={200} className="relative">
-          <div className="absolute -inset-8 rounded-[2.5rem] bg-primary/10 blur-3xl" />
-          <div className="tavi-spin-slow pointer-events-none absolute -right-4 -top-4 h-24 w-24 rounded-full border-2 border-dashed border-accent/50" />
-          <img
-            src={heroDish}
-            alt="Plato gourmet servido en un restaurante"
-            width={1200}
-            height={900}
-            fetchPriority="high"
-            className="relative aspect-[4/3] w-full rounded-[2rem] object-cover shadow-[var(--shadow-lift)]"
-          />
-
-          {/* Floating ingredient chips */}
-          <img
-            src={foodBurger}
-            alt=""
-            aria-hidden
-            width={80}
-            height={80}
-            className="tavi-float absolute -left-6 top-6 h-20 w-20 rounded-2xl border-4 border-background object-cover shadow-[var(--shadow-soft)]"
-            style={{ ["--tavi-rot" as string]: "-8deg" }}
-          />
-          <img
-            src={foodBowl}
-            alt=""
-            aria-hidden
-            width={64}
-            height={64}
-            className="tavi-float-slow absolute -right-5 bottom-24 h-16 w-16 rounded-2xl border-4 border-background object-cover shadow-[var(--shadow-soft)]"
-            style={{ ["--tavi-rot" as string]: "6deg" }}
-          />
-
-          {/* QR card */}
-          <div className="absolute -bottom-6 -left-6 hidden rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-soft)] md:block">
-            <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-secondary text-secondary-foreground">
-                <QrCode className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-xs text-muted-foreground">Mesa 12 · escaneó QR</div>
-                <div className="text-sm font-semibold">Nuevo pedido recibido</div>
-              </div>
+        {/* Right Side: Software Visuals (Ecosystem) */}
+        <Reveal from="right" delay={200} className="relative mt-12 md:mt-0 lg:ml-4 w-full h-[350px] sm:h-[450px] md:h-[500px]">
+          <div className="absolute inset-0 rounded-full bg-primary/10 blur-3xl opacity-60" />
+          
+          {/* Main Desktop (Back/Center) */}
+          <div className="absolute left-0 right-[15%] top-0 md:right-[10%] rounded-xl sm:rounded-2xl border-4 sm:border-8 border-white/80 bg-white shadow-2xl backdrop-blur-md overflow-hidden z-10 animate-in fade-in zoom-in duration-1000">
+            <div className="flex h-4 sm:h-5 w-full items-center gap-1 sm:gap-1.5 bg-muted/50 px-2 sm:px-3">
+              <div className="h-1.5 sm:h-2 w-1.5 sm:w-2 rounded-full bg-red-400"></div>
+              <div className="h-1.5 sm:h-2 w-1.5 sm:w-2 rounded-full bg-amber-400"></div>
+              <div className="h-1.5 sm:h-2 w-1.5 sm:w-2 rounded-full bg-emerald-400"></div>
             </div>
+            <img
+              src={taviDesktop}
+              alt="Panel de administración de Tavi en computador"
+              fetchPriority="high"
+              className="w-full h-auto object-cover border-t border-border/30"
+            />
           </div>
 
-          {/* Sales card */}
-          <div className="absolute -right-6 -top-4 hidden rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-soft)] md:block">
-            <div className="text-xs text-muted-foreground">Ventas hoy</div>
-            <div className="mt-1 font-display text-2xl font-bold text-primary">$1.240.000</div>
-            <div className="flex items-center gap-1 text-xs font-medium text-secondary">
-              <TrendingUp className="h-3.5 w-3.5" /> 18% vs ayer
-            </div>
+          {/* Tablet (Middle/Right) */}
+          <div className="tavi-float absolute right-0 top-[25%] sm:top-[20%] w-[45%] sm:w-[40%] md:w-[45%] rounded-[1rem] sm:rounded-[1.5rem] border-[6px] sm:border-[8px] border-slate-800 bg-slate-800 shadow-2xl overflow-hidden z-20 transition-transform hover:-translate-y-2">
+            <div className="absolute right-1 top-1/2 h-8 w-1 -translate-y-1/2 rounded-full bg-slate-700"></div>
+            <img
+              src={taviTablet}
+              alt="Módulo de caja de Tavi en tablet"
+              className="w-full h-auto object-cover rounded-[0.5rem] sm:rounded-[0.75rem]"
+            />
           </div>
+
+          {/* Mobile (Front/Left) */}
+          <div className="tavi-float-slow absolute bottom-0 left-[5%] sm:left-[10%] w-[28%] sm:w-[25%] md:w-[28%] rounded-[1.25rem] sm:rounded-[2rem] border-[4px] sm:border-[6px] border-slate-800 bg-slate-800 shadow-2xl overflow-hidden z-30 transition-transform hover:-translate-y-2">
+            <div className="absolute left-1/2 top-1 h-3 w-16 -translate-x-1/2 rounded-full bg-black z-10"></div>
+            <img
+              src={taviMobile}
+              alt="Menú QR interactivo en celular"
+              className="w-full h-auto object-cover rounded-[0.75rem] sm:rounded-[1.25rem]"
+            />
+          </div>
+          
         </Reveal>
       </div>
     </section>
