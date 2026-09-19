@@ -34,33 +34,19 @@ type TaviLogoProps = {
 };
 
 export function TaviLogo({
-  withWordmark = true,
   className,
-  badgeClassName,
-  markClassName,
   wordmarkClassName,
-}: TaviLogoProps) {
+}: { className?: string; wordmarkClassName?: string }) {
   return (
     <span className={cn("flex items-center gap-2.5", className)}>
       <span
         className={cn(
-          "grid h-10 w-10 place-items-center rounded-xl text-primary-foreground shadow-[var(--shadow-warm)]",
-          badgeClassName,
+          "font-sans text-[1.6rem] font-bold uppercase leading-none tracking-[0.18em] text-foreground",
+          wordmarkClassName,
         )}
-        style={{ background: "var(--gradient-hero)" }}
       >
-        <TaviMark className={cn("h-6 w-6", markClassName)} />
+        TAV<span className="text-primary">I</span>
       </span>
-      {withWordmark && (
-        <span
-          className={cn(
-            "font-sans text-[1.6rem] font-bold uppercase leading-none tracking-[0.18em]",
-            wordmarkClassName,
-          )}
-        >
-          TAV<span className="text-primary">I</span>
-        </span>
-      )}
     </span>
   );
 }

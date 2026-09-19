@@ -13,14 +13,14 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { formatCOP, PRICING_PLANS } from "@/lib/pricing-plans";
+import { formatCOP, PLANS } from "@/config/pricing";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const LAST_SUBMIT_KEY = "tavi_demo_last_submit";
 const COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos entre solicitudes desde el mismo navegador
 
 const NO_ESTOY_SEGURO = "No estoy seguro / quiero asesoría";
-const PLAN_CHOICES = [...PRICING_PLANS.map((p) => p.name), NO_ESTOY_SEGURO];
+const PLAN_CHOICES = [...PLANS.map((p) => p.name), NO_ESTOY_SEGURO];
 
 const initialForm = {
   restaurante: "",
@@ -166,7 +166,7 @@ export function DemoModal({
             <Label>¿Qué plan te interesa?</Label>
             <div className="flex flex-wrap gap-2">
               {PLAN_CHOICES.map((choice) => {
-                const plan = PRICING_PLANS.find((p) => p.name === choice);
+                const plan = PLANS.find((p) => p.name === choice);
                 const selected = form.plan === choice;
                 return (
                   <button
@@ -187,10 +187,10 @@ export function DemoModal({
               })}
             </div>
             {(() => {
-              const plan = PRICING_PLANS.find((p) => p.name === form.plan);
+              const plan = PLANS.find((p) => p.name === form.plan);
               return plan ? (
                 <p className="text-xs text-muted-foreground">
-                  ${formatCOP(plan.monthly)} COP / mes · {plan.tagline}
+                  ${formatCOP(plan.monthly)} COP / mes · {plan.forWho}
                 </p>
               ) : (
                 <p className="text-xs text-muted-foreground">

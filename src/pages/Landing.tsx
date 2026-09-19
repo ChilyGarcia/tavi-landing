@@ -33,7 +33,7 @@ import { DemoModal } from "@/components/DemoModal";
 import { TaviLogo } from "@/components/Logo";
 import { Reveal } from "@/components/Reveal";
 import { LOGIN_URL } from "@/lib/site-links";
-import { ANNUAL_DISCOUNT_PCT, formatCOP, PRICING_PLANS } from "@/lib/pricing-plans";
+import { Navbar } from "@/components/layout/Navbar";
 
 export function Landing() {
   const [demoOpen, setDemoOpen] = useState(false);
@@ -45,22 +45,18 @@ export function Landing() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <AnnouncementBar onDemo={() => openDemo()} />
-      <Nav onDemo={() => openDemo()} />
-      <main>
+    <div className="flex min-h-screen flex-col bg-background text-foreground selection:bg-primary/20">
+      <Navbar onDemo={() => openDemo()} />
+
+      <main className="flex-1">
         <Hero onDemo={() => openDemo()} />
-        <SocialProof />
-        <Marquee />
-        <Showcase />
-        <ValueProposition />
         <Features />
+        <ValueProposition />
         <HowItWorks />
         <MenuDemo />
         <Stats />
         <Testimonial />
-        <Pricing onDemo={openDemo} />
-        <FinalCta onDemo={() => openDemo()} />
+        <FinalCta />
       </main>
       <Footer />
       <DemoModal open={demoOpen} onOpenChange={setDemoOpen} initialPlan={demoPlan} />
@@ -68,156 +64,63 @@ export function Landing() {
   );
 }
 
-function AnnouncementBar({ onDemo }: { onDemo: () => void }) {
-  return (
-    <div
-      className="animate-in fade-in slide-in-from-top-4 text-primary-foreground duration-500"
-      style={{ background: "var(--gradient-hero)" }}
-    >
-      <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-6 py-2 text-center text-xs font-medium sm:text-sm">
-        <Sparkles className="h-3.5 w-3.5 shrink-0" />
-        <span>Software para restaurantes con pedidos por QR — </span>
-        <button
-          onClick={onDemo}
-          className="hidden items-center gap-1 font-semibold underline underline-offset-2 hover:opacity-90 sm:inline-flex"
-        >
-          Prueba el sistema en vivo <ArrowRight className="h-3.5 w-3.5" />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function Nav({ onDemo }: { onDemo: () => void }) {
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+// --------------------------------------------------------------------------------------
+// HELPER COMPONENTS
+// --------------------------------------------------------------------------------------
+function Hero({ onDemo }: { onDemo: () => void }) {
+  const words = [
+    "restaurante",
+    "bar",
+    "almacén",
+    "tienda virtual",
+    "tienda física",
+    "negocio"
+  ];
+  const [wordIndex, setWordIndex] = useState(0);
+  const [fade, setFade] = useState(true);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      setLastScrollY(currentScrollY);
-    };
+    const interval = setInterval(() => {
+      setFade(false); // Start fade out
+      setTimeout(() => {
+        setWordIndex((prev) => (prev + 1) % words.length);
+        setFade(true); // Start fade in
+      }, 400); // Wait for fade out to complete before changing word
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
-
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    if (id === 'top') {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    const element = document.getElementById(id);
-    if (element) {
-      const navHeight = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - navHeight;
-      window.scrollTo({
-         top: offsetPosition,
-         behavior: "smooth"
-      });
-    }
-  };
-
-  return (
-    <header 
-      className={`sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md transition-transform duration-300 ease-in-out ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
-      }`}
-    >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
-        <a href="#top" onClick={(e) => scrollToSection(e, "top")}>
-          <TaviLogo />
-        </a>
-        <nav className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/60 px-2 py-1 text-sm text-muted-foreground md:flex">
-          <a
-            href="#showcase"
-            onClick={(e) => scrollToSection(e, "showcase")}
-            className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
-          >
-            Cocinas
-          </a>
-          <a
-            href="#features"
-            onClick={(e) => scrollToSection(e, "features")}
-            className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
-          >
-            Funcionalidades
-          </a>
-          <a
-            href="#how"
-            onClick={(e) => scrollToSection(e, "how")}
-            className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
-          >
-            Cómo funciona
-          </a>
-          <a
-            href="#pricing"
-            onClick={(e) => scrollToSection(e, "pricing")}
-            className="rounded-full px-4 py-1.5 transition hover:bg-muted hover:text-foreground"
-          >
-            Precios
-          </a>
-        </nav>
-        <div className="flex items-center gap-2">
-          <a
-            href={LOGIN_URL}
-            className="rounded-full px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted"
-          >
-            Ingresar
-          </a>
-          <button
-            onClick={onDemo}
-            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-warm)] transition hover:opacity-95 whitespace-nowrap"
-          >
-            <span className="hidden sm:inline">Prueba el sistema en vivo</span>
-            <span className="sm:hidden">Demo</span>
-            <ArrowRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-function Hero({ onDemo }: { onDemo: () => void }) {
   return (
     <section
       id="top"
-      className="relative overflow-hidden"
-      style={{ background: "var(--gradient-warm)" }}
+      className="relative overflow-hidden bg-background"
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 15% 15%, oklch(0.78 0.14 75 / 0.35), transparent 42%), radial-gradient(circle at 85% 55%, oklch(0.55 0.17 35 / 0.22), transparent 46%)",
-        }}
-      />
       <div className="mx-auto grid max-w-6xl gap-14 px-6 py-16 md:grid-cols-2 md:items-center md:py-24">
-        
         {/* Left Side: Text & CTAs */}
         <div className="relative">
           <Reveal delay={90}>
-
             <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-[4rem]">
-              Control total <br />
-              <span className="tavi-text-gradient">sin complicaciones</span>.
+              El sistema todo-en-uno que organiza y escala tu <br />
+              {/* Contenedor relativo: el texto invisible reserva el espacio máximo, el texto absoluto hace la transición por encima */}
+              <span className="relative block">
+                <span className="invisible pointer-events-none" aria-hidden="true">
+                  tienda virtual
+                </span>
+                <span 
+                  className={`absolute left-0 top-0 text-primary transition-opacity duration-500 ease-in-out ${fade ? "opacity-100" : "opacity-0"}`}
+                >
+                  {words[wordIndex]}
+                </span>
+              </span>
             </h1>
           </Reveal>
-          
+
           <Reveal delay={170}>
-            <p className="mt-6 max-w-lg text-lg text-muted-foreground leading-relaxed">
-              TAVI es el sistema operativo que centraliza tus pedidos, agiliza tu cocina y cuadra tus ventas. Despídete de los errores manuales y enfócate en crecer tu restaurante.
+            <p className="mt-6 max-w-lg text-lg text-foreground font-medium leading-relaxed">
+              Menú QR VIP, pantallas de cocina (KDS) y facturación electrónica DIAN. Olvídate del caos manual y controla toda tu operación desde una sola plataforma.
             </p>
           </Reveal>
-          
+
           <Reveal delay={250}>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <button
@@ -226,42 +129,33 @@ function Hero({ onDemo }: { onDemo: () => void }) {
               >
                 Prueba el sistema en vivo <ArrowRight className="h-5 w-5" />
               </button>
-              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <Check className="h-4 w-4 text-secondary" /> Sin tarjeta de crédito
-              </div>
             </div>
           </Reveal>
-          
+
           <Reveal delay={330}>
             <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-border/50 pt-6">
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-1 text-secondary">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-current" />
-                  ))}
-                </div>
-                <span className="text-sm font-medium text-foreground">
-                  Valorado por +500 restaurantes
-                </span>
+              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                <Check className="h-5 w-5 text-primary" /> Sin instalaciones complejas
               </div>
-              <div className="h-10 w-px bg-border/50 hidden sm:block"></div>
-              <div className="flex flex-col gap-1">
-                <span className="text-sm font-medium text-muted-foreground">Planes desde</span>
-                <span className="text-lg font-bold text-foreground">
-                  $55.000 <span className="text-xs font-normal text-muted-foreground">COP/mes</span>
-                </span>
+              <div className="h-4 w-px bg-border/50 hidden sm:block"></div>
+              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                <Check className="h-5 w-5 text-primary" /> Cancela cuando quieras
               </div>
             </div>
           </Reveal>
         </div>
 
         {/* Right Side: Software Visuals (Ecosystem) */}
-        <Reveal from="right" delay={200} className="relative mt-12 md:mt-0 lg:ml-4 w-full h-[350px] sm:h-[450px] md:h-[500px]">
+        <Reveal
+          from="right"
+          delay={200}
+          className="relative mt-12 md:mt-0 lg:ml-4 w-full h-[350px] sm:h-[450px] md:h-[500px]"
+        >
           <div className="absolute inset-0 rounded-full bg-primary/10 blur-3xl opacity-60" />
-          
+
           {/* Main Desktop (Back/Center) */}
-          <div className="absolute left-0 right-[15%] top-0 md:right-[10%] rounded-xl sm:rounded-2xl border-4 sm:border-8 border-white/80 bg-white shadow-2xl backdrop-blur-md overflow-hidden z-10 animate-in fade-in zoom-in duration-1000">
-            <div className="flex h-4 sm:h-5 w-full items-center gap-1 sm:gap-1.5 bg-muted/50 px-2 sm:px-3">
+          <div className="absolute left-0 right-[15%] top-0 md:right-[10%] rounded-xl sm:rounded-2xl border-4 sm:border-8 border-slate-800 bg-slate-800 shadow-2xl backdrop-blur-md overflow-hidden z-10 animate-in fade-in zoom-in duration-1000">
+            <div className="flex h-4 sm:h-5 w-full items-center gap-1 sm:gap-1.5 bg-slate-900 px-2 sm:px-3">
               <div className="h-1.5 sm:h-2 w-1.5 sm:w-2 rounded-full bg-red-400"></div>
               <div className="h-1.5 sm:h-2 w-1.5 sm:w-2 rounded-full bg-amber-400"></div>
               <div className="h-1.5 sm:h-2 w-1.5 sm:w-2 rounded-full bg-emerald-400"></div>
@@ -293,29 +187,61 @@ function Hero({ onDemo }: { onDemo: () => void }) {
               className="w-full h-auto object-cover rounded-[0.75rem] sm:rounded-[1.25rem]"
             />
           </div>
-          
         </Reveal>
       </div>
     </section>
   );
 }
 
-function SocialProof() {
+function WhyChooseUs() {
+  const reasons = [
+    {
+      title: "Punto de venta y menú digital",
+      desc: "Gestiona todo desde una plataforma.",
+      icon: <Store className="h-7 w-7 text-primary" />,
+    },
+    {
+      title: "Calidad-precio insuperable",
+      desc: "Soluciones completas desde $55.000/mes.",
+      icon: <ReceiptText className="h-7 w-7 text-primary" />,
+    },
+    {
+      title: "Gestión centralizada",
+      desc: "Controla inventarios y ventas en tiempo real.",
+      icon: <Layers className="h-7 w-7 text-primary" />,
+    },
+    {
+      title: "Fácil e intuitivo",
+      desc: "Sin configuraciones agotadoras.",
+      icon: <Smartphone className="h-7 w-7 text-primary" />,
+    },
+  ];
+
   return (
-    <section className="border-t border-border/60 bg-muted/20 py-10">
-      <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 px-6 text-center">
-        <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-          Tecnología probada diariamente en <strong className="text-foreground">operaciones de alto volumen</strong> como:
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 text-base font-bold text-muted-foreground/80 md:text-lg">
-          <span className="flex items-center gap-2.5 transition-colors hover:text-foreground">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-background text-sm shadow-sm ring-1 ring-border">M</span>
-            Mijaos
-          </span>
-          <span className="flex items-center gap-2.5 transition-colors hover:text-foreground">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-background text-sm shadow-sm ring-1 ring-border">SP</span>
-            Sr Pizza Pan
-          </span>
+    <section className="bg-background py-16 md:py-24 border-t border-border/60">
+      <div className="mx-auto max-w-6xl px-6">
+        <Reveal>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+              ¿Por qué los negocios prefieren TAVI?
+            </h2>
+          </div>
+        </Reveal>
+        
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {reasons.map((reason, i) => (
+            <Reveal key={i} delay={i * 100} from="bottom">
+              <div className="flex h-full flex-col items-center text-center gap-4 rounded-[2rem] bg-muted/30 p-8 border border-border/50 hover:border-primary/20 hover:bg-muted/50 transition-colors">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 shadow-inner">
+                  {reason.icon}
+                </div>
+                <div>
+                  <h3 className="font-bold text-foreground text-lg leading-tight mb-2">{reason.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{reason.desc}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
@@ -324,22 +250,54 @@ function SocialProof() {
 
 function Marquee() {
   const items = [
-    { name: "Pizzerías", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=256&h=256&fit=crop" },
-    { name: "Cafeterías", image: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=256&h=256&fit=crop" },
-    { name: "Hamburguesas", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=256&h=256&fit=crop" },
-    { name: "Sushi", image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=256&h=256&fit=crop" },
-    { name: "Bares", image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=256&h=256&fit=crop" },
-    { name: "Panaderías", image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=256&h=256&fit=crop" },
-    { name: "Saludable", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=256&h=256&fit=crop" },
-    { name: "Autor", image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=256&h=256&fit=crop" },
+    {
+      name: "Restaurantes",
+      image:
+        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=256&h=256&fit=crop",
+    },
+    {
+      name: "Retail",
+      image:
+        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=256&h=256&fit=crop",
+    },
+    {
+      name: "Minimarkets",
+      image:
+        "https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=256&h=256&fit=crop",
+    },
+    {
+      name: "Moda",
+      image:
+        "https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=256&h=256&fit=crop",
+    },
+    {
+      name: "Bares",
+      image:
+        "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=256&h=256&fit=crop",
+    },
+    {
+      name: "Cafeterías",
+      image:
+        "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=256&h=256&fit=crop",
+    },
+    {
+      name: "Ferreterías",
+      image:
+        "https://images.unsplash.com/photo-1542887800-faca0261c9e1?q=80&w=256&h=256&fit=crop",
+    },
+    {
+      name: "Servicios",
+      image:
+        "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=256&h=256&fit=crop",
+    },
   ];
   const loop = [...items, ...items, ...items];
-  
+
   return (
     <section className="border-y border-border/60 bg-muted/40 py-12">
       <Reveal>
         <p className="mb-8 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Diseñado para todo tipo de cocina
+          Diseñado para todo tipo de negocio
         </p>
       </Reveal>
       <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
@@ -349,10 +307,10 @@ function Marquee() {
               key={i}
               className="relative overflow-hidden rounded-2xl flex-shrink-0 w-36 h-36 md:w-44 md:h-44 group border border-border/50 shadow-sm"
             >
-              <img 
-                src={item.image} 
-                alt={item.name} 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+              <img
+                src={item.image}
+                alt={item.name}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 transition-colors group-hover:bg-black/40" />
               <div className="absolute inset-0 flex items-end justify-center p-4">
@@ -439,7 +397,8 @@ function ValueProposition() {
           Lo "Gratis" sale muy caro.
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
-          Descubre por qué los restaurantes serios prefieren invertir en TAVI en lugar de usar un menú en PDF gratuito.
+          Descubre por qué los negocios serios prefieren invertir en TAVI en lugar de usar
+          métodos manuales gratuitos.
         </p>
       </Reveal>
       <Reveal delay={100} className="mt-12">
@@ -456,7 +415,9 @@ function ValueProposition() {
               </li>
               <li className="flex gap-3">
                 <span className="shrink-0 text-destructive mt-0.5">×</span>
-                <span>El mesero o cajero tiene que transcribir todo el pedido a mano al sistema.</span>
+                <span>
+                  El mesero o cajero tiene que transcribir todo el pedido a mano al sistema.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="shrink-0 text-destructive mt-0.5">×</span>
@@ -467,20 +428,26 @@ function ValueProposition() {
           {/* Columna Tavi */}
           <div className="p-8 md:p-10" style={{ background: "var(--gradient-soft)" }}>
             <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-2">
-              <Check className="h-5 w-5 text-secondary" /> Sistema TAVI
+              <Check className="h-5 w-5 text-slate-400" /> Sistema TAVI
             </h3>
             <ul className="space-y-4 text-sm font-medium">
               <li className="flex gap-3">
-                <Check className="h-4 w-4 shrink-0 text-secondary mt-0.5" />
-                <span>El pedido viaja directo desde la mesa hasta la pantalla de la cocina (KDS).</span>
+                <Check className="h-4 w-4 shrink-0 text-slate-400 mt-0.5" />
+                <span>
+                  Las ventas viajan directo hasta la pantalla de empaque, despacho o cocina (KDS).
+                </span>
               </li>
               <li className="flex gap-3">
-                <Check className="h-4 w-4 shrink-0 text-secondary mt-0.5" />
-                <span>El cierre de caja cuadra al centavo, sin importar si pagan en efectivo o tarjeta.</span>
+                <Check className="h-4 w-4 shrink-0 text-slate-400 mt-0.5" />
+                <span>
+                  El cierre de caja cuadra al centavo, sin importar si pagan en efectivo o tarjeta.
+                </span>
               </li>
               <li className="flex gap-3">
-                <Check className="h-4 w-4 shrink-0 text-secondary mt-0.5" />
-                <span>Tarjetas VIP en Google Wallet que aseguran que el cliente vuelva a comprar.</span>
+                <Check className="h-4 w-4 shrink-0 text-slate-400 mt-0.5" />
+                <span>
+                  Tarjetas VIP en Google Wallet que aseguran que el cliente vuelva a comprar.
+                </span>
               </li>
             </ul>
           </div>
@@ -491,158 +458,103 @@ function ValueProposition() {
 }
 
 function Features() {
-  const items = [
+  const modules = [
     {
+      title: "Punto de Venta Completo",
       icon: Store,
-      title: "Multi-sede & Cartas",
-      desc: "Administra todas tus sedes, cartas y precios en tiempo real desde un único panel.",
-      span: "md:col-span-2 lg:col-span-2",
-      gradient: "from-orange-500/10 to-amber-500/5",
-      iconColor: "text-orange-500",
-      bgIcon: "text-orange-500/5",
+      img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
+      benefits: [
+        "Configuración de cajas y turnos",
+        "Facturación rápida en 3 clics",
+        "División de cuentas y pagos mixtos",
+        "Cierre de caja al centavo",
+      ],
     },
     {
+      title: "Catálogos y Pedidos QR",
       icon: QrCode,
-      title: "Pedidos por QR",
-      desc: "Cada mesa tiene su QR único: el mesero y cocina saben exactamente dónde entregar.",
-      span: "md:col-span-1 lg:col-span-1",
-      gradient: "from-blue-500/10 to-cyan-500/5",
-      iconColor: "text-blue-500",
-      bgIcon: "text-blue-500/5",
+      img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+      benefits: [
+        "Menú digital en tiempo real",
+        "Pedidos directo a la mesa o mostrador",
+        "0% comisiones por pedido",
+        "Integración automática al POS",
+      ],
     },
     {
-      icon: Award,
-      title: "Fidelidad & Google Wallet",
-      desc: "Tarjetas VIP virtuales guardables en billeteras digitales, con descuento aplicable al cobrar.",
-      span: "md:col-span-1 lg:col-span-1",
-      highlight: true,
-      gradient: "from-indigo-600 to-purple-600",
-      iconColor: "text-white",
-      bgIcon: "text-white/10",
-    },
-    {
-      icon: ChefHat,
-      title: "Elimina errores y tiempos muertos en cocina",
-      desc: "El pedido aparece directo en pantalla con alertas de voz, sin gritos ni papelitos.",
-      span: "md:col-span-2 lg:col-span-2",
-      gradient: "from-emerald-500/10 to-green-500/5",
-      iconColor: "text-emerald-500",
-      bgIcon: "text-emerald-500/5",
-    },
-    {
-      icon: BarChart3,
-      title: "Métricas en Vivo",
-      desc: "Reportes de ventas por producto, hora, sede y medio de pago.",
-      span: "md:col-span-2 lg:col-span-1",
-      gradient: "from-pink-500/10 to-rose-500/5",
-      iconColor: "text-pink-500",
-      bgIcon: "text-pink-500/5",
-    },
-    {
+      title: "Inventario y Multi-sede",
       icon: Layers,
-      title: "Cero Descuadres de Caja",
-      desc: "Divide cuentas fácilmente y combina efectivo, tarjeta o transferencia en una sola mesa.",
-      span: "md:col-span-1 lg:col-span-1",
-      highlight: true,
-      gradient: "from-violet-600 to-fuchsia-600",
-      iconColor: "text-white",
-      bgIcon: "text-white/10",
+      img: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=800&auto=format&fit=crop",
+      benefits: [
+        "Gestión de stock e insumos",
+        "Alertas de poco inventario",
+        "Controla varias sucursales",
+        "Reportes de ganancias en vivo",
+      ],
     },
     {
+      title: "Facturación Electrónica DIAN",
       icon: ReceiptText,
-      title: "Caja & Domicilios",
-      desc: "Apertura, cierre y arqueo diario con desglose por medio de pago.",
-      span: "md:col-span-1 lg:col-span-1",
-      gradient: "from-yellow-500/10 to-orange-500/5",
-      iconColor: "text-yellow-500",
-      bgIcon: "text-yellow-500/5",
-    },
-    {
-      icon: MonitorPlay,
-      title: "Pantallas de Llamado",
-      desc: "Avisa visualmente a tus clientes cuando su pedido está listo.",
-      span: "md:col-span-1 lg:col-span-2",
-      gradient: "from-cyan-500/10 to-blue-500/5",
-      iconColor: "text-cyan-500",
-      bgIcon: "text-cyan-500/5",
-    },
-    {
-      icon: Printer,
-      title: "Impresión Automática",
-      desc: "100% compatible con impresoras térmicas para tickets y comandas.",
-      span: "md:col-span-1 lg:col-span-1",
-      gradient: "from-slate-500/10 to-zinc-500/5",
-      iconColor: "text-slate-500",
-      bgIcon: "text-slate-500/5",
+      img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop",
+      benefits: [
+        "Cumplimiento total normativo DIAN",
+        "Emisión en segundos desde el POS",
+        "Sin portales externos complicados",
+        "Envíos automáticos al cliente",
+      ],
     },
   ];
-  
+
   return (
     <section id="features" className="bg-muted/30 py-24 relative overflow-hidden">
       {/* Background glow effects */}
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[128px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-[128px] pointer-events-none" />
-      
+
       <div className="mx-auto max-w-6xl px-6 relative z-10">
-        <Reveal className="max-w-2xl">
+        <Reveal className="max-w-2xl text-center mx-auto">
+          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary mb-4">
+            ¡Gestiona todo desde un solo lugar!
+          </span>
           <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
-            Todo lo que tu restaurante necesita.
+            Todo lo que tu negocio necesita.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Diseñado para dueños que quieren operaciones ágiles, clientes leales e ingresos recurrentes.
+            Diseñado para dueños que quieren operaciones ágiles, clientes leales e ingresos
+            recurrentes.
           </p>
         </Reveal>
-        
-        <div className="mt-16 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
-          {items.map(({ icon: Icon, title, desc, highlight, span, gradient, iconColor, bgIcon }, i) => (
-            <Reveal
-              key={title}
-              delay={i * 70}
-              className={`group relative overflow-hidden rounded-3xl border transition-all duration-500 hover:-translate-y-1 hover:shadow-xl ${span} ${
-                highlight
-                  ? "border-transparent text-white shadow-lg"
-                  : "border-border/60 bg-card/50 backdrop-blur-sm hover:border-primary/30"
-              }`}
-            >
-              {/* Highlight card gradient background */}
-              {highlight && (
-                <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90`} />
-              )}
-              
-              {/* Non-highlight subtle gradient */}
-              {!highlight && (
-                <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-100`} />
-              )}
 
-              {/* Large background icon for visual flair */}
-              <Icon className={`absolute -right-6 -bottom-6 h-40 w-40 ${bgIcon} transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-12`} />
-              
-              <div className="relative z-10 flex h-full flex-col p-8">
-                <div className="flex items-center justify-between">
-                  <div
-                    className={`grid h-14 w-14 place-items-center rounded-2xl shadow-sm transition-transform duration-500 group-hover:scale-110 ${
-                      highlight
-                        ? "bg-white/20 backdrop-blur-md"
-                        : "bg-background border border-border/50"
-                    }`}
-                  >
-                    <Icon className={`h-6 w-6 ${iconColor}`} />
+        <div className="mt-16 grid gap-8 md:grid-cols-2">
+          {modules.map((mod, i) => (
+            <Reveal
+              key={mod.title}
+              delay={i * 100}
+              className="group bg-card border border-border/60 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 cursor-pointer"
+            >
+              <div className="h-60 w-full relative overflow-hidden">
+                <img
+                  src={mod.img}
+                  alt={mod.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-6 left-6 flex items-center gap-3">
+                  <div className="p-2.5 bg-white rounded-xl shadow-lg">
+                    <mod.icon className="h-6 w-6 text-primary" />
                   </div>
-                  {highlight && (
-                    <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md">
-                      Nuevo
-                    </span>
-                  )}
+                  <h3 className="text-2xl font-bold text-white drop-shadow-md">{mod.title}</h3>
                 </div>
-                
-                <div className="mt-auto pt-10">
-                  <h3 className={`text-xl font-bold ${highlight ? "text-white" : "text-foreground"}`}>
-                    {title}
-                  </h3>
-                  <p className={`mt-3 text-sm leading-relaxed ${highlight ? "text-white/80" : "text-muted-foreground"}`}>
-                    {desc}
-                  </p>
-                </div>
+              </div>
+              <div className="p-8">
+                <ul className="space-y-4">
+                  {mod.benefits.map((benefit, j) => (
+                    <li key={j} className="flex items-start gap-3">
+                      <Check className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground font-medium">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </Reveal>
           ))}
@@ -655,19 +567,19 @@ function Features() {
 function HowItWorks() {
   const steps = [
     {
-      icon: Smartphone,
+      icon: QrCode,
       title: "El cliente escanea",
-      desc: "Abre la carta en su celular desde el QR de la mesa. Sin apps ni descargas.",
+      desc: "Accede al catálogo digital desde el QR en la mesa o mostrador. Sin descargar absolutamente nada.",
     },
     {
-      icon: ReceiptText,
-      title: "Envía su pedido",
-      desc: "Elige, personaliza y confirma. El pedido llega a sala y cocina con el número de mesa.",
+      icon: Smartphone,
+      title: "Selecciona y pide",
+      desc: "Personaliza su pedido y lo envía en segundos. La orden llega directo y sin errores al sistema.",
     },
     {
-      icon: ChefHat,
-      title: "Tú cocinas y sirves",
-      desc: "El equipo ve todo en orden, sin gritos ni papelitos perdidos entre mesas.",
+      icon: Store,
+      title: "Preparas y entregas",
+      desc: "Tu equipo ve todo organizado en la pantalla de despacho. Operan más rápido, sin enredos ni papeles.",
     },
   ];
 
@@ -678,37 +590,31 @@ function HowItWorks() {
           Tres pasos. <span className="text-muted-foreground">Cero fricción.</span>
         </h2>
         <p className="mt-4 md:mt-6 text-base md:text-lg text-muted-foreground">
-          Diseñado para que tu equipo se concentre en lo importante: preparar comida increíble y atender excelente. Del resto nos encargamos nosotros.
+          Diseñado para que tu equipo se concentre en lo importante: brindar un excelente servicio y entregar los mejores productos. Del resto nos encargamos nosotros.
         </p>
       </Reveal>
-      
+
       <div className="relative mt-16 md:mt-24">
-        {/* Refined subtle connecting line for desktop */}
-        <div className="hidden md:block absolute top-[2.5rem] left-[16.66%] right-[16.66%] h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
-        
-        <div className="grid gap-12 md:gap-8 md:grid-cols-3">
+        {/* Dashed connecting line for desktop */}
+        <div className="hidden md:block absolute top-[5rem] left-[16%] right-[16%] h-0.5 border-t-2 border-dashed border-border/80 z-0" />
+
+        <div className="grid gap-8 md:gap-6 md:grid-cols-3 relative">
           {steps.map(({ icon: Icon, title, desc }, i) => (
-            <Reveal key={title} delay={i * 150} className="relative text-center group">
-              
-              {/* Elegant floating icon container */}
-              <div className="mx-auto flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full border border-border/60 bg-background/50 shadow-sm backdrop-blur-md relative z-10 transition-transform duration-700 group-hover:scale-110">
-                
-                {/* Hover Glow */}
-                <div className="absolute inset-0 rounded-full bg-primary/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                
-                <Icon className="h-6 w-6 md:h-7 md:w-7 text-foreground transition-colors duration-700 group-hover:text-primary" />
-                
-                {/* Minimalist step number badge */}
-                <div className="absolute -top-1 -right-1 flex h-5 w-5 md:h-6 md:w-6 items-center justify-center rounded-full bg-foreground text-[9px] md:text-[10px] font-bold text-background ring-4 ring-background transition-transform duration-500 group-hover:scale-110">
-                  0{i + 1}
+            <Reveal key={title} delay={i * 150} className="relative z-10 group">
+              <div className="bg-background border border-border/60 rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col items-center text-center relative overflow-hidden">
+                {/* Large Background Number */}
+                <div className="absolute -top-4 -right-2 text-9xl font-black text-muted/20 select-none transition-colors duration-500 group-hover:text-primary/5 pointer-events-none">
+                  {i + 1}
                 </div>
-              </div>
-              
-              <div className="mt-5 md:mt-10">
-                <h3 className="font-display text-lg md:text-xl font-bold text-foreground transition-colors duration-300">
+                
+                <div className="h-20 w-20 bg-primary/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-500 shadow-sm relative z-10">
+                  <Icon className="h-10 w-10 text-primary" />
+                </div>
+                
+                <h3 className="font-display text-xl md:text-2xl font-bold mb-4 relative z-10 text-foreground">
                   {title}
                 </h3>
-                <p className="mx-auto mt-2 md:mt-3 max-w-[17rem] text-sm text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed relative z-10">
                   {desc}
                 </p>
               </div>
@@ -732,17 +638,18 @@ function MenuDemo() {
             Ponte en los zapatos de tus clientes.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Así es exactamente como tus clientes verán tu menú al escanear el QR desde su mesa. Sin apps, sin descargas, rápido y directamente desde su navegador.
+            Así es exactamente como tus clientes verán tu menú al escanear el QR desde su mesa. Sin
+            apps, sin descargas, rápido y directamente desde su navegador.
           </p>
           <p className="mt-6 font-medium text-foreground flex items-center gap-2">
             Navega por este menú de prueba 👉
           </p>
         </Reveal>
-        
+
         <Reveal from="right" className="flex justify-center md:justify-end">
           <div className="relative mx-auto w-full max-w-[320px] rounded-[3rem] border-[12px] border-zinc-900 bg-zinc-900 shadow-2xl">
             <div className="relative aspect-[9/19] w-full overflow-hidden rounded-[2rem] bg-background">
-              <iframe 
+              <iframe
                 src="https://app.taviorders.com/menu/fqoruy0ypki"
                 className="h-full w-full border-0"
                 title="Menú Digital de Demostración"
@@ -790,7 +697,9 @@ function Testimonial() {
       <Reveal from="scale">
         <Quote className="mx-auto h-10 w-10 text-primary/40" />
         <blockquote className="mt-6 font-display text-3xl font-semibold leading-snug tracking-tight md:text-4xl">
-          “Desde que usamos TAVI la operación cambió por completo. Ya no hay errores anotando en papel, las comandas llegan directo a cocina al instante y podemos atender muchas más mesas en hora pico.”
+          “Desde que usamos TAVI la operación cambió por completo. Ya no hay errores anotando en
+          papel, las comandas llegan directo a cocina al instante y podemos atender muchas más mesas
+          en hora pico.”
         </blockquote>
         <div className="mt-8 flex items-center justify-center gap-3">
           <div className="grid h-12 w-12 place-items-center rounded-full bg-secondary text-lg font-bold text-secondary-foreground">
@@ -806,285 +715,32 @@ function Testimonial() {
   );
 }
 
-type BillingCycle = "mensual" | "anual";
-
-const PLAN_COMPARISON_ROWS: { label: string; values: [string, string, string] }[] = [
-  {
-    label: "POS de Caja, Turnos y Arqueo",
-    values: ["✓", "✓", "✓"],
-  },
-  { label: "Menú digital con Mesas QR", values: ["✓", "✓", "✓"] },
-  { label: "Sala, Comandero y mapa de mesas", values: ["✓", "✓", "✓"] },
-  { label: "Pantalla de Cocina (KDS)", values: ["✓", "✓", "✓"] },
-  { label: "Domicilios y cobertura por zonas", values: ["✓", "✓", "✓"] },
-  { label: "Multi-sede y personal (roles)", values: ["✓", "✓", "✓"] },
-  { label: "Marca propia (logo y colores)", values: ["✓", "✓", "✓"] },
-  { label: "Tarjetas de Fidelidad VIP", values: ["—", "Hasta 100", "Ilimitadas"] },
-  { label: "Pase Google Wallet & Referidos", values: ["—", "✓", "✓"] },
-  { label: "Marca blanca en el pase Wallet", values: ["—", "—", "✓"] },
-  { label: "Soporte", values: ["Estándar", "Prioritario", "Asesor dedicado"] },
-];
-
-function Pricing({ onDemo }: { onDemo: (plan?: string) => void }) {
-  const [billing, setBilling] = useState<BillingCycle>("mensual");
-
+function FinalCta() {
   return (
-    <section id="pricing" className="bg-muted/40 py-24">
-      <div className="mx-auto max-w-6xl px-6">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary">
-            Planes y Tarifas
-          </span>
-          <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
-            Elige el plan ideal para tu negocio.
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Todos los planes incluyen el sistema operativo completo de tu restaurante. La diferencia
-            está en la fidelización de tus clientes.
-          </p>
-        </Reveal>
-
-        <Reveal delay={80} className="mt-8 flex justify-center">
-          <div className="inline-flex items-center gap-1 rounded-full border border-border bg-card p-1 text-sm font-semibold">
-            <button
-              type="button"
-              onClick={() => setBilling("mensual")}
-              aria-pressed={billing === "mensual"}
-              className={`rounded-full px-5 py-2 transition ${
-                billing === "mensual"
-                  ? "bg-primary text-primary-foreground shadow-[var(--shadow-soft)]"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Mensual
-            </button>
-            <button
-              type="button"
-              onClick={() => setBilling("anual")}
-              aria-pressed={billing === "anual"}
-              className={`inline-flex items-center gap-2 rounded-full px-5 py-2 transition ${
-                billing === "anual"
-                  ? "bg-primary text-primary-foreground shadow-[var(--shadow-soft)]"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Anual
-              <span
-                className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
-                  billing === "anual"
-                    ? "bg-white/20 text-primary-foreground"
-                    : "bg-secondary/15 text-secondary"
-                }`}
-              >
-                Ahorra {ANNUAL_DISCOUNT_PCT}%
-              </span>
-            </button>
-          </div>
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-3 items-stretch">
-          {PRICING_PLANS.map((plan, i) => {
-            const annualTotal = plan.monthly * 10;
-            const regularAnnual = plan.monthly * 12;
-            const monthlyEquivalent = Math.round(annualTotal / 12);
-            const Icon = plan.icon;
-            return (
-              <Reveal
-                key={plan.id}
-                from={i === 0 ? "left" : i === 2 ? "right" : "scale"}
-                delay={i * 90}
-                className="h-full"
-              >
-                <article
-                  className={`tavi-plan-card group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl p-7 ${
-                    plan.highlight
-                      ? "tavi-plan-card--highlight text-primary-foreground shadow-[var(--shadow-warm)]"
-                      : "border border-border bg-card hover:border-primary/35"
-                  }`}
-                  style={plan.highlight ? { background: "var(--gradient-hero)" } : undefined}
-                >
-                  {plan.highlight && (
-                    <>
-                      <div className="tavi-grain pointer-events-none absolute inset-0 opacity-20" />
-                      <span className="absolute right-5 top-5 rounded-full bg-white px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-foreground shadow-sm">
-                        Más Popular
-                      </span>
-                    </>
-                  )}
-                  <div>
-                    <div
-                      className={`relative text-sm font-semibold uppercase tracking-wide flex items-center gap-1.5 ${
-                        plan.highlight ? "opacity-90" : "text-muted-foreground"
-                      }`}
-                    >
-                      {Icon && (
-                        <Icon
-                          className={`h-4 w-4 transition duration-500 group-hover:scale-125 group-hover:-rotate-6 ${plan.highlight ? "text-amber-300" : "text-amber-500"}`}
-                        />
-                      )}
-                      {plan.name}
-                    </div>
-                    {billing === "anual" ? (
-                      <>
-                        <div className="relative mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                          <span className="font-display text-4xl font-bold tracking-tight">
-                            ${formatCOP(annualTotal)}
-                          </span>
-                          <span
-                            className={`text-sm ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
-                          >
-                            COP / año
-                          </span>
-                          <span
-                            className={`text-sm line-through ${plan.highlight ? "opacity-60" : "text-muted-foreground/60"}`}
-                          >
-                            ${formatCOP(regularAnnual)}
-                          </span>
-                          <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-secondary-foreground">
-                            -{ANNUAL_DISCOUNT_PCT}%
-                          </span>
-                        </div>
-                        <p
-                          className={`relative mt-1 text-xs ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
-                        >
-                          Equivale a ${formatCOP(monthlyEquivalent)} COP / mes · 2 meses gratis
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <div className="relative mt-3 flex items-baseline gap-1">
-                          <span className="font-display text-4xl font-bold tracking-tight">
-                            ${formatCOP(plan.monthly)}
-                          </span>
-                          <span
-                            className={`text-sm ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
-                          >
-                            COP / mes
-                          </span>
-                        </div>
-                        <p
-                          className={`relative mt-1 text-xs ${plan.highlight ? "opacity-80" : "text-muted-foreground"}`}
-                        >
-                          Facturado mensualmente
-                        </p>
-                      </>
-                    )}
-                    <p
-                      className={`relative mt-2 text-xs ${plan.highlight ? "opacity-90" : "text-muted-foreground"}`}
-                    >
-                      {plan.tagline}
-                    </p>
-                    <ul className="relative mt-6 space-y-2.5 text-xs">
-                      {plan.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2">
-                          <span
-                            className={`grid h-4 w-4 place-items-center rounded-full transition duration-300 group-hover:scale-110 ${
-                              plan.highlight
-                                ? "bg-white/20"
-                                : "bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-                            }`}
-                          >
-                            <Check className="h-2.5 w-2.5" />
-                          </span>
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <button
-                    onClick={() => onDemo(plan.name)}
-                    className={`relative mt-8 inline-flex w-full items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold transition duration-300 group-hover:gap-2.5 ${
-                      plan.highlight
-                        ? "bg-white font-bold text-foreground shadow-md hover:bg-white/90"
-                        : "border border-border bg-background hover:bg-muted"
-                    }`}
-                  >
-                    Prueba el sistema en vivo {plan.highlight && <ArrowRight className="h-4 w-4" />}
-                  </button>
-                </article>
-              </Reveal>
-            );
-          })}
-        </div>
-
-        <Reveal delay={120} className="mt-14">
-          <h3 className="text-center font-display text-xl font-bold tracking-tight">
-            ¿Cuál es la diferencia real entre planes?
-          </h3>
-          <div className="mt-6 overflow-x-auto rounded-2xl border border-border bg-card">
-            <table className="w-full min-w-[560px] text-sm">
-              <thead>
-                <tr className="border-b border-border text-left text-xs uppercase tracking-wide text-muted-foreground">
-                  <th className="p-4 font-semibold">Funcionalidad</th>
-                  {PRICING_PLANS.map((plan) => (
-                    <th key={plan.id} className="p-4 text-center font-semibold">
-                      {plan.name}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {PLAN_COMPARISON_ROWS.map((row, i) => (
-                  <tr key={row.label} className={i % 2 === 1 ? "bg-muted/40" : undefined}>
-                    <td className="p-4 text-muted-foreground">{row.label}</td>
-                    {row.values.map((value, j) => (
-                      <td key={j} className="p-4 text-center font-medium">
-                        {value === "—" ? (
-                          <span className="text-muted-foreground/50">—</span>
-                        ) : value === "✓" ? (
-                          <Check className="mx-auto h-4 w-4 text-secondary" />
-                        ) : (
-                          value
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-3 text-center text-xs text-muted-foreground">
-            Los 3 planes comparten el mismo sistema operativo (caja, cocina, sala, domicilios y
-            multi-sede). La fidelización de clientes es lo que escala según el plan.
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-function FinalCta({ onDemo }: { onDemo: () => void }) {
-  return (
-    <section className="mx-auto max-w-6xl px-6 py-24">
+    <section className="mx-auto max-w-6xl px-4 sm:px-6 py-12 md:py-24">
       <Reveal
         from="scale"
-        className="relative overflow-hidden rounded-[2.5rem] px-8 py-16 text-center text-primary-foreground shadow-[var(--shadow-lift)] md:px-16"
+        className="relative overflow-hidden rounded-[2.5rem] px-6 py-12 text-center text-primary-foreground shadow-2xl md:px-16 md:py-20"
         style={{ background: "var(--gradient-dark)" }}
       >
         <div className="tavi-grain pointer-events-none absolute inset-0 opacity-25" />
         <div className="pointer-events-none absolute -right-10 -top-10 h-52 w-52 rounded-full bg-primary/30 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-10 -left-10 h-52 w-52 rounded-full bg-accent/20 blur-3xl" />
-        <div className="relative mx-auto max-w-2xl">
-          <ChefHat className="mx-auto h-10 w-10 text-accent" />
-          <h2 className="mt-5 font-display text-4xl font-bold tracking-tight md:text-5xl">
-            Tu cocina merece una operación a su altura.
+        <div className="relative mx-auto max-w-2xl flex flex-col items-center">
+          <Sparkles className="h-10 w-10 text-accent mb-4" />
+          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl leading-tight">
+            Encuentra el plan perfecto para tu negocio.
           </h2>
-          <p className="mt-4 text-lg text-primary-foreground/80">
-            Activa TAVI en menos de 24 horas y lleva el control de tu cocina.
+          <p className="mt-4 text-base md:text-lg text-primary-foreground/80 max-w-lg">
+            Escoge la opción que mejor se adapte a tus necesidades y empieza a escalar tu operación sin letra pequeña.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
-            <button
-              onClick={onDemo}
-              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-primary-foreground px-7 py-3.5 text-base font-semibold text-primary transition hover:-translate-y-0.5 hover:opacity-95 whitespace-nowrap"
+          <div className="mt-8 flex justify-center w-full sm:w-auto">
+            <Link
+              to="/precios"
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-primary-foreground px-8 py-4 text-base font-bold text-primary transition-all hover:-translate-y-1 hover:opacity-95 shadow-lg shadow-black/20 active:scale-95"
             >
-              Prueba el sistema en vivo <ArrowRight className="h-4 w-4" />
-            </button>
-            <a
-              href={LOGIN_URL}
-              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full border border-primary-foreground/30 px-7 py-3.5 text-base font-semibold text-primary-foreground transition hover:bg-primary-foreground/10"
-            >
-              Ingresar
-            </a>
+              Ver planes y precios <ArrowRight className="h-5 w-5" />
+            </Link>
           </div>
         </div>
       </Reveal>
@@ -1098,45 +754,111 @@ function Footer() {
       {/* Decorative subtle background elements */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-primary/5 blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-secondary/5 blur-[100px] pointer-events-none" />
-      
+
       <div className="relative mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-12">
         <div className="md:col-span-5 lg:col-span-4">
-          <TaviLogo badgeClassName="h-9 w-9 shadow-sm" markClassName="h-5 w-5" wordmarkClassName="text-xl" />
+          <TaviLogo
+            badgeClassName="h-9 w-9 shadow-sm"
+            markClassName="h-5 w-5"
+            wordmarkClassName="text-xl"
+          />
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground">
-            El sistema operativo para restaurantes que crecen. Une tus mesas, cocina y caja en una sola plataforma rápida y sin fricción.
+            El sistema operativo para restaurantes que crecen. Une tus mesas, cocina y caja en una
+            sola plataforma rápida y sin fricción.
           </p>
           <div className="mt-6 flex items-center gap-4">
-            <a href="https://www.instagram.com/taviorders" target="_blank" rel="noopener noreferrer" className="grid h-10 w-10 place-items-center rounded-full border border-border/50 bg-muted/30 text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary">
+            <a
+              href="https://www.instagram.com/taviorders"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="grid h-10 w-10 place-items-center rounded-full border border-border/50 bg-muted/30 text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
+            >
               <span className="sr-only">Instagram</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
             </a>
-            <a href="https://www.facebook.com/profile.php?id=61592854388655" target="_blank" rel="noopener noreferrer" className="grid h-10 w-10 place-items-center rounded-full border border-border/50 bg-muted/30 text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary">
+            <a
+              href="https://www.facebook.com/profile.php?id=61592854388655"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="grid h-10 w-10 place-items-center rounded-full border border-border/50 bg-muted/30 text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
+            >
               <span className="sr-only">Facebook</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg>
             </a>
-            <a href="https://www.tiktok.com/@taviorders" target="_blank" rel="noopener noreferrer" className="grid h-10 w-10 place-items-center rounded-full border border-border/50 bg-muted/30 text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary">
+            <a
+              href="https://www.tiktok.com/@taviorders"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="grid h-10 w-10 place-items-center rounded-full border border-border/50 bg-muted/30 text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
+            >
               <span className="sr-only">TikTok</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+              </svg>
             </a>
           </div>
         </div>
-        
+
         <div className="md:col-span-7 lg:col-span-8 lg:ml-auto">
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:gap-12">
             <div>
               <h3 className="text-sm font-bold tracking-wider text-foreground">Producto</h3>
               <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
                 <li>
-                  <a href="#features" className="transition-colors hover:text-primary">Funcionalidades</a>
+                  <a href="#features" className="transition-colors hover:text-primary">
+                    Funcionalidades
+                  </a>
                 </li>
                 <li>
-                  <a href="#how" className="transition-colors hover:text-primary">Cómo funciona</a>
+                  <a href="#how" className="transition-colors hover:text-primary">
+                    Cómo funciona
+                  </a>
                 </li>
                 <li>
-                  <a href="#pricing" className="transition-colors hover:text-primary">Precios</a>
+                  <a href="#pricing" className="transition-colors hover:text-primary">
+                    Precios
+                  </a>
                 </li>
                 <li>
-                  <a href="#showcase" className="transition-colors hover:text-primary">Casos de éxito</a>
+                  <a href="#showcase" className="transition-colors hover:text-primary">
+                    Casos de éxito
+                  </a>
                 </li>
               </ul>
             </div>
@@ -1144,13 +866,19 @@ function Footer() {
               <h3 className="text-sm font-bold tracking-wider text-foreground">Soporte</h3>
               <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
                 <li>
-                  <Link to="/support" className="transition-colors hover:text-primary">Centro de Ayuda</Link>
+                  <Link to="/support" className="transition-colors hover:text-primary">
+                    Centro de Ayuda
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-primary">Guías y tutoriales</a>
+                  <a href="#" className="transition-colors hover:text-primary">
+                    Guías y tutoriales
+                  </a>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-primary">Contacto</a>
+                  <a href="#" className="transition-colors hover:text-primary">
+                    Contacto
+                  </a>
                 </li>
               </ul>
             </div>
@@ -1158,27 +886,35 @@ function Footer() {
               <h3 className="text-sm font-bold tracking-wider text-foreground">Legal</h3>
               <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
                 <li>
-                  <a href="#" className="transition-colors hover:text-primary">Términos de servicio</a>
+                  <a href="#" className="transition-colors hover:text-primary">
+                    Términos de servicio
+                  </a>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-primary">Privacidad</a>
+                  <a href="#" className="transition-colors hover:text-primary">
+                    Privacidad
+                  </a>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-primary">Cookies</a>
+                  <a href="#" className="transition-colors hover:text-primary">
+                    Cookies
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      
+
       <div className="relative mx-auto mt-16 max-w-6xl px-6">
         <div className="flex flex-col-reverse items-center justify-between gap-5 border-t border-border/60 pt-8 md:flex-row">
           <p className="text-sm text-muted-foreground/80">
-            © {new Date().getFullYear()} TAVI. <span className="hidden sm:inline">Todos los derechos reservados.</span>
+            © {new Date().getFullYear()} TAVI.{" "}
+            <span className="hidden sm:inline">Todos los derechos reservados.</span>
           </p>
           <div className="flex items-center gap-1.5 text-sm font-medium text-foreground">
-            <span className="text-muted-foreground">Hecho con sazón en</span> 🇨🇴 <span className="ml-1 tracking-tight">Cúcuta, Colombia</span>
+            <span className="text-muted-foreground">Hecho con sazón en</span> 🇨🇴{" "}
+            <span className="ml-1 tracking-tight">Cúcuta, Colombia</span>
           </div>
         </div>
       </div>

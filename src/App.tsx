@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import Pricing from "@/pages/Pricing";
 import { Landing } from "@/pages/Landing";
 import { Support } from "@/pages/Support";
 import { NotFound } from "@/pages/NotFound";
@@ -10,6 +11,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/precios" element={<Pricing />} />
         <Route path="/support" element={<Support />} />
         <Route path="/soporte" element={<Navigate to="/support" replace />} />
         <Route path="*" element={<NotFound />} />
