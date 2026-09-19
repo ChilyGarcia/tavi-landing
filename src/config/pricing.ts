@@ -18,7 +18,7 @@ export const PLANS = [
     highlights: [
       { text: 'Usuarios y tarjetas ilimitados, hasta 3 sedes' },
       { text: 'Pantalla TV: llamador de turnos y carrusel' },
-      { text: '1.000 facturas electrónicas DIAN al mes', dian: true },
+      { text: '30 facturas electrónicas DIAN al mes', dian: true },
       { text: 'Asesor de cuenta dedicado' },
     ],
   },
@@ -30,7 +30,7 @@ export const PLANS = [
     highlights: [
       { text: 'Todo el Esencial, con más equipo' },
       { text: 'Anuncios y promociones en tu menú QR' },
-      { text: '500 facturas electrónicas DIAN al mes', dian: true },
+      { text: '30 facturas electrónicas DIAN al mes', dian: true },
       { text: 'Soporte prioritario' },
     ],
   },
@@ -128,7 +128,7 @@ export const TABLE_CATEGORIES = [
     name: "Facturación DIAN",
     isDian: true,
     features: [
-      { name: "Facturas electrónicas incluidas al mes", e: "— (compra bolsas)", p: "500", v: "1.000" },
+      { name: "Facturas electrónicas incluidas al mes", e: "— (compra bolsas)", p: "30", v: "30" },
       { name: "Bolsas de facturas desde $20.000", e: true, p: true, v: true },
       { name: "Habilitación DIAN", e: "$150.000", p: "Gratis en anual", v: "Gratis" },
     ],

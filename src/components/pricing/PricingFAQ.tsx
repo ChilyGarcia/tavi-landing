@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 const FAQS = [
   {
     q: "¿Cómo funciona la Facturación Electrónica DIAN?",
-    a: "Los planes Pro y VIP incluyen 500 y 1.000 facturas mensuales respectivamente. Para el plan Esencial o si necesitas más facturas, puedes adquirir bolsas adicionales que no vencen durante 6 meses (Próximamente).",
+    a: "Los planes Pro y VIP incluyen 30 facturas mensuales. Para el plan Esencial o si necesitas más facturas, puedes adquirir bolsas adicionales que no vencen durante 6 meses (Próximamente).",
   },
   {
     q: "¿Cuáles son los métodos de pago aceptados para suscribirse?",
