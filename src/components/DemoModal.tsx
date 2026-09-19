@@ -127,22 +127,19 @@ export function DemoModal({
         onOpenChange(value);
       }}
     >
-      <DialogContent className="max-h-[90vh] overflow-y-auto p-0 sm:max-w-lg">
-        <div
-          className="relative overflow-hidden px-6 pb-6 pt-7 text-primary-foreground"
-          style={{ background: "var(--gradient-hero)" }}
-        >
-          <div className="tavi-grain pointer-events-none absolute inset-0 opacity-20" />
-          <DialogHeader className="relative">
-            <div className="flex items-center gap-3">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/15 backdrop-blur-sm">
-                <ChefHat className="h-5 w-5" />
-              </span>
+      <DialogContent className="max-h-[90vh] overflow-y-auto p-0 sm:max-w-[550px] sm:rounded-3xl border-0 shadow-2xl">
+        <div className="relative overflow-hidden bg-slate-900 px-6 pb-8 pt-8 sm:px-8 sm:pt-10">
+          <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/20 blur-3xl pointer-events-none" />
+          <DialogHeader className="relative z-10 text-left">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary text-white shadow-lg">
+                <ChefHat className="h-7 w-7" />
+              </div>
               <div>
-                <DialogTitle className="font-display text-2xl text-primary-foreground">
+                <DialogTitle className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
                   Solicita tu demo
                 </DialogTitle>
-                <DialogDescription className="text-primary-foreground/85">
+                <DialogDescription className="text-slate-300 mt-1.5 text-sm sm:text-base">
                   Déjanos tus datos y te contactamos en menos de 24 horas.
                 </DialogDescription>
               </div>
@@ -150,117 +147,141 @@ export function DemoModal({
           </DialogHeader>
         </div>
 
-        <form className="grid gap-4 px-6 pb-6 pt-5" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="botcheck"
-            tabIndex={-1}
-            autoComplete="off"
-            value={form.botcheck}
-            onChange={(e) => updateField("botcheck", e.target.value)}
-            className="absolute left-[-9999px] h-0 w-0 opacity-0"
-            aria-hidden="true"
-          />
+        <form className="bg-white flex flex-col" onSubmit={handleSubmit}>
+          <div className="grid gap-6 px-6 py-6 sm:px-8 sm:py-8">
+            <input
+              type="text"
+              name="botcheck"
+              tabIndex={-1}
+              autoComplete="off"
+              value={form.botcheck}
+              onChange={(e) => updateField("botcheck", e.target.value)}
+              className="absolute left-[-9999px] h-0 w-0 opacity-0"
+              aria-hidden="true"
+            />
 
-          <div className="grid gap-1.5">
-            <Label>¿Qué plan te interesa?</Label>
-            <div className="flex flex-wrap gap-2">
-              {PLAN_CHOICES.map((choice) => {
-                const plan = PLANS.find((p) => p.name === choice);
-                const selected = form.plan === choice;
-                return (
-                  <button
-                    key={choice}
-                    type="button"
-                    onClick={() => updateField("plan", choice)}
-                    aria-pressed={selected}
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ${
-                      selected
-                        ? "border-primary bg-primary text-primary-foreground shadow-[var(--shadow-soft)]"
-                        : "border-border bg-card text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {selected && <Check className="h-3 w-3" />}
-                    {plan ? plan.name.replace("Plan ", "") : "No estoy seguro"}
-                  </button>
+            <div className="grid gap-3">
+              <Label className="text-base font-bold text-slate-900">¿Qué plan te interesa?</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-3">
+                {PLAN_CHOICES.map((choice) => {
+                  const plan = PLANS.find((p) => p.name === choice);
+                  const selected = form.plan === choice;
+                  return (
+                    <button
+                      key={choice}
+                      type="button"
+                      onClick={() => updateField("plan", choice)}
+                      aria-pressed={selected}
+                      className={`relative flex items-center justify-center rounded-xl border-2 px-3 py-3 text-xs sm:text-sm font-bold transition-all ${
+                        selected
+                          ? "border-primary bg-primary/5 text-primary"
+                          : "border-slate-100 bg-white text-slate-600 hover:border-slate-200 hover:bg-slate-50"
+                      }`}
+                    >
+                      {selected && (
+                        <div className="absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-white">
+                          <Check className="h-3 w-3" />
+                        </div>
+                      )}
+                      {plan ? plan.name.replace("Plan ", "") : "Asesoría"}
+                    </button>
+                  );
+                })}
+              </div>
+              {(() => {
+                const plan = PLANS.find((p) => p.name === form.plan);
+                return plan ? (
+                  <p className="text-xs sm:text-sm font-medium text-slate-500 mt-1">
+                    ${formatCOP(plan.monthly)} COP / mes · {plan.forWho}
+                  </p>
+                ) : (
+                  <p className="text-xs sm:text-sm font-medium text-slate-500 mt-1">
+                    Sin problema, te ayudamos a elegir el plan ideal para tu negocio.
+                  </p>
                 );
-              })}
+              })()}
             </div>
-            {(() => {
-              const plan = PLANS.find((p) => p.name === form.plan);
-              return plan ? (
-                <p className="text-xs text-muted-foreground">
-                  ${formatCOP(plan.monthly)} COP / mes · {plan.forWho}
-                </p>
-              ) : (
-                <p className="text-xs text-muted-foreground">
-                  Sin problema, te ayudamos a elegir el plan ideal para tu negocio.
-                </p>
-              );
-            })()}
+
+            <div className="grid gap-2">
+              <Label htmlFor="restaurante" className="font-bold text-slate-700">Nombre del restaurante</Label>
+              <Input
+                id="restaurante"
+                required
+                value={form.restaurante}
+                onChange={(e) => updateField("restaurante", e.target.value)}
+                placeholder="La Casa del Sabor"
+                className="rounded-xl border-slate-200 focus-visible:ring-primary"
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="contacto" className="font-bold text-slate-700">Tu nombre</Label>
+              <Input
+                id="contacto"
+                required
+                value={form.contacto}
+                onChange={(e) => updateField("contacto", e.target.value)}
+                placeholder="María González"
+                className="rounded-xl border-slate-200 focus-visible:ring-primary"
+              />
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-2">
+                <Label htmlFor="email" className="font-bold text-slate-700">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  required
+                  value={form.email}
+                  onChange={(e) => updateField("email", e.target.value)}
+                  placeholder="tu@restaurante.com"
+                  className="rounded-xl border-slate-200 focus-visible:ring-primary"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="telefono" className="font-bold text-slate-700">Teléfono</Label>
+                <Input
+                  id="telefono"
+                  required
+                  value={form.telefono}
+                  onChange={(e) => updateField("telefono", e.target.value)}
+                  placeholder="+57 300 123 4567"
+                  className="rounded-xl border-slate-200 focus-visible:ring-primary"
+                />
+              </div>
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="mensaje" className="font-bold text-slate-700">Cuéntanos qué necesitas (opcional)</Label>
+              <Textarea
+                id="mensaje"
+                rows={3}
+                value={form.mensaje}
+                onChange={(e) => updateField("mensaje", e.target.value)}
+                placeholder="Ej: queremos pedidos por QR y ver métricas por sede."
+                className="rounded-xl border-slate-200 focus-visible:ring-primary resize-none"
+              />
+            </div>
           </div>
 
-          <div className="grid gap-1.5">
-            <Label htmlFor="restaurante">Nombre del restaurante</Label>
-            <Input
-              id="restaurante"
-              required
-              value={form.restaurante}
-              onChange={(e) => updateField("restaurante", e.target.value)}
-              placeholder="La Casa del Sabor"
-            />
-          </div>
-          <div className="grid gap-1.5">
-            <Label htmlFor="contacto">Tu nombre</Label>
-            <Input
-              id="contacto"
-              required
-              value={form.contacto}
-              onChange={(e) => updateField("contacto", e.target.value)}
-              placeholder="María González"
-            />
-          </div>
-          <div className="grid gap-2 sm:grid-cols-2">
-            <div className="grid gap-1.5">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                required
-                value={form.email}
-                onChange={(e) => updateField("email", e.target.value)}
-                placeholder="tu@restaurante.com"
-              />
-            </div>
-            <div className="grid gap-1.5">
-              <Label htmlFor="telefono">Teléfono</Label>
-              <Input
-                id="telefono"
-                required
-                value={form.telefono}
-                onChange={(e) => updateField("telefono", e.target.value)}
-                placeholder="+573001234567"
-              />
-            </div>
-          </div>
-          <div className="grid gap-1.5">
-            <Label htmlFor="mensaje">Cuéntanos qué necesitas (opcional)</Label>
-            <Textarea
-              id="mensaje"
-              rows={3}
-              value={form.mensaje}
-              onChange={(e) => updateField("mensaje", e.target.value)}
-              placeholder="Ej: queremos pedidos por QR y ver métricas por sede."
-            />
-          </div>
-          <DialogFooter>
-            <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+          <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 bg-slate-50 px-6 py-5 sm:px-8 border-t border-slate-100 rounded-b-3xl">
+            <Button 
+              type="button" 
+              variant="ghost" 
+              onClick={() => onOpenChange(false)}
+              className="w-full sm:w-auto rounded-xl font-bold text-slate-500 hover:text-slate-700 hover:bg-slate-200"
+            >
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button 
+              type="submit" 
+              disabled={loading}
+              className="w-full sm:w-auto rounded-xl bg-primary hover:bg-primary/90 text-white font-bold px-8 shadow-sm"
+            >
               {loading ? "Enviando..." : "Enviar solicitud"}
             </Button>
-          </DialogFooter>
+          </div>
         </form>
       </DialogContent>
     </Dialog>

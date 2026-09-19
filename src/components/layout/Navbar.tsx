@@ -73,7 +73,16 @@ export function Navbar({ onDemo }: NavbarProps) {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
-        <Link to="/" onClick={(e) => scrollToSection(e, "top")}>
+        <Link 
+          to="/" 
+          onClick={(e) => {
+            if (!isHome) {
+              return; // Let the router handle navigation to "/"
+            }
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
           <TaviLogo />
         </Link>
         

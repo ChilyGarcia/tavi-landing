@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { PricingHero } from "@/components/pricing/PricingHero";
 import { PricingCards } from "@/components/pricing/PricingCards";
 import { PricingModules } from "@/components/pricing/PricingModules";
@@ -13,9 +12,7 @@ import { PricingMigrationBanner } from "@/components/pricing/PricingMigrationBan
 import { PricingDianSection } from "@/components/pricing/PricingDianSection";
 import { PricingFAQ } from "@/components/pricing/PricingFAQ";
 import { PricingCTA } from "@/components/pricing/PricingCTA";
-
-// We will build PricingHero, PricingCards, etc.
-// For now, this is a scaffold.
+import { DemoModal } from "@/components/DemoModal";
 
 export default function Pricing() {
   const [showDemoModal, setShowDemoModal] = useState(false);
@@ -53,18 +50,7 @@ export default function Pricing() {
 
       <Footer />
 
-      {/* Demo Modal (Reused logic) */}
-      <Dialog open={showDemoModal} onOpenChange={setShowDemoModal}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogTitle>Agenda tu demostración</DialogTitle>
-          <DialogDescription>
-            Déjanos tus datos y te mostraremos cómo TAVI puede ayudar a tu restaurante.
-          </DialogDescription>
-          <div className="grid gap-4 py-4">
-            <p className="text-sm text-muted-foreground">Formulario en construcción...</p>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <DemoModal open={showDemoModal} onOpenChange={setShowDemoModal} />
     </div>
   );
 }
