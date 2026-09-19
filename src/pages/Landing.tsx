@@ -230,7 +230,7 @@ function WhyChooseUs() {
         
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((reason, i) => (
-            <Reveal key={i} delay={i * 100} from="bottom">
+            <Reveal key={i} delay={i * 100} from="up">
               <div className="flex h-full flex-col items-center text-center gap-4 rounded-[2rem] bg-muted/30 p-8 border border-border/50 hover:border-primary/20 hover:bg-muted/50 transition-colors">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 shadow-inner">
                   {reason.icon}

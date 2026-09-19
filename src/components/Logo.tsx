@@ -34,9 +34,12 @@ type TaviLogoProps = {
 };
 
 export function TaviLogo({
+  withWordmark,
   className,
+  badgeClassName,
+  markClassName,
   wordmarkClassName,
-}: { className?: string; wordmarkClassName?: string }) {
+}: TaviLogoProps) {
   return (
     <span className={cn("flex items-center gap-2.5", className)}>
       <span
