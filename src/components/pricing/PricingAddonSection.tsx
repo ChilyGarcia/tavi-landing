@@ -8,10 +8,10 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
   return (
     <section id="inventario-addon" className="bg-[#FAF9F6] py-16 px-6 border-y border-slate-200/60">
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col lg:flex-row gap-12 items-center">
+        <div className="flex flex-col gap-12 items-center text-center sm:text-left">
           
-          {/* Left Column (Text & Features) */}
-          <div className="w-full lg:w-[60%] flex flex-col">
+          {/* Main Content (Text & Features) */}
+          <div className="w-full max-w-3xl flex flex-col">
             <div className="mb-6">
               <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary mb-4">
                 Add-on
@@ -121,29 +121,7 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
 
           </div>
 
-          {/* Right Column (Image Slot) */}
-          <div className="w-full lg:w-[40%] flex justify-center">
-            <div className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[3/4] bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden flex items-center justify-center p-4">
-              <div className="absolute inset-0 bg-slate-50"></div>
-              {/* Placeholder for the screenshot */}
-              <div className="relative z-10 text-center space-y-4">
-                <Package className="h-12 w-12 text-slate-300 mx-auto" />
-                <p className="text-sm font-medium text-slate-400">
-                  Panel de Inventario y Recetas<br/>(Próximamente Captura Real)
-                </p>
-              </div>
-              
-              {/* Optional: Actual image tag for later 
-              <img 
-                src="/images/features/inventory-panel.png" 
-                alt="Panel de inventario TAVI mostrando stock de ingredientes y costo por plato"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              */}
-            </div>
           </div>
-
-        </div>
         
         {/* Upsell Visual (Mobile Only) */}
         <div className="flex lg:hidden flex-col mt-8">
