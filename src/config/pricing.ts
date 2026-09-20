@@ -14,9 +14,10 @@ export const PLANS = [
     id: 'vip', name: 'VIP Ilimitado',
     forWho: 'Para cadenas y negocios de alto flujo.',
     monthly: 199900, annual: 1999000, highlighted: false,
-    limits: { users: -1, branches: 3, loyaltyCards: -1, dianDocs: 1000 },
+    limits: { users: -1, branches: 2, loyaltyCards: -1, dianDocs: 1000 },
     highlights: [
-      { text: 'Usuarios y tarjetas ilimitados, hasta 3 sedes' },
+      { text: 'Usuarios y tarjetas ilimitados, 2 sedes (adicionales a cotizar)' },
+      { text: 'Inventario y recetas incluido' },
       { text: 'Pantalla TV: llamador de turnos y carrusel' },
       { text: '30 facturas electrónicas DIAN al mes', dian: true },
       { text: 'Asesor de cuenta dedicado' },
@@ -114,8 +115,17 @@ export const TABLE_CATEGORIES = [
     name: "Equipo y sedes",
     features: [
       { name: "Usuarios", e: "2", p: "10", v: "Ilimitados" },
-      { name: "Sedes", e: "1", p: "1", v: "Hasta 3" },
+      { name: "Sedes", e: "1", p: "1", v: "2 (adicionales a cotizar)" },
       { name: "Roles y permisos personalizados", e: true, p: true, v: true },
+    ],
+  },
+  {
+    name: "Inventario y Recetas",
+    features: [
+      { name: "Control de stock en tiempo real", e: "Add-on $29.900", p: "Add-on $29.900", v: "✓ Incluido" },
+      { name: "Recetas con descuento automático", e: "Add-on $29.900", p: "Add-on $29.900", v: "✓ Incluido" },
+      { name: "Costo real por plato", e: "Add-on $29.900", p: "Add-on $29.900", v: "✓ Incluido" },
+      { name: "Alertas de stock bajo", e: "Add-on $29.900", p: "Add-on $29.900", v: "✓ Incluido" },
     ],
   },
   {
@@ -140,3 +150,19 @@ export const TABLE_CATEGORIES = [
     ],
   },
 ];
+
+export const ADDONS = [
+  {
+    id: 'inventario',
+    name: 'Inventario y Recetas',
+    description: 'Control de stock, recetas con descuento automático y costo real por plato.',
+    monthly: 29900,
+    includedInPlans: ['vip'], // gratis en estos planes
+    availableForPlans: ['esencial', 'pro'], // se puede comprar en estos
+    highlights: [
+      { icon: 'Package', text: 'Inventario en tiempo real con alertas de stock bajo' },
+      { icon: 'ChefHat', text: 'Recetas vinculadas: cada venta descuenta ingredientes' },
+      { icon: 'TrendingUp', text: 'Costo real por plato vs precio de venta' },
+    ],
+  },
+] as const;

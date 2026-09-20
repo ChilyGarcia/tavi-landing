@@ -78,6 +78,21 @@ export function PricingDetailedTable() {
   const renderValue = (val: string | boolean) => {
     if (val === true) return <Check className="h-5 w-5 text-emerald-500 mx-auto sm:mx-0" />;
     if (val === false) return <Minus className="h-5 w-5 text-slate-300 mx-auto sm:mx-0" />;
+    
+    if (typeof val === "string" && val.startsWith("Add-on")) {
+      return (
+        <a 
+          href="#inventario-addon" 
+          className="inline-flex items-center rounded-md bg-amber-100/80 px-2.5 py-1 text-xs font-bold text-amber-800 hover:bg-amber-200/80 transition-colors cursor-pointer"
+        >
+          {val.includes("29.900") ? "+$29.9K/mes" : val}
+        </a>
+      );
+    }
+    if (typeof val === "string" && val === "✓ Incluido") {
+      return <span className="text-sm font-bold text-emerald-600">{val}</span>;
+    }
+    
     return <span className="text-sm font-semibold text-slate-700">{val}</span>;
   };
 

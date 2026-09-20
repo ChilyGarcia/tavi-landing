@@ -39,7 +39,7 @@ function msUntilNextSubmit(): number {
 
 export function DemoModal({
   open,
-  onOpenChange,
+  onOpenChange: setOpenChange,
   initialPlan,
 }: {
   open: boolean;
@@ -68,7 +68,7 @@ export function DemoModal({
 
     // Campo trampa: invisible para personas, los bots suelen rellenar todos los inputs.
     if (form.botcheck) {
-      onOpenChange(false);
+      setOpenChange(false);
       resetForm();
       return;
     }
@@ -106,7 +106,7 @@ export function DemoModal({
       }
 
       localStorage.setItem(LAST_SUBMIT_KEY, String(Date.now()));
-      onOpenChange(false);
+      setOpenChange(false);
       resetForm();
       toast.success("¡Solicitud enviada!", {
         description: "Te contactamos en menos de 24 horas para activar tu cuenta.",
@@ -124,31 +124,31 @@ export function DemoModal({
       open={open}
       onOpenChange={(value) => {
         if (!value) resetForm();
-        onOpenChange(value);
+        setOpenChange(value);
       }}
     >
-      <DialogContent className="max-h-[90vh] overflow-y-auto p-0 sm:max-w-[550px] sm:rounded-3xl border-0 shadow-2xl">
-        <div className="relative overflow-hidden bg-slate-900 px-6 pb-8 pt-8 sm:px-8 sm:pt-10">
+      <DialogContent className="max-h-[90vh] sm:max-h-[85vh] overflow-hidden flex flex-col p-0 w-[95vw] sm:max-w-[550px] rounded-2xl sm:rounded-3xl border-0 shadow-2xl [&>button]:text-white [&>button]:hover:bg-white/20 [&>button]:z-50">
+        <div className="relative shrink-0 overflow-hidden bg-slate-900 px-4 pb-4 pt-4 sm:px-8 sm:pb-6 sm:pt-8">
           <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/20 blur-3xl pointer-events-none" />
           <DialogHeader className="relative z-10 text-left">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary text-white shadow-lg">
-                <ChefHat className="h-7 w-7" />
+            <div className="flex flex-row items-center gap-3 sm:gap-5">
+              <div className="flex h-10 w-10 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-primary text-white shadow-lg">
+                <ChefHat className="h-5 w-5 sm:h-7 sm:w-7" />
               </div>
               <div>
-                <DialogTitle className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                <DialogTitle className="font-display text-xl sm:text-3xl font-bold text-white tracking-tight">
                   Solicita tu demo
                 </DialogTitle>
-                <DialogDescription className="text-slate-300 mt-1.5 text-sm sm:text-base">
-                  Déjanos tus datos y te contactamos en menos de 24 horas.
+                <DialogDescription className="text-slate-300 mt-0.5 sm:mt-1.5 text-xs sm:text-base leading-tight">
+                  Déjanos tus datos y te contactamos rápido.
                 </DialogDescription>
               </div>
             </div>
           </DialogHeader>
         </div>
 
-        <form className="bg-white flex flex-col" onSubmit={handleSubmit}>
-          <div className="grid gap-6 px-6 py-6 sm:px-8 sm:py-8">
+        <form className="bg-white flex flex-col overflow-y-auto" onSubmit={handleSubmit}>
+          <div className="grid gap-3 sm:gap-6 px-4 py-4 sm:px-8 sm:py-8">
             <input
               type="text"
               name="botcheck"
@@ -162,7 +162,7 @@ export function DemoModal({
 
             <div className="grid gap-3">
               <Label className="text-base font-bold text-slate-900">¿Qué plan te interesa?</Label>
-              <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 {PLAN_CHOICES.map((choice) => {
                   const plan = PLANS.find((p) => p.name === choice);
                   const selected = form.plan === choice;
@@ -172,7 +172,7 @@ export function DemoModal({
                       type="button"
                       onClick={() => updateField("plan", choice)}
                       aria-pressed={selected}
-                      className={`relative flex items-center justify-center rounded-xl border-2 px-3 py-3 text-xs sm:text-sm font-bold transition-all ${
+                      className={`relative flex items-center justify-center text-center leading-tight rounded-xl border-2 px-2 py-2.5 sm:px-3 sm:py-3 text-[11px] sm:text-sm font-bold transition-all ${
                         selected
                           ? "border-primary bg-primary/5 text-primary"
                           : "border-slate-100 bg-white text-slate-600 hover:border-slate-200 hover:bg-slate-50"
@@ -265,11 +265,11 @@ export function DemoModal({
             </div>
           </div>
 
-          <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 bg-slate-50 px-6 py-5 sm:px-8 border-t border-slate-100 rounded-b-3xl">
+          <div className="flex flex-col-reverse sm:flex-row shrink-0 items-center justify-end gap-2 sm:gap-3 bg-slate-50 px-4 py-3 sm:px-8 sm:py-5 border-t border-slate-100 rounded-b-3xl">
             <Button 
               type="button" 
               variant="ghost" 
-              onClick={() => onOpenChange(false)}
+              onClick={() => setOpenChange(false)}
               className="w-full sm:w-auto rounded-xl font-bold text-slate-500 hover:text-slate-700 hover:bg-slate-200"
             >
               Cancelar

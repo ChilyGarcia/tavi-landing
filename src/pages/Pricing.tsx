@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PricingHero } from "@/components/pricing/PricingHero";
 import { PricingCards } from "@/components/pricing/PricingCards";
+import { PricingAddonSection } from "@/components/pricing/PricingAddonSection";
 import { PricingModules } from "@/components/pricing/PricingModules";
 import { PricingDetailedTable } from "@/components/pricing/PricingDetailedTable";
 import { PricingComparison } from "@/components/pricing/PricingComparison";
@@ -32,6 +33,7 @@ export default function Pricing() {
       <main className="flex-1">
         <PricingHero billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
         <PricingCards billingCycle={billingCycle} onDemo={() => setShowDemoModal(true)} />
+        <PricingAddonSection onDemo={() => setShowDemoModal(true)} />
         <PricingModules />
         <PricingDetailedTable />
 
