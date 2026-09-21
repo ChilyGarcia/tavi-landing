@@ -92,11 +92,9 @@ export function PricingCards({ billingCycle, onDemo }: PricingCardsProps) {
                   <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ${isPro ? "bg-primary/10 text-primary/80" : "bg-slate-100 text-slate-700"}`}>
                     {plan.limits.branches} sede{plan.limits.branches > 1 ? "s" : ""}
                   </span>
-                  {plan.limits.loyaltyCards !== 0 && (
-                    <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ${isPro ? "bg-primary/10 text-primary/80" : "bg-slate-100 text-slate-700"}`}>
-                      {plan.limits.loyaltyCards === -1 ? "Tarjetas ilimitadas" : `${plan.limits.loyaltyCards} tarjetas VIP`}
-                    </span>
-                  )}
+                  <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ${isPro ? "bg-primary/10 text-primary/80" : "bg-slate-100 text-slate-700"}`}>
+                    {plan.limits.loyaltyCards === -1 ? "Tarjetas ilimitadas" : `${plan.limits.loyaltyCards} tarjetas VIP`}
+                  </span>
                 </div>
 
                 <div className="my-8 h-px w-full bg-slate-100" />
