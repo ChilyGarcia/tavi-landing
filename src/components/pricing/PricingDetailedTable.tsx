@@ -127,9 +127,9 @@ export function PricingDetailedTable() {
           ))}
         </div>
 
-        <div className="bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden relative">
+        <div className="bg-white rounded-[2rem] border border-slate-200 shadow-sm relative overflow-clip">
           {/* Desktop Header (Sticky) */}
-          <div className="hidden sm:grid grid-cols-4 border-b border-slate-200 bg-slate-50/95 sticky top-[72px] z-20 backdrop-blur-md">
+          <div className="hidden sm:grid grid-cols-4 border-b border-slate-200 bg-slate-50/95 sticky top-0 z-20 backdrop-blur-md">
             <div className="p-5 flex items-end">
               <span className="font-bold text-slate-900">Características</span>
             </div>
