@@ -1,7 +1,7 @@
 export type BillingCycle = "monthly" | "annual";
 
 export const PRICING_FLAGS = {
-  dianAvailable: true, // DIAN ya está activa
+  dianAvailable: false, // DIAN aún no implementada según README
   pricesIncludeVAT: false, // "+ IVA"
   noLockIn: true, // TODO(Juan): confirmar
   freeMigration: true, // TODO(Juan): confirmar
@@ -27,7 +27,7 @@ export const PLANS = [
     id: 'pro', name: 'Pro Fidelidad', badge: 'MÁS POPULAR',
     forWho: 'Para negocios en crecimiento que quieren que sus clientes vuelvan.',
     monthly: 99900, annual: 999000, highlighted: true,
-    limits: { users: 10, branches: 1, loyaltyCards: 50, dianDocs: 500 },
+    limits: { users: 10, branches: 1, loyaltyCards: 100, dianDocs: 500 },
     highlights: [
       { text: 'Todo el Esencial, con más equipo' },
       { text: 'Anuncios y promociones en tu menú QR' },
@@ -39,7 +39,7 @@ export const PLANS = [
     id: 'esencial', name: 'Esencial',
     forWho: 'Para negocios de un local que quieren ordenar su operación.',
     monthly: 55000, annual: 550000, highlighted: false,
-    limits: { users: 2, branches: 1, loyaltyCards: 0, dianDocs: 0 },
+    limits: { users: 2, branches: 1, loyaltyCards: 30, dianDocs: 0 },
     highlights: [
       { text: 'Sistema operativo completo: QR, sala, cocina, caja' },
       { text: 'Pedidos ilimitados' },
@@ -88,8 +88,10 @@ export const TABLE_CATEGORIES = [
     features: [
       { name: "Pedidos", e: "Ilimitados", p: "Ilimitados", v: "Ilimitados" },
       { name: "Mesa, recoger y domicilio con mapa", e: true, p: true, v: true },
+      { name: "Gestión de domiciliarios y comisiones", e: true, p: true, v: true },
       { name: "Reserva de mesa y seguimiento en vivo", e: true, p: true, v: true },
-      { name: "Varias cartas, cartas por día y personalización", e: true, p: true, v: true },
+      { name: "Varias cartas y personalización", e: true, p: true, v: true },
+      { name: "Link propio (ej: tu-restaurante.taviorders.com)", e: true, p: true, v: true },
     ],
   },
   {
@@ -105,7 +107,7 @@ export const TABLE_CATEGORIES = [
   {
     name: "Clientes y marketing",
     features: [
-      { name: "Tarjetas VIP en Google Wallet", e: false, p: "Hasta 50", v: "Ilimitadas" },
+      { name: "Tarjetas VIP en Google Wallet / Apple Wallet", e: "Hasta 30", p: "Hasta 100", v: "Ilimitadas" },
       { name: "Referidos y antifraude", e: false, p: true, v: true },
       { name: "Anuncios y promociones en el menú", e: false, p: true, v: true },
       { name: "Pantalla TV: turnos y carrusel", e: false, p: false, v: true },
@@ -132,6 +134,7 @@ export const TABLE_CATEGORIES = [
     name: "Reportes",
     features: [
       { name: "Dashboard y exportación a Excel", e: true, p: true, v: true },
+      { name: "Asesor de Negocio con IA (Análisis de ventas)", e: false, p: false, v: true },
     ],
   },
   {
@@ -147,6 +150,7 @@ export const TABLE_CATEGORIES = [
     name: "Soporte",
     features: [
       { name: "Canal", e: "WhatsApp", p: "Prioritario", v: "Asesor dedicado" },
+      { name: "Asistente TAVI con IA (Ayuda de uso)", e: true, p: true, v: true },
     ],
   },
 ];

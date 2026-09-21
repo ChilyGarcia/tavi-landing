@@ -102,14 +102,15 @@ export function PricingCards({ billingCycle, onDemo }: PricingCardsProps) {
                 <div className="my-8 h-px w-full bg-slate-100" />
 
                 <ul className="flex-1 space-y-4 mb-8">
-                  {plan.highlights.map((highlight, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <Check className={`mt-0.5 h-4 w-4 shrink-0 ${isPro ? "text-primary" : "text-amber-600"}`} />
-                      <span className="text-sm text-slate-700">
-                        {highlight.text}
-                     
-                      </span>
-                    </li>
+                  {plan.highlights
+                    .filter((h) => !("dian" in h) || !h.dian || PRICING_FLAGS.dianAvailable)
+                    .map((highlight, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <Check className={`mt-0.5 h-4 w-4 shrink-0 ${isPro ? "text-primary" : "text-amber-600"}`} />
+                        <span className="text-sm text-slate-700">
+                          {highlight.text}
+                        </span>
+                      </li>
                   ))}
                 </ul>
 
