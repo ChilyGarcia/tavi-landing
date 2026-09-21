@@ -14,6 +14,7 @@ const SITE_URL = (process.env.SITE_URL ?? "https://taviorders.com").replace(/\/$
 const routes = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/support", changefreq: "monthly", priority: "0.5" },
+  { path: "/directorio", changefreq: "weekly", priority: "0.8" },
 ];
 
 const today = new Date().toISOString().slice(0, 10);
