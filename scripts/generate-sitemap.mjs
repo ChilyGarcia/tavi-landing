@@ -13,6 +13,7 @@ const SITE_URL = (process.env.SITE_URL ?? "https://taviorders.com").replace(/\/$
 // crawlers ignoran el fragmento, así que no se listan como URLs aparte.
 const routes = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/precios", changefreq: "weekly", priority: "0.9" },
   { path: "/support", changefreq: "monthly", priority: "0.5" },
   { path: "/directorio", changefreq: "weekly", priority: "0.8" },
 ];

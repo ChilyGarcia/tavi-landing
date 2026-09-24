@@ -21,6 +21,8 @@ import {
   Workflow,
   Printer,
   MonitorPlay,
+  ChevronDown,
+  HelpCircle,
 } from "lucide-react";
 import taviDesktop from "@/assets/tavi-desktop.png";
 import taviTablet from "@/assets/tavi-tablet.png";
@@ -50,12 +52,16 @@ export function Landing() {
 
       <main className="flex-1">
         <Hero onDemo={() => openDemo()} />
+        <Marquee />
         <Features />
+        <Showcase />
         <ValueProposition />
         <HowItWorks />
         <MenuDemo />
+        <WhyChooseUs />
         <Stats />
         <Testimonial />
+        <LandingFAQ />
         <FinalCta />
       </main>
       <Footer />
@@ -71,10 +77,10 @@ function Hero({ onDemo }: { onDemo: () => void }) {
   const words = [
     "restaurante",
     "bar",
-    "almacén",
-    "tienda virtual",
-    "tienda física",
-    "negocio"
+    "cafetería",
+    "pizzería",
+    "dark kitchen",
+    "negocio gastronómico",
   ];
   const [wordIndex, setWordIndex] = useState(0);
   const [fade, setFade] = useState(true);
@@ -100,11 +106,11 @@ function Hero({ onDemo }: { onDemo: () => void }) {
         <div className="relative">
           <Reveal delay={90}>
             <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-[4rem]">
-              El sistema todo-en-uno que organiza y escala tu <br />
+              El software todo-en-uno para gestionar tu <br />
               {/* Contenedor relativo: el texto invisible reserva el espacio máximo, el texto absoluto hace la transición por encima */}
               <span className="relative block">
                 <span className="invisible pointer-events-none" aria-hidden="true">
-                  tienda virtual
+                  negocio gastronómico
                 </span>
                 <span 
                   className={`absolute left-0 top-0 text-primary transition-opacity duration-500 ease-in-out ${fade ? "opacity-100" : "opacity-0"}`}
@@ -117,7 +123,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
 
           <Reveal delay={170}>
             <p className="mt-6 max-w-lg text-lg text-foreground font-medium leading-relaxed">
-              Menú QR VIP, pantallas de cocina (KDS) y facturación electrónica DIAN. Olvídate del caos manual y controla toda tu operación desde una sola plataforma.
+              Tavi Orders centraliza tu sistema POS de punto de venta, menús con código QR en mesas, pantallas de cocina (KDS), facturación electrónica DIAN y fidelización digital. La plataforma FoodTech que escala tu negocio gastronómico.
             </p>
           </Reveal>
 
@@ -196,24 +202,24 @@ function Hero({ onDemo }: { onDemo: () => void }) {
 function WhyChooseUs() {
   const reasons = [
     {
-      title: "Punto de venta y menú digital",
-      desc: "Gestiona todo desde una plataforma.",
-      icon: <Store className="h-7 w-7 text-primary" />,
+      title: "Digitalización de Menú QR",
+      desc: "Cartas interactivas con fotos y pedidos directos en mesa sin comisiones.",
+      icon: <QrCode className="h-7 w-7 text-primary" />,
     },
     {
-      title: "Calidad-precio insuperable",
-      desc: "Soluciones completas desde $55.000/mes.",
+      title: "Control de Comandas (KDS)",
+      desc: "Pantallas de cocina con voz y semáforos de tiempos de preparación.",
+      icon: <MonitorPlay className="h-7 w-7 text-primary" />,
+    },
+    {
+      title: "Facturación Electrónica DIAN",
+      desc: "Documento equivalente electrónico POS integrado y cumplimiento normativo.",
       icon: <ReceiptText className="h-7 w-7 text-primary" />,
     },
     {
-      title: "Gestión centralizada",
-      desc: "Controla inventarios y ventas en tiempo real.",
+      title: "POS e Inventario Gastronómico",
+      desc: "Arqueo de caja al centavo y recetas con descuento automático de insumos.",
       icon: <Layers className="h-7 w-7 text-primary" />,
-    },
-    {
-      title: "Fácil e intuitivo",
-      desc: "Sin configuraciones agotadoras.",
-      icon: <Smartphone className="h-7 w-7 text-primary" />,
     },
   ];
 
@@ -222,9 +228,15 @@ function WhyChooseUs() {
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary mb-3">
+              Ventajas Tavi Orders
+            </span>
             <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
-              ¿Por qué los negocios prefieren TAVI?
+              ¿Por qué los restaurantes prefieren Tavi Orders?
             </h2>
+            <p className="mt-3 text-base text-muted-foreground">
+              Tecnología gastronómica diseñada para eliminar el caos operativo y maximizar la rentabilidad de tu negocio.
+            </p>
           </div>
         </Reveal>
         
@@ -256,39 +268,39 @@ function Marquee() {
         "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=256&h=256&fit=crop",
     },
     {
-      name: "Retail",
-      image:
-        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=256&h=256&fit=crop",
-    },
-    {
-      name: "Minimarkets",
-      image:
-        "https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=256&h=256&fit=crop",
-    },
-    {
-      name: "Moda",
-      image:
-        "https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=256&h=256&fit=crop",
-    },
-    {
-      name: "Bares",
+      name: "Bares & Gastrobares",
       image:
         "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=256&h=256&fit=crop",
     },
     {
-      name: "Cafeterías",
+      name: "Cafeterías & Panaderías",
       image:
         "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=256&h=256&fit=crop",
     },
     {
-      name: "Ferreterías",
+      name: "Pizzerías",
       image:
-        "https://images.unsplash.com/photo-1542887800-faca0261c9e1?q=80&w=256&h=256&fit=crop",
+        "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=256&h=256&fit=crop",
     },
     {
-      name: "Servicios",
+      name: "Hamburgueserías",
       image:
-        "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=256&h=256&fit=crop",
+        "https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=256&h=256&fit=crop",
+    },
+    {
+      name: "Dark Kitchens",
+      image:
+        "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=256&h=256&fit=crop",
+    },
+    {
+      name: "Comidas Rápidas",
+      image:
+        "https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=256&h=256&fit=crop",
+    },
+    {
+      name: "Heladerías & Postres",
+      image:
+        "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?q=80&w=256&h=256&fit=crop",
     },
   ];
   const loop = [...items, ...items, ...items];
@@ -297,7 +309,7 @@ function Marquee() {
     <section className="border-y border-border/60 bg-muted/40 py-12">
       <Reveal>
         <p className="mb-8 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Diseñado para todo tipo de negocio
+          Software gastronómico adaptado a todo tipo de restaurante
         </p>
       </Reveal>
       <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
@@ -309,7 +321,7 @@ function Marquee() {
             >
               <img
                 src={item.image}
-                alt={item.name}
+                alt={`Software para ${item.name} Tavi Orders`}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 transition-colors group-hover:bg-black/40" />
@@ -330,35 +342,34 @@ function Showcase() {
   const dishes = [
     {
       img: foodBurger,
-      label: "Hamburguesas",
-      alt: "Hamburguesa gourmet en carta digital de restaurante gestionada con Tavi",
-      desc: "Órdenes rápidas, ticket promedio arriba.",
+      label: "Hamburguesas & Combos",
+      alt: "Hamburguesa gourmet en menú digital con código QR de Tavi Orders",
+      desc: "Órdenes rápidas, opciones de salsas y ticket promedio arriba.",
     },
     {
       img: foodBowl,
-      label: "Bowls & saludable",
-      alt: "Bowl saludable listo para pedir por QR con el menú digital de Tavi",
-      desc: "Personalización sin errores de cocina.",
+      label: "Bowls & Saludable",
+      alt: "Bowl listo para pedir por QR con la carta digital interactiva de Tavi Orders",
+      desc: "Personalización de ingredientes sin errores en cocina.",
     },
     {
       img: foodDessert,
-      label: "Postres & café",
-      alt: "Postre y café de cafetería publicados en la carta digital de Tavi",
-      desc: "Suma a cada mesa con un tap.",
+      label: "Postres & Cafetería",
+      alt: "Postres y café en el menú digital de Tavi Orders",
+      desc: "Adicionales sugeridos que suman a cada comanda.",
     },
   ];
   return (
     <section id="showcase" className="mx-auto max-w-6xl px-6 py-24">
       <Reveal className="mx-auto max-w-2xl text-center">
         <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
-          Tu carta, tu identidad
+          Digitalización de Cartas y Menús
         </span>
         <h2 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
-          Cada plato, listo para vender.
+          Menús digitales que multiplican tus ventas.
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
-          Publica tu carta con fotos, precios y disponibilidad en tiempo real. Lo que se agota,
-          desaparece de la mesa al instante.
+          Publica tu carta digital interactiva con fotos en alta definición, precios y disponibilidad en tiempo real. Lo que se agota se oculta de la mesa al instante.
         </p>
       </Reveal>
       <div className="mt-14 grid gap-6 md:grid-cols-3">
@@ -428,13 +439,19 @@ function ValueProposition() {
           {/* Columna Tavi */}
           <div className="p-8 md:p-10" style={{ background: "var(--gradient-soft)" }}>
             <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-2">
-              <Check className="h-5 w-5 text-slate-400" /> Sistema TAVI
+              <Check className="h-5 w-5 text-slate-400" /> Sistema Tavi Orders
             </h3>
             <ul className="space-y-4 text-sm font-medium">
               <li className="flex gap-3">
                 <Check className="h-4 w-4 shrink-0 text-slate-400 mt-0.5" />
                 <span>
                   Las ventas viajan directo hasta la pantalla de empaque, despacho o cocina (KDS).
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <Check className="h-4 w-4 shrink-0 text-slate-400 mt-0.5" />
+                <span>
+                  Facturación electrónica y documento equivalente POS DIAN integrado en segundos.
                 </span>
               </li>
               <li className="flex gap-3">
@@ -460,47 +477,47 @@ function ValueProposition() {
 function Features() {
   const modules = [
     {
-      title: "Punto de Venta Completo",
+      title: "Sistema POS y Punto de Venta",
       icon: Store,
       img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
       benefits: [
-        "Configuración de cajas y turnos",
-        "Facturación rápida en 3 clics",
-        "División de cuentas y pagos mixtos",
-        "Cierre de caja al centavo",
+        "Control de mesas, barra y domicilios",
+        "Facturación rápida y división de cuentas",
+        "Arqueo y cierre de caja al centavo",
+        "Compatible con impresoras térmicas y gavetas",
       ],
     },
     {
-      title: "Catálogos y Pedidos QR",
+      title: "Menú Digital QR y Pedidos en Mesas",
       icon: QrCode,
       img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
       benefits: [
-        "Menú digital en tiempo real",
-        "Pedidos directo a la mesa o mostrador",
-        "0% comisiones por pedido",
-        "Integración automática al POS",
+        "Carta interactiva con fotos en alta calidad",
+        "Pedidos directos desde el celular sin descargar apps",
+        "0% comisiones por ventas o pedidos",
+        "Actualizaciones de disponibilidad en tiempo real",
       ],
     },
     {
-      title: "Inventario y Multi-sede",
-      icon: Layers,
-      img: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=800&auto=format&fit=crop",
+      title: "Pantallas de Cocina (KDS) y Comandas",
+      icon: MonitorPlay,
+      img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=800&auto=format&fit=crop",
       benefits: [
-        "Gestión de stock e insumos",
-        "Alertas de poco inventario",
-        "Controla varias sucursales",
-        "Reportes de ganancias en vivo",
+        "Comandas digitales automáticas sin papel ni confusiones",
+        "Tiempos de preparación y alertas de pedidos demorados",
+        "Organización por áreas (cocina, barra, postres)",
+        "Despacho rápido y mayor rotación de mesas",
       ],
     },
     {
-      title: "Facturación Electrónica DIAN",
+      title: "Facturación DIAN, Inventario y Sedes",
       icon: ReceiptText,
       img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop",
       benefits: [
-        "Cumplimiento total normativo DIAN",
-        "Emisión en segundos desde el POS",
-        "Sin portales externos complicados",
-        "Envíos automáticos al cliente",
+        "Facturación electrónica y documento equivalente POS DIAN",
+        "Descuento automático de stock e insumos por receta",
+        "Alertas de inventario bajo y control de mermas",
+        "Control centralizado de múltiples sucursales",
       ],
     },
   ];
@@ -514,14 +531,13 @@ function Features() {
       <div className="mx-auto max-w-6xl px-6 relative z-10">
         <Reveal className="max-w-2xl text-center mx-auto">
           <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary mb-4">
-            ¡Gestiona todo desde un solo lugar!
+            Gestión Gastronómica Todo en Uno
           </span>
           <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
-            Todo lo que tu negocio necesita.
+            Software diseñado para impulsar tu restaurante.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Diseñado para dueños que quieren operaciones ágiles, clientes leales e ingresos
-            recurrentes.
+            Diseñado para restaurantes, bares y cafeterías que quieren operaciones ágiles, comandas sin errores e ingresos recurrentes.
           </p>
         </Reveal>
 
@@ -715,6 +731,81 @@ function Testimonial() {
   );
 }
 
+function LandingFAQ() {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      q: "¿Por qué elegir Tavi Orders como software para restaurantes en Colombia?",
+      a: "Tavi Orders es una solución FoodTech completa que unifica tu sistema de punto de venta (POS), comandas automáticas a cocina (KDS), menús QR para mesas y control de inventarios. Te permite reducir hasta 4 minutos de espera por orden y operar sin pagar comisiones por tus pedidos.",
+    },
+    {
+      q: "¿Cómo implementar menús con código QR en mesas con Tavi Orders?",
+      a: "Es inmediato y sin fricción: colocas el código QR generado por Tavi Orders en tus mesas. Los comensales escanean con la cámara de su celular sin descargar apps, ven tu carta digital con fotos, personalizan su pedido y lo envían directo a la cocina o caja.",
+    },
+    {
+      q: "¿Cómo funcionan las pantallas de visualización para cocina (KDS)?",
+      a: "Las pantallas de cocina (KDS) de Tavi Orders reciben las órdenes al instante y las organizan por estación (cocina, barra, postres) con avisos sonoros/voz y semáforos de tiempo. Esto elimina las comandas en papel y los errores de transcripción.",
+    },
+    {
+      q: "¿Cómo crear tarjetas de fidelización digitales para clientes en Google Wallet?",
+      a: "Con Tavi Orders puedes emitir pases digitales VIP que tus clientes agregan a Google Wallet o Apple Wallet con un solo tap. El sistema registra sus visitas y compras para premiarlos y asegurar que regresen a tu restaurante.",
+    },
+    {
+      q: "¿Tavi Orders funciona en Cúcuta y en toda Colombia?",
+      a: "Sí, Tavi Orders está optimizado para negocios gastronómicos en Cúcuta, Bogotá, Medellín, Cali, Bucaramanga y toda Colombia. Funciona 100% en la nube desde cualquier computador, tablet, celular Android/iOS e impresora térmica.",
+    },
+  ];
+
+  return (
+    <section className="mx-auto max-w-4xl px-6 py-20 md:py-28">
+      <Reveal className="text-center mb-14">
+        <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary mb-3">
+          Preguntas Frecuentes FoodTech
+        </span>
+        <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl text-foreground">
+          Preguntas frecuentes sobre Tavi Orders
+        </h2>
+        <p className="mt-3 text-base text-muted-foreground max-w-xl mx-auto">
+          Todo lo que necesitas saber sobre nuestro software para restaurantes, menús QR y sistema POS en Colombia.
+        </p>
+      </Reveal>
+
+      <div className="space-y-4">
+        {faqs.map((faq, idx) => (
+          <Reveal key={idx} delay={idx * 60}>
+            <div className="rounded-2xl border border-border/70 bg-card overflow-hidden transition-all duration-200 hover:border-primary/30">
+              <button
+                type="button"
+                onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
+                className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-muted/40"
+              >
+                <span className="font-display text-lg font-semibold text-foreground pr-4">
+                  {faq.q}
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-muted-foreground shrink-0 transition-transform duration-300 ${
+                    openIdx === idx ? "rotate-180 text-primary" : ""
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  openIdx === idx ? "max-h-60" : "max-h-0"
+                }`}
+              >
+                <div className="p-6 pt-0 text-muted-foreground leading-relaxed border-t border-border/40 text-sm md:text-base">
+                  {faq.a}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function FinalCta() {
   return (
     <section className="mx-auto max-w-6xl px-4 sm:px-6 py-12 md:py-24">
@@ -851,9 +942,9 @@ function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="#pricing" className="transition-colors hover:text-primary">
+                  <Link to="/precios" className="transition-colors hover:text-primary">
                     Precios
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#showcase" className="transition-colors hover:text-primary">
