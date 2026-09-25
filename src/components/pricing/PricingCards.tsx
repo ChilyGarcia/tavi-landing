@@ -66,7 +66,7 @@ export function PricingCards({ billingCycle, onDemo }: PricingCardsProps) {
                       {formatCOP(monthlyPrice)}
                     </span>
                     <span className="text-sm font-medium text-slate-500">
-                      /mes {PRICING_FLAGS.pricesIncludeVAT ? "IVA incl." : "+ IVA"}
+                      /mes {PRICING_FLAGS.pricesIncludeVAT ? "IVA INCLUIDO" : "+ IVA"}
                     </span>
                   </div>
 
@@ -93,7 +93,9 @@ export function PricingCards({ billingCycle, onDemo }: PricingCardsProps) {
                     {plan.limits.branches} sede{plan.limits.branches > 1 ? "s" : ""}
                   </span>
                   <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ${isPro ? "bg-primary/10 text-primary/80" : "bg-slate-100 text-slate-700"}`}>
-                    {plan.limits.loyaltyCards === -1 ? "Tarjetas ilimitadas" : `${plan.limits.loyaltyCards} tarjetas VIP`}
+                    {plan.limits.loyaltyCards === -1
+                      ? "Tarjetas ilimitadas"
+                      : `${plan.limits.loyaltyCards} tarjeta${plan.limits.loyaltyCards === 1 ? "" : "s"} de fidelidad`}
                   </span>
                 </div>
 

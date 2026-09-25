@@ -1,4 +1,5 @@
 import { Package, ChefHat, TrendingUp, Check } from "lucide-react";
+import { PRICING_FLAGS } from "@/config/pricing";
 
 interface PricingAddonSectionProps {
   onDemo: () => void;
@@ -58,7 +59,7 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-3 mb-1">
-                    <span className="text-2xl font-black text-slate-900">$29.900<span className="text-sm font-medium text-slate-500">/mes + IVA</span></span>
+                    <span className="text-2xl font-black text-slate-900">$29.900<span className="text-sm font-medium text-slate-500">/mes {PRICING_FLAGS.pricesIncludeVAT ? "IVA INCLUIDO" : "+ IVA"}</span></span>
                   </div>
                   <p className="text-sm text-slate-600 mb-3">En planes Esencial y Pro.</p>
                   

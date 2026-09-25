@@ -2,7 +2,7 @@ export type BillingCycle = "monthly" | "annual";
 
 export const PRICING_FLAGS = {
   dianAvailable: false, // DIAN aún no implementada según README
-  pricesIncludeVAT: false, // "+ IVA"
+  pricesIncludeVAT: true, // "IVA INCLUIDO"
   noLockIn: true, // TODO(Juan): confirmar
   freeMigration: true, // TODO(Juan): confirmar
   localSupportCucuta: true, // TODO(Juan): confirmar
@@ -20,30 +20,30 @@ export const PLANS = [
       { text: 'Inventario y recetas incluido' },
       { text: 'Pantalla TV: llamador de turnos y carrusel' },
       { text: '30 facturas electrónicas DIAN al mes', dian: true },
-      { text: 'Asesor de cuenta dedicado' },
+      { text: 'Account Manager dedicado y soporte 24/7' },
     ],
   },
   {
     id: 'pro', name: 'Pro Fidelidad', badge: 'MÁS POPULAR',
     forWho: 'Para negocios en crecimiento que quieren que sus clientes vuelvan.',
     monthly: 99900, annual: 999000, highlighted: true,
-    limits: { users: 10, branches: 1, loyaltyCards: 100, dianDocs: 500 },
+    limits: { users: 10, branches: 1, loyaltyCards: 5, dianDocs: 500 },
     highlights: [
       { text: 'Todo el Esencial, con más equipo' },
       { text: 'Anuncios y promociones en tu menú QR' },
       { text: '30 facturas electrónicas DIAN al mes', dian: true },
-      { text: 'Soporte prioritario' },
+      { text: 'Soporte prioritario 7 días a la semana' },
     ],
   },
   {
     id: 'esencial', name: 'Esencial',
     forWho: 'Para negocios de un local que quieren ordenar su operación.',
     monthly: 55000, annual: 550000, highlighted: false,
-    limits: { users: 2, branches: 1, loyaltyCards: 30, dianDocs: 0 },
+    limits: { users: 2, branches: 1, loyaltyCards: 1, dianDocs: 0 },
     highlights: [
       { text: 'Sistema operativo completo: QR, sala, cocina, caja' },
       { text: 'Pedidos ilimitados' },
-      { text: 'Soporte por WhatsApp' },
+      { text: 'Soporte por WhatsApp (Lunes a Sábado)' },
     ],
   },
 ] as const;
@@ -107,7 +107,7 @@ export const TABLE_CATEGORIES = [
   {
     name: "Clientes y marketing",
     features: [
-      { name: "Tarjetas VIP en Google Wallet / Apple Wallet", e: "Hasta 30", p: "Hasta 100", v: "Ilimitadas" },
+      { name: "Tarjetas de fidelidad en Google / Apple Wallet", e: "1", p: "5", v: "Ilimitadas" },
       { name: "Referidos y antifraude", e: false, p: true, v: true },
       { name: "Anuncios y promociones en el menú", e: false, p: true, v: true },
       { name: "Pantalla TV: turnos y carrusel", e: false, p: false, v: true },
@@ -147,10 +147,12 @@ export const TABLE_CATEGORIES = [
     ],
   },
   {
-    name: "Soporte",
+    name: "Soporte y Éxito del Cliente",
     features: [
-      { name: "Canal", e: "WhatsApp", p: "Prioritario", v: "Asesor dedicado" },
-      { name: "Asistente TAVI con IA (Ayuda de uso)", e: true, p: true, v: true },
+      { name: "Canal de atención", e: "WhatsApp", p: "WhatsApp", v: "WhatsApp y llamada" },
+      { name: "Disponibilidad", e: "Lunes a Sábado", p: "7 días a la semana", v: "24/7" },
+      { name: "Nivel de atención", e: "Estándar", p: "Cola prioritaria", v: "Account Manager dedicado" },
+      { name: "Asistente TAVI con IA (Ayuda 24/7)", e: true, p: true, v: true },
     ],
   },
 ];
