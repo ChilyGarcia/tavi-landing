@@ -97,10 +97,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
   }, []);
 
   return (
-    <section
-      id="top"
-      className="relative overflow-hidden bg-background"
-    >
+    <section id="top" className="relative overflow-hidden bg-background">
       <div className="mx-auto grid max-w-6xl gap-14 px-6 py-16 md:grid-cols-2 md:items-center md:py-24">
         {/* Left Side: Text & CTAs */}
         <div className="relative">
@@ -112,7 +109,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
                 <span className="invisible pointer-events-none" aria-hidden="true">
                   negocio gastronómico
                 </span>
-                <span 
+                <span
                   className={`absolute left-0 top-0 text-primary transition-opacity duration-500 ease-in-out ${fade ? "opacity-100" : "opacity-0"}`}
                 >
                   {words[wordIndex]}
@@ -123,7 +120,9 @@ function Hero({ onDemo }: { onDemo: () => void }) {
 
           <Reveal delay={170}>
             <p className="mt-6 max-w-lg text-lg text-foreground font-medium leading-relaxed">
-              Tavi Orders centraliza tu sistema POS de punto de venta, menús con código QR en mesas, pantallas de cocina (KDS), facturación electrónica DIAN y fidelización digital. La plataforma FoodTech que escala tu negocio gastronómico.
+              Tavi Orders centraliza tu sistema POS de punto de venta, menús con código QR en mesas,
+              pantallas de cocina (KDS), facturación electrónica DIAN y fidelización digital. La
+              plataforma FoodTech que escala tu negocio gastronómico.
             </p>
           </Reveal>
 
@@ -235,11 +234,12 @@ function WhyChooseUs() {
               ¿Por qué los restaurantes prefieren Tavi Orders?
             </h2>
             <p className="mt-3 text-base text-muted-foreground">
-              Tecnología gastronómica diseñada para eliminar el caos operativo y maximizar la rentabilidad de tu negocio.
+              Tecnología gastronómica diseñada para eliminar el caos operativo y maximizar la
+              rentabilidad de tu negocio.
             </p>
           </div>
         </Reveal>
-        
+
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((reason, i) => (
             <Reveal key={i} delay={i * 100} from="up">
@@ -248,7 +248,9 @@ function WhyChooseUs() {
                   {reason.icon}
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground text-lg leading-tight mb-2">{reason.title}</h3>
+                  <h3 className="font-bold text-foreground text-lg leading-tight mb-2">
+                    {reason.title}
+                  </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{reason.desc}</p>
                 </div>
               </div>
@@ -284,18 +286,15 @@ function Marquee() {
     },
     {
       name: "Hamburgueserías",
-      image:
-        "https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=256&h=256&fit=crop",
+      image: "https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=256&h=256&fit=crop",
     },
     {
       name: "Dark Kitchens",
-      image:
-        "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=256&h=256&fit=crop",
+      image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=256&h=256&fit=crop",
     },
     {
       name: "Comidas Rápidas",
-      image:
-        "https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=256&h=256&fit=crop",
+      image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=256&h=256&fit=crop",
     },
     {
       name: "Heladerías & Postres",
@@ -369,7 +368,8 @@ function Showcase() {
           Menús digitales que multiplican tus ventas.
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
-          Publica tu carta digital interactiva con fotos en alta definición, precios y disponibilidad en tiempo real. Lo que se agota se oculta de la mesa al instante.
+          Publica tu carta digital interactiva con fotos en alta definición, precios y
+          disponibilidad en tiempo real. Lo que se agota se oculta de la mesa al instante.
         </p>
       </Reveal>
       <div className="mt-14 grid gap-6 md:grid-cols-3">
@@ -408,8 +408,8 @@ function ValueProposition() {
           Lo "Gratis" sale muy caro.
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
-          Descubre por qué los negocios serios prefieren invertir en TAVI en lugar de usar
-          métodos manuales gratuitos.
+          Descubre por qué los negocios serios prefieren invertir en TAVI en lugar de usar métodos
+          manuales gratuitos.
         </p>
       </Reveal>
       <Reveal delay={100} className="mt-12">
@@ -537,7 +537,8 @@ function Features() {
             Software diseñado para impulsar tu restaurante.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Diseñado para restaurantes, bares y cafeterías que quieren operaciones ágiles, comandas sin errores e ingresos recurrentes.
+            Diseñado para restaurantes, bares y cafeterías que quieren operaciones ágiles, comandas
+            sin errores e ingresos recurrentes.
           </p>
         </Reveal>
 
@@ -606,7 +607,8 @@ function HowItWorks() {
           Tres pasos. <span className="text-muted-foreground">Cero fricción.</span>
         </h2>
         <p className="mt-4 md:mt-6 text-base md:text-lg text-muted-foreground">
-          Diseñado para que tu equipo se concentre en lo importante: brindar un excelente servicio y entregar los mejores productos. Del resto nos encargamos nosotros.
+          Diseñado para que tu equipo se concentre en lo importante: brindar un excelente servicio y
+          entregar los mejores productos. Del resto nos encargamos nosotros.
         </p>
       </Reveal>
 
@@ -622,17 +624,15 @@ function HowItWorks() {
                 <div className="absolute -top-4 -right-2 text-9xl font-black text-muted/20 select-none transition-colors duration-500 group-hover:text-primary/5 pointer-events-none">
                   {i + 1}
                 </div>
-                
+
                 <div className="h-20 w-20 bg-primary/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-500 shadow-sm relative z-10">
                   <Icon className="h-10 w-10 text-primary" />
                 </div>
-                
+
                 <h3 className="font-display text-xl md:text-2xl font-bold mb-4 relative z-10 text-foreground">
                   {title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed relative z-10">
-                  {desc}
-                </p>
+                <p className="text-muted-foreground leading-relaxed relative z-10">{desc}</p>
               </div>
             </Reveal>
           ))}
@@ -767,7 +767,8 @@ function LandingFAQ() {
           Preguntas frecuentes sobre Tavi Orders
         </h2>
         <p className="mt-3 text-base text-muted-foreground max-w-xl mx-auto">
-          Todo lo que necesitas saber sobre nuestro software para restaurantes, menús QR y sistema POS en Colombia.
+          Todo lo que necesitas saber sobre nuestro software para restaurantes, menús QR y sistema
+          POS en Colombia.
         </p>
       </Reveal>
 
@@ -823,7 +824,8 @@ function FinalCta() {
             Encuentra el plan perfecto para tu negocio.
           </h2>
           <p className="mt-4 text-base md:text-lg text-primary-foreground/80 max-w-lg">
-            Escoge la opción que mejor se adapte a tus necesidades y empieza a escalar tu operación sin letra pequeña.
+            Escoge la opción que mejor se adapte a tus necesidades y empieza a escalar tu operación
+            sin letra pequeña.
           </p>
           <div className="mt-8 flex justify-center w-full sm:w-auto">
             <Link

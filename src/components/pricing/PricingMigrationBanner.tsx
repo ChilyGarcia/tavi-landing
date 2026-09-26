@@ -10,11 +10,10 @@ export function PricingMigrationBanner() {
   return (
     <div className="mx-auto max-w-4xl mt-12 sm:mt-16 px-4 sm:px-6">
       <div className="rounded-3xl bg-slate-900 p-6 sm:p-10 shadow-2xl shadow-slate-900/20 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 group text-center md:text-left">
-        
         {/* Decorative elements */}
         <div className="absolute -top-24 -left-24 w-64 h-64 bg-primary/20 blur-3xl rounded-full pointer-events-none transition-all duration-700 group-hover:bg-primary/30" />
         <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-emerald-500/10 blur-3xl rounded-full pointer-events-none" />
-        
+
         <div className="relative z-10 flex-1">
           <div className="inline-flex items-center justify-center md:justify-start gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white mb-4 backdrop-blur-sm border border-white/10">
             <Sparkles className="w-3.5 h-3.5 text-primary" /> Promoción Especial
@@ -27,7 +26,7 @@ export function PricingMigrationBanner() {
             sin costo adicional. Tú relájate y estrena sistema.
           </p>
         </div>
-        
+
         <a
           href={whatsappUrl}
           target="_blank"

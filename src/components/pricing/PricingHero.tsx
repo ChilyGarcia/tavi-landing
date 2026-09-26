@@ -13,8 +13,8 @@ export function PricingHero({ billingCycle, setBillingCycle }: PricingHeroProps)
       <div className="mx-auto max-w-3xl">
         {/* Mobile Back Button */}
         <div className="mb-8 flex justify-center md:hidden">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-primary transition-colors bg-slate-100/80 px-4 py-2 rounded-full"
           >
             <ArrowLeft className="h-4 w-4" /> Volver al inicio

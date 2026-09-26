@@ -16,7 +16,8 @@ const MODULES = [
     id: "pos",
     title: "Punto de Venta Completo",
     icon: Calculator,
-    description: "Toma pedidos, divide cuentas, gestiona propinas y acepta pagos mixtos sin enredos. Cierre de caja al centavo y en tiempo real.",
+    description:
+      "Toma pedidos, divide cuentas, gestiona propinas y acepta pagos mixtos sin enredos. Cierre de caja al centavo y en tiempo real.",
     span: "md:col-span-2 lg:col-span-2",
     gradient: "from-amber-500/10 to-orange-500/5",
     iconColor: "text-amber-600",
@@ -34,7 +35,8 @@ const MODULES = [
     id: "facturacion",
     title: "Facturación DIAN",
     icon: Receipt,
-    description: "Cumple la normativa sin salir del POS. Integración nativa sin portales engorrosos.",
+    description:
+      "Cumple la normativa sin salir del POS. Integración nativa sin portales engorrosos.",
     span: "md:col-span-1 lg:col-span-1",
     gradient: "from-emerald-500/10 to-teal-500/5",
     iconColor: "text-emerald-600",
@@ -43,7 +45,8 @@ const MODULES = [
     id: "inventario",
     title: "Control de Inventario",
     icon: Package,
-    description: "Maneja recetas, mermas y traslados. Alertas de stock bajo para que nunca te quedes sin ingredientes clave en hora pico.",
+    description:
+      "Maneja recetas, mermas y traslados. Alertas de stock bajo para que nunca te quedes sin ingredientes clave en hora pico.",
     span: "md:col-span-2 lg:col-span-2",
     gradient: "from-purple-500/10 to-fuchsia-500/5",
     iconColor: "text-purple-600",
@@ -113,7 +116,8 @@ export function PricingModules() {
             Todo lo que necesitas, <br className="hidden sm:inline" /> incluido en todos los planes
           </h2>
           <p className="mt-6 text-lg text-slate-600 font-medium">
-            A diferencia de otros sistemas que te cobran por cada módulo extra, TAVI viene equipado con todas las herramientas desde el primer día.
+            A diferencia de otros sistemas que te cobran por cada módulo extra, TAVI viene equipado
+            con todas las herramientas desde el primer día.
           </p>
         </div>
 
@@ -137,11 +141,9 @@ export function PricingModules() {
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-50 border border-slate-100 mb-6 transition-transform duration-500 group-hover:scale-110 shadow-sm">
                   <Icon className={`h-6 w-6 ${iconColor}`} />
                 </div>
-                
+
                 <div className="mt-auto pt-4">
-                  <h3 className="font-bold text-xl text-slate-900 mb-2">
-                    {title}
-                  </h3>
+                  <h3 className="font-bold text-xl text-slate-900 mb-2">{title}</h3>
                   <p className="text-sm text-slate-600 leading-relaxed font-medium">
                     {description}
                   </p>

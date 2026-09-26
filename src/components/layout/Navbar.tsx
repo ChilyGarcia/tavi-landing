@@ -39,7 +39,7 @@ export function Navbar({ onDemo }: NavbarProps) {
     // Determine if the target section is on the current page
     const homeSections = ["features", "how"];
     const pricingSections = ["planes", "modulos", "tabla-completa", "calculadora"];
-    
+
     const isTargetOnHome = homeSections.includes(id);
     const isTargetOnPricing = pricingSections.includes(id);
 
@@ -53,7 +53,7 @@ export function Navbar({ onDemo }: NavbarProps) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    
+
     const element = document.getElementById(id);
     if (element) {
       const navHeight = 80;
@@ -73,8 +73,8 @@ export function Navbar({ onDemo }: NavbarProps) {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           onClick={(e) => {
             if (!isHome) {
               return; // Let the router handle navigation to "/"
@@ -85,7 +85,7 @@ export function Navbar({ onDemo }: NavbarProps) {
         >
           <TaviLogo />
         </Link>
-        
+
         <nav className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/60 px-2 py-1 text-sm text-muted-foreground md:flex shadow-sm">
           {isHome ? (
             <>

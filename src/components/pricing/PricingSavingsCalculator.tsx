@@ -1,14 +1,14 @@
 // src/components/pricing/PricingSavingsCalculator.tsx
 import { useState, useId } from "react";
-import { 
-  Building2, 
-  Calculator, 
-  Package, 
-  Tv, 
+import {
+  Building2,
+  Calculator,
+  Package,
+  Tv,
   Sparkles,
   ArrowRight,
   TrendingDown,
-  Check
+  Check,
 } from "lucide-react";
 import { PLANS, formatCOP } from "@/config/pricing";
 
@@ -38,19 +38,25 @@ export function PricingSavingsCalculator() {
 
   const recommendedPlan = PLANS.find((p) => p.id === recommendedPlanId)!;
   const isInventoryIncludedInPlan = recommendedPlanId === "vip";
-  const extraInventoryCostAnnual = needsInventory && !isInventoryIncludedInPlan ? INVENTORY_ADDON_ANNUAL : 0;
-  const extraInventoryCostMonthly = needsInventory && !isInventoryIncludedInPlan ? INVENTORY_ADDON_MONTHLY : 0;
+  const extraInventoryCostAnnual =
+    needsInventory && !isInventoryIncludedInPlan ? INVENTORY_ADDON_ANNUAL : 0;
+  const extraInventoryCostMonthly =
+    needsInventory && !isInventoryIncludedInPlan ? INVENTORY_ADDON_MONTHLY : 0;
 
   const currentAnnualTotal = currentCostMonthly * 12;
   const taviAnnualTotal = recommendedPlan.annual + extraInventoryCostAnnual;
   const taviMonthlyEquivalent = Math.round(taviAnnualTotal / 12);
   const annualSavings = currentAnnualTotal - taviAnnualTotal;
-  const savingsPercent = currentAnnualTotal > 0 
-    ? Math.round(Math.max(0, (annualSavings / currentAnnualTotal) * 100))
-    : 0;
+  const savingsPercent =
+    currentAnnualTotal > 0
+      ? Math.round(Math.max(0, (annualSavings / currentAnnualTotal) * 100))
+      : 0;
 
   return (
-    <div id="calculadora" className="mt-16 sm:mt-24 rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-10 lg:p-12 shadow-xl shadow-slate-200/40 max-w-5xl mx-auto">
+    <div
+      id="calculadora"
+      className="mt-16 sm:mt-24 rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-10 lg:p-12 shadow-xl shadow-slate-200/40 max-w-5xl mx-auto"
+    >
       <div className="mx-auto max-w-2xl text-center mb-10 sm:mb-12">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3.5 py-1.5 text-xs font-semibold text-primary mb-3">
           <Calculator className="h-3.5 w-3.5" />
@@ -60,7 +66,8 @@ export function PricingSavingsCalculator() {
           Calcula y compara tu costo real de operación
         </h3>
         <p className="mt-2.5 text-sm sm:text-base text-slate-600 leading-relaxed">
-          Compara lo que inviertes en software base, comisiones y módulos por separado frente a la tarifa plana sin letra pequeña de TAVI.
+          Compara lo que inviertes en software base, comisiones y módulos por separado frente a la
+          tarifa plana sin letra pequeña de TAVI.
         </p>
       </div>
 
@@ -112,7 +119,7 @@ export function PricingSavingsCalculator() {
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
-                  {num === 3 ? "3+ sedes" : `${num} ${num === 1 ? 'sede' : 'sedes'}`}
+                  {num === 3 ? "3+ sedes" : `${num} ${num === 1 ? "sede" : "sedes"}`}
                 </button>
               ))}
             </div>
@@ -122,7 +129,7 @@ export function PricingSavingsCalculator() {
             <span className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
               Módulos y complementos
             </span>
-            
+
             {/* Add-on de Inventario */}
             <label className="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-white hover:border-slate-300 cursor-pointer transition-colors">
               <div className="flex items-center gap-2.5">
@@ -189,21 +196,27 @@ export function PricingSavingsCalculator() {
                 <span className="text-slate-400">Inversión anual en TAVI:</span>
                 <span className="font-semibold text-white">{formatCOP(taviAnnualTotal)} COP</span>
               </div>
-              
+
               {needsInventory && (
                 <div className="flex items-center justify-between text-xs text-slate-300 bg-slate-900/60 p-2 rounded-lg border border-slate-800">
                   <span className="text-slate-400 flex items-center gap-1.5">
                     <Package className="h-3.5 w-3.5 text-primary" /> Módulo Inventario:
                   </span>
-                  <span className={`font-semibold ${isInventoryIncludedInPlan ? "text-emerald-400" : "text-slate-200"}`}>
-                    {isInventoryIncludedInPlan ? "✓ Incluido en VIP" : `Add-on +${formatCOP(extraInventoryCostMonthly)}/mes`}
+                  <span
+                    className={`font-semibold ${isInventoryIncludedInPlan ? "text-emerald-400" : "text-slate-200"}`}
+                  >
+                    {isInventoryIncludedInPlan
+                      ? "✓ Incluido en VIP"
+                      : `Add-on +${formatCOP(extraInventoryCostMonthly)}/mes`}
                   </span>
                 </div>
               )}
 
               <div className="flex items-center justify-between text-sm text-slate-300">
                 <span className="text-slate-400">Gasto anual actual estimado:</span>
-                <span className="font-medium text-slate-400 line-through">{formatCOP(currentAnnualTotal)} COP</span>
+                <span className="font-medium text-slate-400 line-through">
+                  {formatCOP(currentAnnualTotal)} COP
+                </span>
               </div>
               <div className="flex items-center justify-between text-sm text-slate-300">
                 <span className="text-slate-400">Comisiones por pedido:</span>
@@ -215,13 +228,16 @@ export function PricingSavingsCalculator() {
               {annualSavings > 0 ? (
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-slate-400">Optimización estimada de costos:</span>
+                    <span className="text-xs font-medium text-slate-400">
+                      Optimización estimada de costos:
+                    </span>
                     <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-800/40">
                       <TrendingDown className="h-3 w-3" /> {savingsPercent}% menos
                     </span>
                   </div>
                   <div className="mt-1.5 text-2xl sm:text-3xl font-bold tracking-tight text-emerald-400">
-                    {formatCOP(annualSavings)} <span className="text-xs font-normal text-slate-400">COP / año</span>
+                    {formatCOP(annualSavings)}{" "}
+                    <span className="text-xs font-normal text-slate-400">COP / año</span>
                   </div>
                   <p className="mt-1 text-[11px] text-slate-400">
                     Margen que conservas en tu negocio sin pagar de más por licencias fragmentadas.
@@ -231,7 +247,8 @@ export function PricingSavingsCalculator() {
                 <div className="flex items-start gap-2.5">
                   <Sparkles className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    Obtienes una infraestructura todo-en-uno más potente con soporte prioritario 7 días, KDS y fidelización sin costos ocultos.
+                    Obtienes una infraestructura todo-en-uno más potente con soporte prioritario 7
+                    días, KDS y fidelización sin costos ocultos.
                   </p>
                 </div>
               )}
@@ -240,9 +257,12 @@ export function PricingSavingsCalculator() {
 
           <div className="mt-6 pt-5 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="text-center sm:text-left">
-              <span className="block text-[11px] text-slate-400 uppercase tracking-wider">Costo equivalente mensual:</span>
+              <span className="block text-[11px] text-slate-400 uppercase tracking-wider">
+                Costo equivalente mensual:
+              </span>
               <span className="text-lg font-bold text-white">
-                {formatCOP(taviMonthlyEquivalent)} <span className="text-xs text-slate-400 font-normal">/ mes</span>
+                {formatCOP(taviMonthlyEquivalent)}{" "}
+                <span className="text-xs text-slate-400 font-normal">/ mes</span>
               </span>
             </div>
             <a

@@ -5,8 +5,6 @@ import { PRICING_FLAGS } from "@/config/pricing";
 export function PricingHeader() {
   return (
     <div className="mx-auto max-w-3xl text-center">
-   
-
       <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-foreground md:text-5xl">
         Todo tu restaurante en un solo sistema. <br className="hidden sm:inline" />
         <span className="bg-gradient-to-r from-amber-700 to-orange-600 bg-clip-text text-transparent dark:from-amber-400 dark:to-orange-400">

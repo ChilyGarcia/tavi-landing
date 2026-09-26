@@ -6,18 +6,17 @@ export function PricingDianSection() {
     return (
       <div className="mx-auto max-w-4xl mt-12 px-6">
         <div className="rounded-[2.5rem] border-2 border-amber-200 bg-white p-8 sm:p-12 text-center relative overflow-hidden shadow-sm hover:shadow-md transition-all group">
-          
           <div className="relative z-10 flex flex-col items-center">
-            
             <h3 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 mb-4 tracking-tight">
               Facturación Electrónica DIAN Integrada
             </h3>
-            
+
             <p className="text-slate-600 max-w-2xl mx-auto mb-10 text-lg leading-relaxed">
               Estamos integrando la conexión directa con la DIAN para que puedas emitir facturas
-              electrónicas desde el mismo sistema donde tomas los pedidos. Todo en un solo lugar, sin pagar otro proveedor.
+              electrónicas desde el mismo sistema donde tomas los pedidos. Todo en un solo lugar,
+              sin pagar otro proveedor.
             </p>
-            
+
             {/* CTA Button */}
             <a
               href="https://wa.me/573000000000"
@@ -48,7 +47,8 @@ export function PricingDianSection() {
 
         <div className="relative z-10 text-center mb-8 sm:mb-12">
           <h3 className="font-display text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-            Bolsas de Facturas Electrónicas <span className="text-primary block sm:inline mt-1 sm:mt-0">DIAN</span>
+            Bolsas de Facturas Electrónicas{" "}
+            <span className="text-primary block sm:inline mt-1 sm:mt-0">DIAN</span>
           </h3>
           <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto font-medium">
             El plan Esencial no trae facturas incluidas. <br className="hidden sm:block" />

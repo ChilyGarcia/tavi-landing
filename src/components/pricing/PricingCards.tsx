@@ -78,7 +78,9 @@ export function PricingCards({ billingCycle, onDemo }: PricingCardsProps) {
                     ) : (
                       <p className="text-xs opacity-0">Espaciador</p>
                     )}
-                    <span className={`text-xs font-bold ${isPro ? "text-primary" : "text-amber-600"}`}>
+                    <span
+                      className={`text-xs font-bold ${isPro ? "text-primary" : "text-amber-600"}`}
+                    >
                       ≈ {formatCOP(perDay(plan, billingCycle))} al día
                     </span>
                   </div>
@@ -86,13 +88,21 @@ export function PricingCards({ billingCycle, onDemo }: PricingCardsProps) {
 
                 {/* Limits Chips */}
                 <div className="mt-6 flex flex-wrap gap-2">
-                  <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ${isPro ? "bg-primary/10 text-primary/80" : "bg-slate-100 text-slate-700"}`}>
-                    {plan.limits.users === -1 ? "Usuarios ilimitados" : `${plan.limits.users} usuarios`}
+                  <span
+                    className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ${isPro ? "bg-primary/10 text-primary/80" : "bg-slate-100 text-slate-700"}`}
+                  >
+                    {plan.limits.users === -1
+                      ? "Usuarios ilimitados"
+                      : `${plan.limits.users} usuarios`}
                   </span>
-                  <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ${isPro ? "bg-primary/10 text-primary/80" : "bg-slate-100 text-slate-700"}`}>
+                  <span
+                    className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ${isPro ? "bg-primary/10 text-primary/80" : "bg-slate-100 text-slate-700"}`}
+                  >
                     {plan.limits.branches} sede{plan.limits.branches > 1 ? "s" : ""}
                   </span>
-                  <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ${isPro ? "bg-primary/10 text-primary/80" : "bg-slate-100 text-slate-700"}`}>
+                  <span
+                    className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ${isPro ? "bg-primary/10 text-primary/80" : "bg-slate-100 text-slate-700"}`}
+                  >
                     {plan.limits.loyaltyCards === -1
                       ? "Tarjetas ilimitadas"
                       : `${plan.limits.loyaltyCards} tarjeta${plan.limits.loyaltyCards === 1 ? "" : "s"} de fidelidad`}
@@ -106,12 +116,12 @@ export function PricingCards({ billingCycle, onDemo }: PricingCardsProps) {
                     .filter((h) => !("dian" in h) || !h.dian || PRICING_FLAGS.dianAvailable)
                     .map((highlight, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <Check className={`mt-0.5 h-4 w-4 shrink-0 ${isPro ? "text-primary" : "text-amber-600"}`} />
-                        <span className="text-sm text-slate-700">
-                          {highlight.text}
-                        </span>
+                        <Check
+                          className={`mt-0.5 h-4 w-4 shrink-0 ${isPro ? "text-primary" : "text-amber-600"}`}
+                        />
+                        <span className="text-sm text-slate-700">{highlight.text}</span>
                       </li>
-                  ))}
+                    ))}
                 </ul>
 
                 <div className="mt-auto flex flex-col gap-3">

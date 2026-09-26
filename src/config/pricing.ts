@@ -11,49 +11,59 @@ export const PRICING_FLAGS = {
 
 export const PLANS = [
   {
-    id: 'vip', name: 'VIP Ilimitado',
-    forWho: 'Para cadenas y negocios de alto flujo.',
-    monthly: 199900, annual: 1999000, highlighted: false,
+    id: "vip",
+    name: "VIP Ilimitado",
+    forWho: "Para cadenas y negocios de alto flujo.",
+    monthly: 199900,
+    annual: 1999000,
+    highlighted: false,
     limits: { users: -1, branches: 2, loyaltyCards: -1, dianDocs: 1000 },
     highlights: [
-      { text: 'Usuarios y tarjetas ilimitados, 2 sedes (adicionales a cotizar)' },
-      { text: 'Inventario y recetas incluido' },
-      { text: 'Pantalla TV: llamador de turnos y carrusel' },
-      { text: '30 facturas electrónicas DIAN al mes', dian: true },
-      { text: 'Account Manager dedicado y soporte 24/7' },
+      { text: "Usuarios y tarjetas ilimitados, 2 sedes (adicionales a cotizar)" },
+      { text: "Inventario y recetas incluido" },
+      { text: "Pantalla TV: llamador de turnos y carrusel" },
+      { text: "30 facturas electrónicas DIAN al mes", dian: true },
+      { text: "Account Manager dedicado y soporte 24/7" },
     ],
   },
   {
-    id: 'pro', name: 'Pro Fidelidad', badge: 'MÁS POPULAR',
-    forWho: 'Para negocios en crecimiento que quieren que sus clientes vuelvan.',
-    monthly: 99900, annual: 999000, highlighted: true,
+    id: "pro",
+    name: "Pro Fidelidad",
+    badge: "MÁS POPULAR",
+    forWho: "Para negocios en crecimiento que quieren que sus clientes vuelvan.",
+    monthly: 99900,
+    annual: 999000,
+    highlighted: true,
     limits: { users: 10, branches: 1, loyaltyCards: 5, dianDocs: 500 },
     highlights: [
-      { text: 'Todo el Esencial, con más equipo' },
-      { text: 'Anuncios y promociones en tu menú QR' },
-      { text: '30 facturas electrónicas DIAN al mes', dian: true },
-      { text: 'Soporte prioritario 7 días a la semana' },
+      { text: "Todo el Esencial, con más equipo" },
+      { text: "Anuncios y promociones en tu menú QR" },
+      { text: "30 facturas electrónicas DIAN al mes", dian: true },
+      { text: "Soporte prioritario 7 días a la semana" },
     ],
   },
   {
-    id: 'esencial', name: 'Esencial',
-    forWho: 'Para negocios de un local que quieren ordenar su operación.',
-    monthly: 55000, annual: 550000, highlighted: false,
+    id: "esencial",
+    name: "Esencial",
+    forWho: "Para negocios de un local que quieren ordenar su operación.",
+    monthly: 55000,
+    annual: 550000,
+    highlighted: false,
     limits: { users: 2, branches: 1, loyaltyCards: 1, dianDocs: 0 },
     highlights: [
-      { text: 'Sistema operativo completo: QR, sala, cocina, caja' },
-      { text: 'Pedidos ilimitados' },
-      { text: 'Soporte por WhatsApp (Lunes a Sábado)' },
+      { text: "Sistema operativo completo: QR, sala, cocina, caja" },
+      { text: "Pedidos ilimitados" },
+      { text: "Soporte por WhatsApp (Lunes a Sábado)" },
     ],
   },
 ] as const;
 
 // Bolsas de facturas: cualquier plan las puede comprar (Esencial no trae facturas incluidas)
 export const DIAN_BUNDLES = [
-  { id: 'bolsa-200',  invoices: 200,  price: 20000 },
-  { id: 'bolsa-500',  invoices: 500,  price: 45000 },
-  { id: 'bolsa-1000', invoices: 1000, price: 85000 },
-  { id: 'bolsa-3000', invoices: 3000, price: 240000 },
+  { id: "bolsa-200", invoices: 200, price: 20000 },
+  { id: "bolsa-500", invoices: 500, price: 45000 },
+  { id: "bolsa-1000", invoices: 1000, price: 85000 },
+  { id: "bolsa-3000", invoices: 3000, price: 240000 },
 ] as const;
 
 export const BUNDLE_VALIDITY_MONTHS = 6;
@@ -124,8 +134,18 @@ export const TABLE_CATEGORIES = [
   {
     name: "Inventario y Recetas",
     features: [
-      { name: "Control de stock en tiempo real", e: "Add-on $29.900", p: "Add-on $29.900", v: "✓ Incluido" },
-      { name: "Recetas con descuento automático", e: "Add-on $29.900", p: "Add-on $29.900", v: "✓ Incluido" },
+      {
+        name: "Control de stock en tiempo real",
+        e: "Add-on $29.900",
+        p: "Add-on $29.900",
+        v: "✓ Incluido",
+      },
+      {
+        name: "Recetas con descuento automático",
+        e: "Add-on $29.900",
+        p: "Add-on $29.900",
+        v: "✓ Incluido",
+      },
       { name: "Costo real por plato", e: "Add-on $29.900", p: "Add-on $29.900", v: "✓ Incluido" },
       { name: "Alertas de stock bajo", e: "Add-on $29.900", p: "Add-on $29.900", v: "✓ Incluido" },
     ],
@@ -151,7 +171,12 @@ export const TABLE_CATEGORIES = [
     features: [
       { name: "Canal de atención", e: "WhatsApp", p: "WhatsApp", v: "WhatsApp y llamada" },
       { name: "Disponibilidad", e: "Lunes a Sábado", p: "7 días a la semana", v: "24/7" },
-      { name: "Nivel de atención", e: "Estándar", p: "Cola prioritaria", v: "Account Manager dedicado" },
+      {
+        name: "Nivel de atención",
+        e: "Estándar",
+        p: "Cola prioritaria",
+        v: "Account Manager dedicado",
+      },
       { name: "Asistente TAVI con IA (Ayuda 24/7)", e: true, p: true, v: true },
     ],
   },
@@ -159,16 +184,16 @@ export const TABLE_CATEGORIES = [
 
 export const ADDONS = [
   {
-    id: 'inventario',
-    name: 'Inventario y Recetas',
-    description: 'Control de stock, recetas con descuento automático y costo real por plato.',
+    id: "inventario",
+    name: "Inventario y Recetas",
+    description: "Control de stock, recetas con descuento automático y costo real por plato.",
     monthly: 29900,
-    includedInPlans: ['vip'], // gratis en estos planes
-    availableForPlans: ['esencial', 'pro'], // se puede comprar en estos
+    includedInPlans: ["vip"], // gratis en estos planes
+    availableForPlans: ["esencial", "pro"], // se puede comprar en estos
     highlights: [
-      { icon: 'Package', text: 'Inventario en tiempo real con alertas de stock bajo' },
-      { icon: 'ChefHat', text: 'Recetas vinculadas: cada venta descuenta ingredientes' },
-      { icon: 'TrendingUp', text: 'Costo real por plato vs precio de venta' },
+      { icon: "Package", text: "Inventario en tiempo real con alertas de stock bajo" },
+      { icon: "ChefHat", text: "Recetas vinculadas: cada venta descuenta ingredientes" },
+      { icon: "TrendingUp", text: "Costo real por plato vs precio de venta" },
     ],
   },
 ] as const;

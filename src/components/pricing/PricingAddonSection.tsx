@@ -10,7 +10,6 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
     <section id="inventario-addon" className="bg-[#FAF9F6] py-16 px-6 border-y border-slate-200/60">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-12 items-center text-center sm:text-left">
-          
           {/* Main Content (Text & Features) */}
           <div className="w-full max-w-3xl flex flex-col">
             <div className="mb-6">
@@ -18,10 +17,14 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
                 Add-on
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">
-                Inventario y Recetas — <span className="text-slate-500 font-medium">Sabe cuánto te cuesta cada plato.</span>
+                Inventario y Recetas —{" "}
+                <span className="text-slate-500 font-medium">
+                  Sabe cuánto te cuesta cada plato.
+                </span>
               </h2>
               <p className="text-lg text-slate-600 italic">
-                Cada pedido descuenta ingredientes automáticamente. Sin planillas, sin sorpresas al cierre.
+                Cada pedido descuenta ingredientes automáticamente. Sin planillas, sin sorpresas al
+                cierre.
               </p>
             </div>
 
@@ -32,7 +35,9 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900">Inventario en tiempo real.</h4>
-                  <p className="text-slate-600 text-sm">Cada ingrediente con stock actual, unidad y alerta de mínimo.</p>
+                  <p className="text-slate-600 text-sm">
+                    Cada ingrediente con stock actual, unidad y alerta de mínimo.
+                  </p>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -41,7 +46,9 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900">Recetas vinculadas al menú.</h4>
-                  <p className="text-slate-600 text-sm">Defines la receta una vez; cada venta descuenta sola.</p>
+                  <p className="text-slate-600 text-sm">
+                    Defines la receta una vez; cada venta descuenta sola.
+                  </p>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -50,7 +57,9 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900">Costo real por plato.</h4>
-                  <p className="text-slate-600 text-sm">Compara lo que te cuesta producir vs lo que cobras.</p>
+                  <p className="text-slate-600 text-sm">
+                    Compara lo que te cuesta producir vs lo que cobras.
+                  </p>
                 </div>
               </div>
             </div>
@@ -59,15 +68,20 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-3 mb-1">
-                    <span className="text-2xl font-black text-slate-900">$29.900<span className="text-sm font-medium text-slate-500">/mes {PRICING_FLAGS.pricesIncludeVAT ? "IVA INCLUIDO" : "+ IVA"}</span></span>
+                    <span className="text-2xl font-black text-slate-900">
+                      $29.900
+                      <span className="text-sm font-medium text-slate-500">
+                        /mes {PRICING_FLAGS.pricesIncludeVAT ? "IVA INCLUIDO" : "+ IVA"}
+                      </span>
+                    </span>
                   </div>
                   <p className="text-sm text-slate-600 mb-3">En planes Esencial y Pro.</p>
-                  
+
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-[#ECFDF5] px-3 py-1 text-xs font-bold text-[#065F46]">
                     <Check className="h-3.5 w-3.5" /> Incluido en VIP
                   </span>
                 </div>
-                
+
                 <button
                   onClick={onDemo}
                   className="rounded-full border-2 border-primary py-2.5 px-6 text-sm font-bold text-primary hover:bg-primary/5 transition-colors whitespace-nowrap"
@@ -80,7 +94,8 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
             {/* Upsell Visual (Desktop Only) */}
             <div className="hidden lg:flex flex-col">
               <p className="text-sm text-slate-500 italic mb-4">
-                ¿Ya estás en Pro? Por $70.000 más pásate a VIP y llévate inventario + todo ilimitado.
+                ¿Ya estás en Pro? Por $70.000 más pásate a VIP y llévate inventario + todo
+                ilimitado.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {/* Pro + Addon */}
@@ -89,12 +104,13 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
                   <div className="text-sm text-slate-500 mb-2">$99.900 + $29.900</div>
                   <div className="h-px bg-slate-100 my-2 w-12"></div>
                   <div className="font-black text-lg text-slate-900 mb-3">$129.800/mes</div>
-                  
-                  <div className="text-xs text-slate-500 mb-4 flex-1">
-                    10 usuarios · 2 sedes
-                  </div>
-                  
-                  <button onClick={onDemo} className="w-full py-2 text-xs font-bold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
+
+                  <div className="text-xs text-slate-500 mb-4 flex-1">10 usuarios · 2 sedes</div>
+
+                  <button
+                    onClick={onDemo}
+                    className="w-full py-2 text-xs font-bold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
+                  >
                     Elegir Pro + add-on
                   </button>
                 </div>
@@ -104,42 +120,54 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
                   <h5 className="font-bold text-primary">VIP Ilimitado</h5>
                   <div className="text-sm text-primary/70 mb-2 invisible">Spacer</div>
                   <div className="h-px bg-primary/20 my-2 w-12 invisible"></div>
-                  <div className="font-black text-lg text-slate-900 mb-3">$199.900<span className="text-sm font-medium text-slate-500">/mes</span></div>
-                  
+                  <div className="font-black text-lg text-slate-900 mb-3">
+                    $199.900<span className="text-sm font-medium text-slate-500">/mes</span>
+                  </div>
+
                   <ul className="text-xs text-slate-700 space-y-1 mb-4 flex-1">
-                    <li className="font-bold flex items-center gap-1"><Check className="h-3 w-3 text-primary" /> Todo ilimitado</li>
-                    <li className="font-bold flex items-center gap-1"><Check className="h-3 w-3 text-primary" /> + Inventario incluido</li>
-                    <li className="flex items-center gap-1"><Check className="h-3 w-3 text-emerald-500" /> + Pantalla TV</li>
-                    <li className="flex items-center gap-1"><Check className="h-3 w-3 text-emerald-500" /> + Asesor dedicado</li>
+                    <li className="font-bold flex items-center gap-1">
+                      <Check className="h-3 w-3 text-primary" /> Todo ilimitado
+                    </li>
+                    <li className="font-bold flex items-center gap-1">
+                      <Check className="h-3 w-3 text-primary" /> + Inventario incluido
+                    </li>
+                    <li className="flex items-center gap-1">
+                      <Check className="h-3 w-3 text-emerald-500" /> + Pantalla TV
+                    </li>
+                    <li className="flex items-center gap-1">
+                      <Check className="h-3 w-3 text-emerald-500" /> + Asesor dedicado
+                    </li>
                   </ul>
-                  
-                  <button onClick={onDemo} className="w-full py-2 text-xs font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors shadow-sm">
+
+                  <button
+                    onClick={onDemo}
+                    className="w-full py-2 text-xs font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
+                  >
                     Pasarme a VIP
                   </button>
                 </div>
               </div>
             </div>
-
           </div>
+        </div>
 
-          </div>
-        
         {/* Upsell Visual (Mobile Only) */}
         <div className="flex lg:hidden flex-col mt-8">
           <p className="text-sm text-slate-500 italic mb-4 text-center">
             ¿Ya estás en Pro? Por $70.000 más pásate a VIP y llévate inventario + todo ilimitado.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-             {/* Pro + Addon */}
-             <div className="rounded-xl border border-slate-200 bg-white p-4 flex flex-col">
+            {/* Pro + Addon */}
+            <div className="rounded-xl border border-slate-200 bg-white p-4 flex flex-col">
               <div className="flex justify-between items-start mb-2">
                 <h5 className="font-bold text-slate-700">Pro + Inventario</h5>
                 <div className="font-black text-slate-900">$129.800</div>
               </div>
-              <div className="text-xs text-slate-500 mb-4">
-                10 usuarios · 2 sedes
-              </div>
-              <button onClick={onDemo} className="w-full py-2 text-xs font-bold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors mt-auto">
+              <div className="text-xs text-slate-500 mb-4">10 usuarios · 2 sedes</div>
+              <button
+                onClick={onDemo}
+                className="w-full py-2 text-xs font-bold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors mt-auto"
+              >
                 Elegir Pro + add-on
               </button>
             </div>
@@ -151,16 +179,22 @@ export function PricingAddonSection({ onDemo }: PricingAddonSectionProps) {
                 <div className="font-black text-slate-900">$199.900</div>
               </div>
               <ul className="text-xs text-slate-700 space-y-1 mb-4">
-                <li className="font-bold flex items-center gap-1"><Check className="h-3 w-3 text-primary" /> Todo ilimitado</li>
-                <li className="font-bold flex items-center gap-1"><Check className="h-3 w-3 text-primary" /> + Inventario incluido</li>
+                <li className="font-bold flex items-center gap-1">
+                  <Check className="h-3 w-3 text-primary" /> Todo ilimitado
+                </li>
+                <li className="font-bold flex items-center gap-1">
+                  <Check className="h-3 w-3 text-primary" /> + Inventario incluido
+                </li>
               </ul>
-              <button onClick={onDemo} className="w-full py-2 text-xs font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors mt-auto shadow-sm">
+              <button
+                onClick={onDemo}
+                className="w-full py-2 text-xs font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors mt-auto shadow-sm"
+              >
                 Pasarme a VIP
               </button>
             </div>
           </div>
         </div>
-        
       </div>
     </section>
   );

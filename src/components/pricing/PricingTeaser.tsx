@@ -10,7 +10,6 @@ export function PricingTeaser() {
         <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-orange-200/50 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col items-center justify-center">
-
           <h2 className="font-display text-3xl font-bold tracking-tight text-amber-950 sm:text-4xl md:text-5xl max-w-3xl">
             Planes diseñados para hacer crecer tu restaurante.
           </h2>

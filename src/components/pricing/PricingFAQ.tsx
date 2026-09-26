@@ -3,10 +3,14 @@ import { ChevronDown } from "lucide-react";
 import { PRICING_FLAGS } from "@/config/pricing";
 
 const FAQS = [
-  ...(PRICING_FLAGS.dianAvailable ? [{
-    q: "¿Cómo funciona la Facturación Electrónica DIAN?",
-    a: "Los planes Pro y VIP incluyen 30 facturas mensuales. Para el plan Esencial o si necesitas más facturas, puedes adquirir bolsas adicionales que no vencen durante 6 meses.",
-  }] : []),
+  ...(PRICING_FLAGS.dianAvailable
+    ? [
+        {
+          q: "¿Cómo funciona la Facturación Electrónica DIAN?",
+          a: "Los planes Pro y VIP incluyen 30 facturas mensuales. Para el plan Esencial o si necesitas más facturas, puedes adquirir bolsas adicionales que no vencen durante 6 meses.",
+        },
+      ]
+    : []),
   {
     q: "¿Cuáles son los métodos de pago aceptados para suscribirse?",
     a: "Aceptamos pagos por transferencia bancaria (Bancolombia), Nequi, Daviplata y tarjetas de crédito/débito a través de link de pago seguro.",

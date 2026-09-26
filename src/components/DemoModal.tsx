@@ -203,7 +203,9 @@ export function DemoModal({
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="restaurante" className="font-bold text-slate-700">Nombre del restaurante</Label>
+              <Label htmlFor="restaurante" className="font-bold text-slate-700">
+                Nombre del restaurante
+              </Label>
               <Input
                 id="restaurante"
                 required
@@ -215,7 +217,9 @@ export function DemoModal({
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="contacto" className="font-bold text-slate-700">Tu nombre</Label>
+              <Label htmlFor="contacto" className="font-bold text-slate-700">
+                Tu nombre
+              </Label>
               <Input
                 id="contacto"
                 required
@@ -228,7 +232,9 @@ export function DemoModal({
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="grid gap-2">
-                <Label htmlFor="email" className="font-bold text-slate-700">Email</Label>
+                <Label htmlFor="email" className="font-bold text-slate-700">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -240,7 +246,9 @@ export function DemoModal({
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="telefono" className="font-bold text-slate-700">Teléfono</Label>
+                <Label htmlFor="telefono" className="font-bold text-slate-700">
+                  Teléfono
+                </Label>
                 <Input
                   id="telefono"
                   required
@@ -253,7 +261,9 @@ export function DemoModal({
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="mensaje" className="font-bold text-slate-700">Cuéntanos qué necesitas (opcional)</Label>
+              <Label htmlFor="mensaje" className="font-bold text-slate-700">
+                Cuéntanos qué necesitas (opcional)
+              </Label>
               <Textarea
                 id="mensaje"
                 rows={3}
@@ -266,16 +276,16 @@ export function DemoModal({
           </div>
 
           <div className="flex flex-col-reverse sm:flex-row shrink-0 items-center justify-end gap-2 sm:gap-3 bg-slate-50 px-4 py-3 sm:px-8 sm:py-5 border-t border-slate-100 rounded-b-3xl">
-            <Button 
-              type="button" 
-              variant="ghost" 
+            <Button
+              type="button"
+              variant="ghost"
               onClick={() => setOpenChange(false)}
               className="w-full sm:w-auto rounded-xl font-bold text-slate-500 hover:text-slate-700 hover:bg-slate-200"
             >
               Cancelar
             </Button>
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={loading}
               className="w-full sm:w-auto rounded-xl bg-primary hover:bg-primary/90 text-white font-bold px-8 shadow-sm"
             >

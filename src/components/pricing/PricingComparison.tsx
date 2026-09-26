@@ -45,12 +45,14 @@ export function PricingComparison() {
               <span>+$60.000</span>
             </li>
             <li className="flex justify-between text-slate-500 font-bold border-t border-slate-200 pt-4 text-lg">
-              <span>Total estimado al mes</span> 
-              <span className="line-through decoration-rose-400 decoration-2 text-slate-400">$240.000</span>
+              <span>Total estimado al mes</span>
+              <span className="line-through decoration-rose-400 decoration-2 text-slate-400">
+                $240.000
+              </span>
             </li>
           </ul>
         </div>
-        
+
         {/* TAVI Card */}
         <div className="rounded-3xl border-2 border-primary bg-white p-8 sm:p-10 shadow-2xl shadow-primary/20 relative md:scale-105 z-10">
           <div className="absolute -top-3.5 left-0 right-0 mx-auto w-fit rounded-full bg-primary px-4 py-1 text-[11px] font-black uppercase tracking-wider text-white shadow-sm">
@@ -81,7 +83,8 @@ export function PricingComparison() {
               </span>
             </li>
             <li className="flex justify-between text-slate-900 font-bold border-t border-slate-100 pt-4 text-lg">
-              <span>Todo incluido por</span> <span className="text-primary">{formatCOP(proPrice)}</span>
+              <span>Todo incluido por</span>{" "}
+              <span className="text-primary">{formatCOP(proPrice)}</span>
             </li>
           </ul>
         </div>
