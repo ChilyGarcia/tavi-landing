@@ -10,7 +10,7 @@ export const Route = createFileRoute("/")({
     ...seo({
       title: "Software para Restaurantes en Colombia: POS y Menú QR | TAVI",
       description:
-        "Software para restaurantes, bares y cafeterías en Colombia: sistema POS, menú digital con pedidos por QR, cocina KDS, inventario, fidelización y facturación DIAN.",
+        "Software para restaurantes y bares en Colombia: sistema POS, menú digital con pedidos por QR, cocina KDS, inventario, fidelización y facturación DIAN.",
       path: "/",
     }),
     scripts: [jsonLd(softwareApplicationLd), jsonLd(faqPageLd(LANDING_FAQS))],

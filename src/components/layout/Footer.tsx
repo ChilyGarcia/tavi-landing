@@ -4,6 +4,23 @@ import { TaviLogo } from "@/components/Logo";
 import { LOGIN_URL, WHATSAPP_PHONE_DISPLAY, WHATSAPP_URL } from "@/lib/site-links";
 import { CONTACT_EMAIL } from "@/lib/structured-data";
 
+const FOOTER_SOLUCIONES = [
+  { label: "Sistema POS", href: "/sistema-pos-restaurantes" },
+  { label: "Menú digital QR", href: "/menu-digital-qr" },
+  { label: "Facturación electrónica", href: "/facturacion-electronica-restaurantes" },
+  { label: "Inventario y recetas", href: "/inventario-restaurantes" },
+  { label: "Fidelización", href: "/fidelizacion-restaurantes" },
+  { label: "Alternativa a OlaClick", href: "/alternativa-olaclick" },
+];
+
+const FOOTER_TIPOS_NEGOCIO = [
+  { label: "Software para pizzerías", href: "/software-para-pizzerias" },
+  { label: "Software para cafeterías", href: "/software-para-cafeterias" },
+  { label: "Software para comidas rápidas", href: "/software-para-comidas-rapidas" },
+  { label: "Software para bares", href: "/software-para-bares" },
+  { label: "Restaurantes en Cúcuta", href: "/software-restaurantes-cucuta" },
+];
+
 export function Footer() {
   return (
     <footer className="relative border-t border-border bg-card py-16 overflow-hidden">
@@ -92,7 +109,7 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-7 lg:col-span-8 lg:ml-auto">
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:gap-12">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 md:gap-10">
             <div>
               <h3 className="text-sm font-bold tracking-wider text-foreground">Producto</h3>
               <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
@@ -146,6 +163,18 @@ export function Footer() {
                 </li>
               </ul>
             </div>
+            <div>
+              <h3 className="text-sm font-bold tracking-wider text-foreground">Soluciones</h3>
+              <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
+                {FOOTER_SOLUCIONES.map((s) => (
+                  <li key={s.href}>
+                    <a href={s.href} className="transition-colors hover:text-primary">
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="col-span-2 sm:col-span-1">
               <h3 className="text-sm font-bold tracking-wider text-foreground">Restaurantes</h3>
               <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
@@ -154,6 +183,13 @@ export function Footer() {
                     Directorio de restaurantes
                   </Link>
                 </li>
+                {FOOTER_TIPOS_NEGOCIO.map((s) => (
+                  <li key={s.href}>
+                    <a href={s.href} className="transition-colors hover:text-primary">
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

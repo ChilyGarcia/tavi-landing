@@ -11,8 +11,19 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SoporteRouteImport } from './routes/soporte'
+import { Route as SoftwareRestaurantesCucutaRouteImport } from './routes/software-restaurantes-cucuta'
+import { Route as SoftwareParaPizzeriasRouteImport } from './routes/software-para-pizzerias'
+import { Route as SoftwareParaComidasRapidasRouteImport } from './routes/software-para-comidas-rapidas'
+import { Route as SoftwareParaCafeteriasRouteImport } from './routes/software-para-cafeterias'
+import { Route as SoftwareParaBaresRouteImport } from './routes/software-para-bares'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SistemaPosRestaurantesRouteImport } from './routes/sistema-pos-restaurantes'
 import { Route as PreciosRouteImport } from './routes/precios'
+import { Route as MenuDigitalQrRouteImport } from './routes/menu-digital-qr'
+import { Route as InventarioRestaurantesRouteImport } from './routes/inventario-restaurantes'
+import { Route as FidelizacionRestaurantesRouteImport } from './routes/fidelizacion-restaurantes'
+import { Route as FacturacionElectronicaRestaurantesRouteImport } from './routes/facturacion-electronica-restaurantes'
+import { Route as AlternativaOlaclickRouteImport } from './routes/alternativa-olaclick'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RestaurantesIndexRouteImport } from './routes/restaurantes.index'
 import { Route as DirectorioIndexRouteImport } from './routes/directorio.index'
@@ -34,14 +45,73 @@ const SoporteRoute = SoporteRouteImport.update({
   path: '/soporte',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SoftwareRestaurantesCucutaRoute =
+  SoftwareRestaurantesCucutaRouteImport.update({
+    id: '/software-restaurantes-cucuta',
+    path: '/software-restaurantes-cucuta',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SoftwareParaPizzeriasRoute = SoftwareParaPizzeriasRouteImport.update({
+  id: '/software-para-pizzerias',
+  path: '/software-para-pizzerias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoftwareParaComidasRapidasRoute =
+  SoftwareParaComidasRapidasRouteImport.update({
+    id: '/software-para-comidas-rapidas',
+    path: '/software-para-comidas-rapidas',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SoftwareParaCafeteriasRoute = SoftwareParaCafeteriasRouteImport.update({
+  id: '/software-para-cafeterias',
+  path: '/software-para-cafeterias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoftwareParaBaresRoute = SoftwareParaBaresRouteImport.update({
+  id: '/software-para-bares',
+  path: '/software-para-bares',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SistemaPosRestaurantesRoute = SistemaPosRestaurantesRouteImport.update({
+  id: '/sistema-pos-restaurantes',
+  path: '/sistema-pos-restaurantes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PreciosRoute = PreciosRouteImport.update({
   id: '/precios',
   path: '/precios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MenuDigitalQrRoute = MenuDigitalQrRouteImport.update({
+  id: '/menu-digital-qr',
+  path: '/menu-digital-qr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventarioRestaurantesRoute = InventarioRestaurantesRouteImport.update({
+  id: '/inventario-restaurantes',
+  path: '/inventario-restaurantes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FidelizacionRestaurantesRoute =
+  FidelizacionRestaurantesRouteImport.update({
+    id: '/fidelizacion-restaurantes',
+    path: '/fidelizacion-restaurantes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FacturacionElectronicaRestaurantesRoute =
+  FacturacionElectronicaRestaurantesRouteImport.update({
+    id: '/facturacion-electronica-restaurantes',
+    path: '/facturacion-electronica-restaurantes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AlternativaOlaclickRoute = AlternativaOlaclickRouteImport.update({
+  id: '/alternativa-olaclick',
+  path: '/alternativa-olaclick',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -100,8 +170,19 @@ const DirectorioCiudadCategoriaRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alternativa-olaclick': typeof AlternativaOlaclickRoute
+  '/facturacion-electronica-restaurantes': typeof FacturacionElectronicaRestaurantesRoute
+  '/fidelizacion-restaurantes': typeof FidelizacionRestaurantesRoute
+  '/inventario-restaurantes': typeof InventarioRestaurantesRoute
+  '/menu-digital-qr': typeof MenuDigitalQrRoute
   '/precios': typeof PreciosRoute
+  '/sistema-pos-restaurantes': typeof SistemaPosRestaurantesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/software-para-bares': typeof SoftwareParaBaresRoute
+  '/software-para-cafeterias': typeof SoftwareParaCafeteriasRoute
+  '/software-para-comidas-rapidas': typeof SoftwareParaComidasRapidasRoute
+  '/software-para-pizzerias': typeof SoftwareParaPizzeriasRoute
+  '/software-restaurantes-cucuta': typeof SoftwareRestaurantesCucutaRoute
   '/soporte': typeof SoporteRoute
   '/support': typeof SupportRoute
   '/sitemaps/directorio.xml': typeof SitemapsDirectorioDotxmlRoute
@@ -116,8 +197,19 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alternativa-olaclick': typeof AlternativaOlaclickRoute
+  '/facturacion-electronica-restaurantes': typeof FacturacionElectronicaRestaurantesRoute
+  '/fidelizacion-restaurantes': typeof FidelizacionRestaurantesRoute
+  '/inventario-restaurantes': typeof InventarioRestaurantesRoute
+  '/menu-digital-qr': typeof MenuDigitalQrRoute
   '/precios': typeof PreciosRoute
+  '/sistema-pos-restaurantes': typeof SistemaPosRestaurantesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/software-para-bares': typeof SoftwareParaBaresRoute
+  '/software-para-cafeterias': typeof SoftwareParaCafeteriasRoute
+  '/software-para-comidas-rapidas': typeof SoftwareParaComidasRapidasRoute
+  '/software-para-pizzerias': typeof SoftwareParaPizzeriasRoute
+  '/software-restaurantes-cucuta': typeof SoftwareRestaurantesCucutaRoute
   '/soporte': typeof SoporteRoute
   '/support': typeof SupportRoute
   '/sitemaps/directorio.xml': typeof SitemapsDirectorioDotxmlRoute
@@ -133,8 +225,19 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alternativa-olaclick': typeof AlternativaOlaclickRoute
+  '/facturacion-electronica-restaurantes': typeof FacturacionElectronicaRestaurantesRoute
+  '/fidelizacion-restaurantes': typeof FidelizacionRestaurantesRoute
+  '/inventario-restaurantes': typeof InventarioRestaurantesRoute
+  '/menu-digital-qr': typeof MenuDigitalQrRoute
   '/precios': typeof PreciosRoute
+  '/sistema-pos-restaurantes': typeof SistemaPosRestaurantesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/software-para-bares': typeof SoftwareParaBaresRoute
+  '/software-para-cafeterias': typeof SoftwareParaCafeteriasRoute
+  '/software-para-comidas-rapidas': typeof SoftwareParaComidasRapidasRoute
+  '/software-para-pizzerias': typeof SoftwareParaPizzeriasRoute
+  '/software-restaurantes-cucuta': typeof SoftwareRestaurantesCucutaRoute
   '/soporte': typeof SoporteRoute
   '/support': typeof SupportRoute
   '/sitemaps/directorio.xml': typeof SitemapsDirectorioDotxmlRoute
@@ -151,8 +254,19 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/alternativa-olaclick'
+    | '/facturacion-electronica-restaurantes'
+    | '/fidelizacion-restaurantes'
+    | '/inventario-restaurantes'
+    | '/menu-digital-qr'
     | '/precios'
+    | '/sistema-pos-restaurantes'
     | '/sitemap.xml'
+    | '/software-para-bares'
+    | '/software-para-cafeterias'
+    | '/software-para-comidas-rapidas'
+    | '/software-para-pizzerias'
+    | '/software-restaurantes-cucuta'
     | '/soporte'
     | '/support'
     | '/sitemaps/directorio.xml'
@@ -167,8 +281,19 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/alternativa-olaclick'
+    | '/facturacion-electronica-restaurantes'
+    | '/fidelizacion-restaurantes'
+    | '/inventario-restaurantes'
+    | '/menu-digital-qr'
     | '/precios'
+    | '/sistema-pos-restaurantes'
     | '/sitemap.xml'
+    | '/software-para-bares'
+    | '/software-para-cafeterias'
+    | '/software-para-comidas-rapidas'
+    | '/software-para-pizzerias'
+    | '/software-restaurantes-cucuta'
     | '/soporte'
     | '/support'
     | '/sitemaps/directorio.xml'
@@ -183,8 +308,19 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/alternativa-olaclick'
+    | '/facturacion-electronica-restaurantes'
+    | '/fidelizacion-restaurantes'
+    | '/inventario-restaurantes'
+    | '/menu-digital-qr'
     | '/precios'
+    | '/sistema-pos-restaurantes'
     | '/sitemap.xml'
+    | '/software-para-bares'
+    | '/software-para-cafeterias'
+    | '/software-para-comidas-rapidas'
+    | '/software-para-pizzerias'
+    | '/software-restaurantes-cucuta'
     | '/soporte'
     | '/support'
     | '/sitemaps/directorio.xml'
@@ -200,8 +336,19 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlternativaOlaclickRoute: typeof AlternativaOlaclickRoute
+  FacturacionElectronicaRestaurantesRoute: typeof FacturacionElectronicaRestaurantesRoute
+  FidelizacionRestaurantesRoute: typeof FidelizacionRestaurantesRoute
+  InventarioRestaurantesRoute: typeof InventarioRestaurantesRoute
+  MenuDigitalQrRoute: typeof MenuDigitalQrRoute
   PreciosRoute: typeof PreciosRoute
+  SistemaPosRestaurantesRoute: typeof SistemaPosRestaurantesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SoftwareParaBaresRoute: typeof SoftwareParaBaresRoute
+  SoftwareParaCafeteriasRoute: typeof SoftwareParaCafeteriasRoute
+  SoftwareParaComidasRapidasRoute: typeof SoftwareParaComidasRapidasRoute
+  SoftwareParaPizzeriasRoute: typeof SoftwareParaPizzeriasRoute
+  SoftwareRestaurantesCucutaRoute: typeof SoftwareRestaurantesCucutaRoute
   SoporteRoute: typeof SoporteRoute
   SupportRoute: typeof SupportRoute
   SitemapsDirectorioDotxmlRoute: typeof SitemapsDirectorioDotxmlRoute
@@ -231,6 +378,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SoporteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/software-restaurantes-cucuta': {
+      id: '/software-restaurantes-cucuta'
+      path: '/software-restaurantes-cucuta'
+      fullPath: '/software-restaurantes-cucuta'
+      preLoaderRoute: typeof SoftwareRestaurantesCucutaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/software-para-pizzerias': {
+      id: '/software-para-pizzerias'
+      path: '/software-para-pizzerias'
+      fullPath: '/software-para-pizzerias'
+      preLoaderRoute: typeof SoftwareParaPizzeriasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/software-para-comidas-rapidas': {
+      id: '/software-para-comidas-rapidas'
+      path: '/software-para-comidas-rapidas'
+      fullPath: '/software-para-comidas-rapidas'
+      preLoaderRoute: typeof SoftwareParaComidasRapidasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/software-para-cafeterias': {
+      id: '/software-para-cafeterias'
+      path: '/software-para-cafeterias'
+      fullPath: '/software-para-cafeterias'
+      preLoaderRoute: typeof SoftwareParaCafeteriasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/software-para-bares': {
+      id: '/software-para-bares'
+      path: '/software-para-bares'
+      fullPath: '/software-para-bares'
+      preLoaderRoute: typeof SoftwareParaBaresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -238,11 +420,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sistema-pos-restaurantes': {
+      id: '/sistema-pos-restaurantes'
+      path: '/sistema-pos-restaurantes'
+      fullPath: '/sistema-pos-restaurantes'
+      preLoaderRoute: typeof SistemaPosRestaurantesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/precios': {
       id: '/precios'
       path: '/precios'
       fullPath: '/precios'
       preLoaderRoute: typeof PreciosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/menu-digital-qr': {
+      id: '/menu-digital-qr'
+      path: '/menu-digital-qr'
+      fullPath: '/menu-digital-qr'
+      preLoaderRoute: typeof MenuDigitalQrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventario-restaurantes': {
+      id: '/inventario-restaurantes'
+      path: '/inventario-restaurantes'
+      fullPath: '/inventario-restaurantes'
+      preLoaderRoute: typeof InventarioRestaurantesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fidelizacion-restaurantes': {
+      id: '/fidelizacion-restaurantes'
+      path: '/fidelizacion-restaurantes'
+      fullPath: '/fidelizacion-restaurantes'
+      preLoaderRoute: typeof FidelizacionRestaurantesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/facturacion-electronica-restaurantes': {
+      id: '/facturacion-electronica-restaurantes'
+      path: '/facturacion-electronica-restaurantes'
+      fullPath: '/facturacion-electronica-restaurantes'
+      preLoaderRoute: typeof FacturacionElectronicaRestaurantesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alternativa-olaclick': {
+      id: '/alternativa-olaclick'
+      path: '/alternativa-olaclick'
+      fullPath: '/alternativa-olaclick'
+      preLoaderRoute: typeof AlternativaOlaclickRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -320,8 +544,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlternativaOlaclickRoute: AlternativaOlaclickRoute,
+  FacturacionElectronicaRestaurantesRoute:
+    FacturacionElectronicaRestaurantesRoute,
+  FidelizacionRestaurantesRoute: FidelizacionRestaurantesRoute,
+  InventarioRestaurantesRoute: InventarioRestaurantesRoute,
+  MenuDigitalQrRoute: MenuDigitalQrRoute,
   PreciosRoute: PreciosRoute,
+  SistemaPosRestaurantesRoute: SistemaPosRestaurantesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SoftwareParaBaresRoute: SoftwareParaBaresRoute,
+  SoftwareParaCafeteriasRoute: SoftwareParaCafeteriasRoute,
+  SoftwareParaComidasRapidasRoute: SoftwareParaComidasRapidasRoute,
+  SoftwareParaPizzeriasRoute: SoftwareParaPizzeriasRoute,
+  SoftwareRestaurantesCucutaRoute: SoftwareRestaurantesCucutaRoute,
   SoporteRoute: SoporteRoute,
   SupportRoute: SupportRoute,
   SitemapsDirectorioDotxmlRoute: SitemapsDirectorioDotxmlRoute,

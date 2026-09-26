@@ -493,6 +493,7 @@ function Features() {
   const modules = [
     {
       title: "Sistema POS y Punto de Venta",
+      links: [{ label: "Sistema POS para restaurantes", href: "/sistema-pos-restaurantes" }],
       icon: Store,
       img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
       benefits: [
@@ -504,6 +505,7 @@ function Features() {
     },
     {
       title: "Menú Digital QR y Pedidos en Mesas",
+      links: [{ label: "Menú digital QR", href: "/menu-digital-qr" }],
       icon: QrCode,
       img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
       benefits: [
@@ -515,6 +517,7 @@ function Features() {
     },
     {
       title: "Pantallas de Cocina (KDS) y Comandas",
+      links: [{ label: "Cocina KDS en el POS", href: "/sistema-pos-restaurantes" }],
       icon: MonitorPlay,
       img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=800&auto=format&fit=crop",
       benefits: [
@@ -526,6 +529,10 @@ function Features() {
     },
     {
       title: "Facturación DIAN, Inventario y Sedes",
+      links: [
+        { label: "Facturación electrónica", href: "/facturacion-electronica-restaurantes" },
+        { label: "Inventario y recetas", href: "/inventario-restaurantes" },
+      ],
       icon: ReceiptText,
       img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop",
       benefits: [
@@ -590,6 +597,17 @@ function Features() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
+                  {mod.links.map((link) => (
+                    <a
+                      key={link.href + link.label}
+                      href={link.href}
+                      className="text-sm font-bold text-primary hover:underline"
+                    >
+                      {link.label} →
+                    </a>
+                  ))}
+                </div>
               </div>
             </Reveal>
           ))}
