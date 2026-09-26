@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { PRICING_FLAGS } from "@/config/pricing";
 
-const FAQS = [
+export const PRICING_FAQS = [
   ...(PRICING_FLAGS.dianAvailable
     ? [
         {
@@ -35,7 +35,7 @@ export function PricingFAQ() {
           Preguntas Frecuentes
         </h2>
         <div className="space-y-4">
-          {FAQS.map((faq, idx) => (
+          {PRICING_FAQS.map((faq, idx) => (
             <div
               key={idx}
               className="border border-slate-200 rounded-2xl overflow-hidden transition-all duration-300"

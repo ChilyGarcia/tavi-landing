@@ -1,13 +1,29 @@
 # TAVI Landing
 
-Landing page pública de TAVI (`/` y `/support`), separada de la aplicación
-(`../frontend`, que ahora arranca en `/login`).
+Sitio público de TAVI Orders (`taviorders.com`): home, precios, soporte y
+directorio de restaurantes. Es un proyecto separado de la aplicación
+(`../frontend`, panel + menú QR en `{slug}.taviorders.com`).
+
+## Stack
+
+**TanStack Start** (React 19, SSR) + Vite + Tailwind 4, desplegado en Vercel
+vía Nitro. Todas las páginas se renderizan en el servidor: el HTML inicial ya
+trae title, meta, canonical, JSON-LD y contenido (lo que leen Google y los
+previews de WhatsApp/Facebook, que no ejecutan JS).
+
+- Rutas: `src/routes/*` (file-based; `src/routeTree.gen.ts` se genera solo).
+- SEO por ruta: `head()` con los helpers de `src/lib/seo.ts`
+  (`seo()`, `jsonLd()`, `breadcrumbLd()`); datos estructurados globales en
+  `src/lib/structured-data.ts`.
+- Rutas inexistentes responden **404** real (`notFoundComponent`); los
+  alias usan redirect 301 desde el servidor (ver `src/routes/soporte.tsx`).
 
 ## Desarrollo
 
 ```bash
 bun install
-bun run dev      # http://localhost:5174
+bun run dev        # http://localhost:5174
+bun run check      # build + typecheck + lint + tests
 ```
 
 ## Variables de entorno
@@ -15,41 +31,19 @@ bun run dev      # http://localhost:5174
 Copia `.env.example` a `.env`:
 
 - `VITE_WEB3FORMS_ACCESS_KEY` — clave pública de [Web3Forms](https://web3forms.com)
-  usada por el formulario "Solicitar demo" (`src/components/DemoModal.tsx`) para
-  enviar el correo directamente desde el navegador, sin backend propio.
+  para el formulario "Solicitar demo" (`src/components/DemoModal.tsx`).
 - `VITE_APP_URL` — URL base de la app TAVI (login/panel). Vacío = enlaces
-  relativos (`/login`), útil si landing y app comparten dominio detrás de un
-  proxy inverso. En desarrollo local con ambos proyectos corriendo por
-  separado, apunta al dev server de `../frontend` (por defecto
-  `http://localhost:3000`).
+  relativos (`/login`).
 
-## Build
+## Build y deploy
 
 ```bash
-bun run build   # genera dist/
-bun run preview
+bun run build      # vite build -> .output/ (o .vercel/output/ en Vercel)
+bun run preview    # sirve .output/server/index.mjs
 ```
 
-`public/_redirects` habilita el fallback de SPA en Cloudflare Pages/Netlify.
-El despliegue actual es en **Vercel**, que no lee ese archivo: el fallback
-para rutas como `/support` lo da `vercel.json` (rewrite `/(.*)` →
-`/index.html`). Vercel sirve primero cualquier archivo que exista en
-`dist/` (assets, `robots.txt`, `sitemap.xml`, etc.), así que el rewrite
-solo actúa sobre rutas que no son archivos reales.
-
-## SEO técnico
-
-- **Salida estática**: `vite build` ya genera un sitio 100% estático en
-  `dist/` (HTML + JS + CSS + assets), sin servidor ni SSR. No hay
-  equivalente a `output: 'export'` que configurar porque este proyecto usa
-  Vite, no Next.js — es el comportamiento por defecto.
-- **`sitemap.xml`**: se genera automáticamente antes de cada build
-  (`scripts/generate-sitemap.mjs`, hook `prebuild`) y termina en
-  `dist/sitemap.xml`. Solo lista páginas reales (`/`, `/support`); las
-  secciones ancla del home (`#features`, `#pricing`, `#how`, `#showcase`)
-  no se listan aparte porque los rastreadores ignoran el fragmento y es la
-  misma URL/documento. Si agregas una página nueva, súmala al array
-  `routes` del script. El dominio usado es `https://taviorders.com`
-  (override con la env var `SITE_URL`).
-- **`robots.txt`**: en `public/robots.txt`, permite todo el rastreo y
-  apunta al sitemap.
+En Vercel, Nitro detecta el entorno y genera `.vercel/output` (Build Output
+API): una función SSR + estáticos, con `cache-control: immutable` para
+`/assets/*`. Las páginas públicas envían `s-maxage=600,
+stale-while-revalidate=86400` (`PUBLIC_PAGE_HEADERS`) para servirse desde el
+CDN. No hace falta `vercel.json`.

@@ -1,6 +1,6 @@
 // src/components/layout/Navbar.tsx
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { TaviLogo } from "@/components/Logo";
 import { LOGIN_URL } from "@/lib/site-links";
@@ -75,7 +75,7 @@ export function Navbar({ onDemo }: NavbarProps) {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
         <Link
           to="/"
-          onClick={(e) => {
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
             if (!isHome) {
               return; // Let the router handle navigation to "/"
             }
@@ -89,20 +89,20 @@ export function Navbar({ onDemo }: NavbarProps) {
         <nav className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/60 px-2 py-1 text-sm text-muted-foreground md:flex shadow-sm">
           {isHome ? (
             <>
-              <Link
-                to="#features"
+              <a
+                href="#features"
                 onClick={(e) => scrollToSection(e, "features")}
                 className="rounded-full px-4 py-1.5 transition-colors hover:bg-primary hover:text-primary-foreground font-medium"
               >
                 Funcionalidades
-              </Link>
-              <Link
-                to="#how"
+              </a>
+              <a
+                href="#how"
                 onClick={(e) => scrollToSection(e, "how")}
                 className="rounded-full px-4 py-1.5 transition-colors hover:bg-primary hover:text-primary-foreground font-medium"
               >
                 Cómo funciona
-              </Link>
+              </a>
               <Link
                 to="/precios"
                 className="rounded-full px-4 py-1.5 transition-colors hover:bg-primary hover:text-primary-foreground font-medium"
@@ -112,34 +112,34 @@ export function Navbar({ onDemo }: NavbarProps) {
             </>
           ) : isPricing ? (
             <>
-              <Link
-                to="#planes"
+              <a
+                href="#planes"
                 onClick={(e) => scrollToSection(e, "planes")}
                 className="rounded-full px-4 py-1.5 transition-colors hover:bg-primary hover:text-primary-foreground font-medium"
               >
                 Planes
-              </Link>
-              <Link
-                to="#modulos"
+              </a>
+              <a
+                href="#modulos"
                 onClick={(e) => scrollToSection(e, "modulos")}
                 className="rounded-full px-4 py-1.5 transition-colors hover:bg-primary hover:text-primary-foreground font-medium"
               >
                 Módulos
-              </Link>
-              <Link
-                to="#tabla-completa"
+              </a>
+              <a
+                href="#tabla-completa"
                 onClick={(e) => scrollToSection(e, "tabla-completa")}
                 className="rounded-full px-4 py-1.5 transition-colors hover:bg-primary hover:text-primary-foreground font-medium"
               >
                 Comparativa
-              </Link>
-              <Link
-                to="#calculadora"
+              </a>
+              <a
+                href="#calculadora"
                 onClick={(e) => scrollToSection(e, "calculadora")}
                 className="rounded-full px-4 py-1.5 transition-colors hover:bg-primary hover:text-primary-foreground font-medium"
               >
                 Calculadora
-              </Link>
+              </a>
             </>
           ) : (
             <Link

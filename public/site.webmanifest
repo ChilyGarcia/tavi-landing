@@ -1,0 +1,13 @@
+{
+  "name": "TAVI Orders",
+  "short_name": "TAVI",
+  "lang": "es-CO",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF6B35",
+  "icons": [
+    { "src": "/favicon-v2-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/tavi-logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

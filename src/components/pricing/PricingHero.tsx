@@ -1,6 +1,6 @@
 import { type BillingCycle } from "@/config/pricing";
 import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 
 interface PricingHeroProps {
   billingCycle: BillingCycle;

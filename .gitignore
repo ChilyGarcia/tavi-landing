@@ -29,3 +29,9 @@ public/sitemap.xml
 *.njsproj
 *.sln
 *.sw?
+
+# TanStack Start / Nitro
+.output
+.vercel
+.nitro
+.tanstack

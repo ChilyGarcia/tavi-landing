@@ -1,5 +1,5 @@
 // src/components/layout/Footer.tsx
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { TaviLogo } from "@/components/Logo";
 import { LOGIN_URL } from "@/lib/site-links";
 
@@ -96,12 +96,12 @@ export function Footer() {
               <h3 className="text-sm font-bold tracking-wider text-foreground">Producto</h3>
               <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
                 <li>
-                  <Link to="/#features" className="transition-colors hover:text-primary">
+                  <Link to="/" hash="features" className="transition-colors hover:text-primary">
                     Funcionalidades
                   </Link>
                 </li>
                 <li>
-                  <Link to="/#how" className="transition-colors hover:text-primary">
+                  <Link to="/" hash="how" className="transition-colors hover:text-primary">
                     Cómo funciona
                   </Link>
                 </li>
@@ -111,7 +111,7 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/#showcase" className="transition-colors hover:text-primary">
+                  <Link to="/" hash="showcase" className="transition-colors hover:text-primary">
                     Casos de éxito
                   </Link>
                 </li>

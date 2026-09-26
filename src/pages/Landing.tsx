@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import {
   QrCode,
@@ -31,6 +31,7 @@ import foodBurger from "@/assets/tavi-food-burger.webp";
 import foodBowl from "@/assets/tavi-food-bowl.webp";
 import foodDessert from "@/assets/tavi-food-dessert.webp";
 import { DemoModal } from "@/components/DemoModal";
+import { LANDING_FAQS } from "@/content/landing-faqs";
 import { TaviLogo } from "@/components/Logo";
 import { Reveal } from "@/components/Reveal";
 import { LOGIN_URL } from "@/lib/site-links";
@@ -101,10 +102,15 @@ function Hero({ onDemo }: { onDemo: () => void }) {
         {/* Left Side: Text & CTAs */}
         <div className="relative">
           <Reveal delay={90}>
-            <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-[4rem]">
-              El software todo-en-uno para gestionar tu <br />
+            <div className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-[4rem]">
+              {/* El H1 lleva un texto estable (lo que indexa Google); la palabra rotativa es solo visual. */}
+              <h1 className="inline">
+                El software todo-en-uno para gestionar tu
+                <span className="sr-only"> restaurante</span>
+              </h1>
+              <br />
               {/* Contenedor relativo: el texto invisible reserva el espacio máximo, el texto absoluto hace la transición por encima */}
-              <span className="relative block">
+              <span className="relative block" aria-hidden="true">
                 <span className="invisible pointer-events-none" aria-hidden="true">
                   negocio gastronómico
                 </span>
@@ -114,7 +120,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
                   {words[wordIndex]}
                 </span>
               </span>
-            </h1>
+            </div>
           </Reveal>
 
           <Reveal delay={170}>
@@ -745,29 +751,6 @@ function Testimonial() {
 function LandingFAQ() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
-  const faqs = [
-    {
-      q: "¿Por qué elegir Tavi Orders como software para restaurantes en Colombia?",
-      a: "Tavi Orders es una solución FoodTech completa que unifica tu sistema de punto de venta (POS), comandas automáticas a cocina (KDS), menús QR para mesas y control de inventarios. Te permite reducir hasta 4 minutos de espera por orden y operar sin pagar comisiones por tus pedidos.",
-    },
-    {
-      q: "¿Cómo implementar menús con código QR en mesas con Tavi Orders?",
-      a: "Es inmediato y sin fricción: colocas el código QR generado por Tavi Orders en tus mesas. Los comensales escanean con la cámara de su celular sin descargar apps, ven tu carta digital con fotos, personalizan su pedido y lo envían directo a la cocina o caja.",
-    },
-    {
-      q: "¿Cómo funcionan las pantallas de visualización para cocina (KDS)?",
-      a: "Las pantallas de cocina (KDS) de Tavi Orders reciben las órdenes al instante y las organizan por estación (cocina, barra, postres) con avisos sonoros/voz y semáforos de tiempo. Esto elimina las comandas en papel y los errores de transcripción.",
-    },
-    {
-      q: "¿Cómo crear tarjetas de fidelización digitales para clientes en Google Wallet?",
-      a: "Con Tavi Orders puedes emitir pases digitales VIP que tus clientes agregan a Google Wallet o Apple Wallet con un solo tap. El sistema registra sus visitas y compras para premiarlos y asegurar que regresen a tu restaurante.",
-    },
-    {
-      q: "¿Tavi Orders funciona en Cúcuta y en toda Colombia?",
-      a: "Sí, Tavi Orders está optimizado para negocios gastronómicos en Cúcuta, Bogotá, Medellín, Cali, Bucaramanga y toda Colombia. Funciona 100% en la nube desde cualquier computador, tablet, celular Android/iOS e impresora térmica.",
-    },
-  ];
-
   return (
     <section className="mx-auto max-w-4xl px-6 py-20 md:py-28">
       <Reveal className="text-center mb-14">
@@ -784,7 +767,7 @@ function LandingFAQ() {
       </Reveal>
 
       <div className="space-y-4">
-        {faqs.map((faq, idx) => (
+        {LANDING_FAQS.map((faq, idx) => (
           <Reveal key={idx} delay={idx * 60}>
             <div className="rounded-2xl border border-border/70 bg-card overflow-hidden transition-all duration-200 hover:border-primary/30">
               <button

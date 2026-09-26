@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PricingHero } from "@/components/pricing/PricingHero";
@@ -17,13 +17,17 @@ import { DemoModal } from "@/components/DemoModal";
 
 export default function Pricing() {
   const [showDemoModal, setShowDemoModal] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { ciclo } = useSearch({ from: "/precios" });
+  const navigate = useNavigate({ from: "/precios" });
 
-  const cycleParam = searchParams.get("ciclo");
-  const billingCycle = cycleParam === "mensual" ? "monthly" : "annual";
+  const billingCycle = ciclo === "mensual" ? "monthly" : "annual";
 
   const setBillingCycle = (cycle: "monthly" | "annual") => {
-    setSearchParams({ ciclo: cycle === "monthly" ? "mensual" : "anual" }, { replace: true });
+    navigate({
+      search: { ciclo: cycle === "monthly" ? "mensual" : "anual" },
+      replace: true,
+      resetScroll: false,
+    });
   };
 
   return (

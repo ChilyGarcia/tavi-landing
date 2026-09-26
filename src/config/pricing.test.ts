@@ -17,7 +17,15 @@ declare const expect: (actual: unknown) => {
 };
 
 describe("Pricing utilities & calculations (V5)", () => {
-  const [esencial, pro, vip] = PLANS;
+  // Por id: el orden de PLANS es de presentación (VIP va primero en la UI).
+  const byId = (id: string) => {
+    const plan = PLANS.find((p) => p.id === id);
+    if (!plan) throw new Error(`Plan ${id} no existe`);
+    return plan;
+  };
+  const esencial = byId("esencial");
+  const pro = byId("pro");
+  const vip = byId("vip");
 
   it("calculates Plan Esencial correctly", () => {
     expect(annualMonthlyEquiv(esencial)).toBe(45833);

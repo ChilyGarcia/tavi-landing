@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ExternalLink, UtensilsCrossed, Pizza, Flame } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -39,28 +39,6 @@ const RESTAURANTS = [
 
 export function RestaurantsDirectory() {
   const [showDemoModal, setShowDemoModal] = useState(false);
-
-  useEffect(() => {
-    // Configuración SEO dinámica para Googlebot
-    const originalTitle = document.title;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    const originalDesc = metaDesc ? metaDesc.getAttribute("content") : "";
-
-    document.title = "Los Mejores Restaurantes en Cúcuta, Risaralda y Colombia | Directorio TAVI";
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Descubre el directorio de los mejores restaurantes en Cúcuta, Risaralda y Colombia recomendados por TAVI. Menús digitales, domicilios y más.",
-      );
-    }
-
-    return () => {
-      document.title = originalTitle;
-      if (metaDesc && originalDesc) {
-        metaDesc.setAttribute("content", originalDesc);
-      }
-    };
-  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#FAF9F6] selection:bg-primary/20 selection:text-primary">
