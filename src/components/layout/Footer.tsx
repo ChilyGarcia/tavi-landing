@@ -1,7 +1,8 @@
 // src/components/layout/Footer.tsx
 import { Link } from "@tanstack/react-router";
 import { TaviLogo } from "@/components/Logo";
-import { LOGIN_URL } from "@/lib/site-links";
+import { LOGIN_URL, WHATSAPP_PHONE_DISPLAY, WHATSAPP_URL } from "@/lib/site-links";
+import { CONTACT_EMAIL } from "@/lib/structured-data";
 
 export function Footer() {
   return (
@@ -122,38 +123,36 @@ export function Footer() {
               <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
                 <li>
                   <Link to="/support" className="transition-colors hover:text-primary">
-                    Centro de Ayuda
+                    Centro de ayuda
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-primary">
-                    Guías y tutoriales
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors hover:text-primary"
+                  >
+                    WhatsApp {WHATSAPP_PHONE_DISPLAY}
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-primary">
-                    Contacto
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="transition-colors hover:text-primary"
+                  >
+                    {CONTACT_EMAIL}
                   </a>
                 </li>
               </ul>
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <h3 className="text-sm font-bold tracking-wider text-foreground">Legal</h3>
+              <h3 className="text-sm font-bold tracking-wider text-foreground">Restaurantes</h3>
               <ul className="mt-5 space-y-3.5 text-sm text-muted-foreground">
                 <li>
-                  <a href="#" className="transition-colors hover:text-primary">
-                    Términos de servicio
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="transition-colors hover:text-primary">
-                    Privacidad
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="transition-colors hover:text-primary">
-                    Cookies
-                  </a>
+                  <Link to="/directorio" className="transition-colors hover:text-primary">
+                    Directorio de restaurantes
+                  </Link>
                 </li>
               </ul>
             </div>
