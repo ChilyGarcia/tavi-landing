@@ -2,7 +2,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { RestaurantsDirectory } from "@/pages/RestaurantsDirectory";
 import { agruparPorCiudad, categoriaPorSlug, paginaIndexable } from "@/lib/directorio";
 import { introDirectorio, itemListLd } from "@/lib/directorio-seo";
-import { PUBLIC_PAGE_HEADERS, breadcrumbLd, jsonLd, seo } from "@/lib/seo";
+import { DATA_PAGE_HEADERS, breadcrumbLd, jsonLd, seo } from "@/lib/seo";
 import { obtenerDirectorio } from "@/server/directorio";
 
 export const Route = createFileRoute("/directorio/$ciudad/$categoria")({
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/directorio/$ciudad/$categoria")({
     if (restaurantes.length === 0) throw notFound();
     return { ciudad, categoria, restaurantes };
   },
-  headers: () => PUBLIC_PAGE_HEADERS,
+  headers: () => DATA_PAGE_HEADERS,
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const { ciudad, categoria, restaurantes } = loaderData;

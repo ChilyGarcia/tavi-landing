@@ -90,3 +90,12 @@ export function breadcrumbLd(items: Array<{ name: string; path: string }>) {
 export const PUBLIC_PAGE_HEADERS = {
   "cache-control": "public, max-age=0, s-maxage=600, stale-while-revalidate=86400",
 };
+
+/**
+ * Páginas que dependen de datos del backend (directorio, fichas de
+ * restaurante): caché corta para que un restaurante recién publicado o una
+ * carta editada se vean en ~1 min, no en 10+.
+ */
+export const DATA_PAGE_HEADERS = {
+  "cache-control": "public, max-age=0, s-maxage=60, stale-while-revalidate=300",
+};

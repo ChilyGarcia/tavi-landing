@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { RestaurantPublic } from "@/pages/RestaurantPublic";
 import { categoriaDe, formatoPrecio } from "@/lib/directorio";
-import { PUBLIC_PAGE_HEADERS, breadcrumbLd, jsonLd, seo } from "@/lib/seo";
+import { DATA_PAGE_HEADERS, breadcrumbLd, jsonLd, seo } from "@/lib/seo";
 import { restaurantLd } from "@/lib/restaurant-ld";
 import { obtenerDirectorio, obtenerFicha } from "@/server/directorio";
 
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/restaurantes/$ciudad/$slug")({
       .slice(0, 6);
     return { ficha, relacionados };
   },
-  headers: () => PUBLIC_PAGE_HEADERS,
+  headers: () => DATA_PAGE_HEADERS,
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const { ficha } = loaderData;

@@ -2,12 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { RestaurantsDirectory } from "@/pages/RestaurantsDirectory";
 import { agruparPorCiudad } from "@/lib/directorio";
 import { introDirectorio, itemListLd } from "@/lib/directorio-seo";
-import { PUBLIC_PAGE_HEADERS, breadcrumbLd, jsonLd, seo } from "@/lib/seo";
+import { DATA_PAGE_HEADERS, breadcrumbLd, jsonLd, seo } from "@/lib/seo";
 import { obtenerDirectorio } from "@/server/directorio";
 
 export const Route = createFileRoute("/directorio/")({
   loader: () => obtenerDirectorio(),
-  headers: () => PUBLIC_PAGE_HEADERS,
+  headers: () => DATA_PAGE_HEADERS,
   head: ({ loaderData }) => ({
     ...seo({
       title: "Restaurantes con Menú Digital en Colombia | Directorio TAVI",
