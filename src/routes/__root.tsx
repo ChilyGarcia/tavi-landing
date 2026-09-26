@@ -1,10 +1,11 @@
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { NotFound } from "@/pages/NotFound";
 import { SITE_NAME, jsonLd } from "@/lib/seo";
 import { organizationLd, websiteLd } from "@/lib/structured-data";
+import { ga4Scripts, trackEvent } from "@/lib/analytics";
 import appCss from "@/styles.css?url";
 
 const FONTS_URL = "https://fonts.googleapis.com/css2?family=Inter:wght@400..900&display=swap";
@@ -32,7 +33,7 @@ export const Route = createRootRoute({
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon-v2.png" },
       { rel: "manifest", href: "/site.webmanifest" },
     ],
-    scripts: [jsonLd(organizationLd), jsonLd(websiteLd)],
+    scripts: [jsonLd(organizationLd), jsonLd(websiteLd), ...ga4Scripts()],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -53,7 +54,26 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+/** Conversiones por clic en enlaces (WhatsApp, login), sin instrumentar cada botón. */
+function useConversionLinks() {
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const link = (e.target as HTMLElement | null)?.closest?.("a[href]");
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const pagina = window.location.pathname;
+      if (link.hostname === "wa.me" || link.hostname === "api.whatsapp.com") {
+        trackEvent("click_whatsapp", { pagina });
+      } else if (link.pathname === "/login") {
+        trackEvent("click_login", { pagina });
+      }
+    };
+    document.addEventListener("click", onClick, { capture: true });
+    return () => document.removeEventListener("click", onClick, { capture: true });
+  }, []);
+}
+
 function RootComponent() {
+  useConversionLinks();
   return (
     <>
       <Outlet />

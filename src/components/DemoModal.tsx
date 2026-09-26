@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { ChefHat, Check } from "lucide-react";
 import {
   Dialog,
@@ -52,6 +53,7 @@ export function DemoModal({
   useEffect(() => {
     if (open) {
       setForm((prev) => ({ ...prev, plan: initialPlan ?? NO_ESTOY_SEGURO }));
+      trackEvent("click_demo", { pagina: window.location.pathname });
     }
   }, [open, initialPlan]);
 
@@ -106,6 +108,7 @@ export function DemoModal({
       }
 
       localStorage.setItem(LAST_SUBMIT_KEY, String(Date.now()));
+      trackEvent("submit_demo", { plan: form.plan, pagina: window.location.pathname });
       setOpenChange(false);
       resetForm();
       toast.success("¡Solicitud enviada!", {
