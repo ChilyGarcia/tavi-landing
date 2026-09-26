@@ -12,8 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SoporteRouteImport } from './routes/soporte'
 import { Route as PreciosRouteImport } from './routes/precios'
-import { Route as DirectorioRouteImport } from './routes/directorio'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RestaurantesIndexRouteImport } from './routes/restaurantes.index'
+import { Route as DirectorioIndexRouteImport } from './routes/directorio.index'
+import { Route as RestaurantesCiudadIndexRouteImport } from './routes/restaurantes.$ciudad.index'
+import { Route as DirectorioCiudadIndexRouteImport } from './routes/directorio.$ciudad.index'
+import { Route as RestaurantesCiudadSlugRouteImport } from './routes/restaurantes.$ciudad.$slug'
+import { Route as DirectorioCiudadCategoriaRouteImport } from './routes/directorio.$ciudad.$categoria'
 
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
@@ -30,53 +35,130 @@ const PreciosRoute = PreciosRouteImport.update({
   path: '/precios',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DirectorioRoute = DirectorioRouteImport.update({
-  id: '/directorio',
-  path: '/directorio',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RestaurantesIndexRoute = RestaurantesIndexRouteImport.update({
+  id: '/restaurantes/',
+  path: '/restaurantes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DirectorioIndexRoute = DirectorioIndexRouteImport.update({
+  id: '/directorio/',
+  path: '/directorio/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RestaurantesCiudadIndexRoute = RestaurantesCiudadIndexRouteImport.update({
+  id: '/restaurantes/$ciudad/',
+  path: '/restaurantes/$ciudad/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DirectorioCiudadIndexRoute = DirectorioCiudadIndexRouteImport.update({
+  id: '/directorio/$ciudad/',
+  path: '/directorio/$ciudad/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RestaurantesCiudadSlugRoute = RestaurantesCiudadSlugRouteImport.update({
+  id: '/restaurantes/$ciudad/$slug',
+  path: '/restaurantes/$ciudad/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DirectorioCiudadCategoriaRoute =
+  DirectorioCiudadCategoriaRouteImport.update({
+    id: '/directorio/$ciudad/$categoria',
+    path: '/directorio/$ciudad/$categoria',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/directorio': typeof DirectorioRoute
   '/precios': typeof PreciosRoute
   '/soporte': typeof SoporteRoute
   '/support': typeof SupportRoute
+  '/directorio/': typeof DirectorioIndexRoute
+  '/restaurantes/': typeof RestaurantesIndexRoute
+  '/directorio/$ciudad/$categoria': typeof DirectorioCiudadCategoriaRoute
+  '/restaurantes/$ciudad/$slug': typeof RestaurantesCiudadSlugRoute
+  '/directorio/$ciudad/': typeof DirectorioCiudadIndexRoute
+  '/restaurantes/$ciudad/': typeof RestaurantesCiudadIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/directorio': typeof DirectorioRoute
   '/precios': typeof PreciosRoute
   '/soporte': typeof SoporteRoute
   '/support': typeof SupportRoute
+  '/directorio': typeof DirectorioIndexRoute
+  '/restaurantes': typeof RestaurantesIndexRoute
+  '/directorio/$ciudad/$categoria': typeof DirectorioCiudadCategoriaRoute
+  '/restaurantes/$ciudad/$slug': typeof RestaurantesCiudadSlugRoute
+  '/directorio/$ciudad': typeof DirectorioCiudadIndexRoute
+  '/restaurantes/$ciudad': typeof RestaurantesCiudadIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/directorio': typeof DirectorioRoute
   '/precios': typeof PreciosRoute
   '/soporte': typeof SoporteRoute
   '/support': typeof SupportRoute
+  '/directorio/': typeof DirectorioIndexRoute
+  '/restaurantes/': typeof RestaurantesIndexRoute
+  '/directorio/$ciudad/$categoria': typeof DirectorioCiudadCategoriaRoute
+  '/restaurantes/$ciudad/$slug': typeof RestaurantesCiudadSlugRoute
+  '/directorio/$ciudad/': typeof DirectorioCiudadIndexRoute
+  '/restaurantes/$ciudad/': typeof RestaurantesCiudadIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/directorio' | '/precios' | '/soporte' | '/support'
+  fullPaths:
+    | '/'
+    | '/precios'
+    | '/soporte'
+    | '/support'
+    | '/directorio/'
+    | '/restaurantes/'
+    | '/directorio/$ciudad/$categoria'
+    | '/restaurantes/$ciudad/$slug'
+    | '/directorio/$ciudad/'
+    | '/restaurantes/$ciudad/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/directorio' | '/precios' | '/soporte' | '/support'
-  id: '__root__' | '/' | '/directorio' | '/precios' | '/soporte' | '/support'
+  to:
+    | '/'
+    | '/precios'
+    | '/soporte'
+    | '/support'
+    | '/directorio'
+    | '/restaurantes'
+    | '/directorio/$ciudad/$categoria'
+    | '/restaurantes/$ciudad/$slug'
+    | '/directorio/$ciudad'
+    | '/restaurantes/$ciudad'
+  id:
+    | '__root__'
+    | '/'
+    | '/precios'
+    | '/soporte'
+    | '/support'
+    | '/directorio/'
+    | '/restaurantes/'
+    | '/directorio/$ciudad/$categoria'
+    | '/restaurantes/$ciudad/$slug'
+    | '/directorio/$ciudad/'
+    | '/restaurantes/$ciudad/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DirectorioRoute: typeof DirectorioRoute
   PreciosRoute: typeof PreciosRoute
   SoporteRoute: typeof SoporteRoute
   SupportRoute: typeof SupportRoute
+  DirectorioIndexRoute: typeof DirectorioIndexRoute
+  RestaurantesIndexRoute: typeof RestaurantesIndexRoute
+  DirectorioCiudadCategoriaRoute: typeof DirectorioCiudadCategoriaRoute
+  RestaurantesCiudadSlugRoute: typeof RestaurantesCiudadSlugRoute
+  DirectorioCiudadIndexRoute: typeof DirectorioCiudadIndexRoute
+  RestaurantesCiudadIndexRoute: typeof RestaurantesCiudadIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -102,13 +184,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreciosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/directorio': {
-      id: '/directorio'
-      path: '/directorio'
-      fullPath: '/directorio'
-      preLoaderRoute: typeof DirectorioRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -116,15 +191,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/restaurantes/': {
+      id: '/restaurantes/'
+      path: '/restaurantes'
+      fullPath: '/restaurantes/'
+      preLoaderRoute: typeof RestaurantesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/directorio/': {
+      id: '/directorio/'
+      path: '/directorio'
+      fullPath: '/directorio/'
+      preLoaderRoute: typeof DirectorioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/restaurantes/$ciudad/': {
+      id: '/restaurantes/$ciudad/'
+      path: '/restaurantes/$ciudad'
+      fullPath: '/restaurantes/$ciudad/'
+      preLoaderRoute: typeof RestaurantesCiudadIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/directorio/$ciudad/': {
+      id: '/directorio/$ciudad/'
+      path: '/directorio/$ciudad'
+      fullPath: '/directorio/$ciudad/'
+      preLoaderRoute: typeof DirectorioCiudadIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/restaurantes/$ciudad/$slug': {
+      id: '/restaurantes/$ciudad/$slug'
+      path: '/restaurantes/$ciudad/$slug'
+      fullPath: '/restaurantes/$ciudad/$slug'
+      preLoaderRoute: typeof RestaurantesCiudadSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/directorio/$ciudad/$categoria': {
+      id: '/directorio/$ciudad/$categoria'
+      path: '/directorio/$ciudad/$categoria'
+      fullPath: '/directorio/$ciudad/$categoria'
+      preLoaderRoute: typeof DirectorioCiudadCategoriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DirectorioRoute: DirectorioRoute,
   PreciosRoute: PreciosRoute,
   SoporteRoute: SoporteRoute,
   SupportRoute: SupportRoute,
+  DirectorioIndexRoute: DirectorioIndexRoute,
+  RestaurantesIndexRoute: RestaurantesIndexRoute,
+  DirectorioCiudadCategoriaRoute: DirectorioCiudadCategoriaRoute,
+  RestaurantesCiudadSlugRoute: RestaurantesCiudadSlugRoute,
+  DirectorioCiudadIndexRoute: DirectorioCiudadIndexRoute,
+  RestaurantesCiudadIndexRoute: RestaurantesCiudadIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

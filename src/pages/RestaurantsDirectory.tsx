@@ -1,125 +1,151 @@
 import { useState } from "react";
-import { ExternalLink, UtensilsCrossed, Pizza, Flame } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { MapPin, UtensilsCrossed } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { DemoModal } from "@/components/DemoModal";
+import { categoriaDe, type DirectorioItem } from "@/lib/directorio";
+import { trackEvent } from "@/lib/analytics";
 
-const RESTAURANTS = [
-  {
-    name: "Mijaos",
-    description:
-      "La mejor comida rápida. Especialistas en hamburguesas artesanales y perros calientes con salsas exclusivas.",
-    url: "https://mijaos.taviorders.com",
-    icon: Flame,
-    color: "text-orange-500",
-    bg: "bg-orange-500/10",
-    city: "Cúcuta",
-  },
-  {
-    name: "Sr. Pizza Pan",
-    description:
-      "Pizzas horneadas a la perfección con ingredientes frescos. El auténtico sabor tradicional que a todos encanta.",
-    url: "https://sr-pizza-pan.taviorders.com",
-    icon: Pizza,
-    color: "text-red-500",
-    bg: "bg-red-500/10",
-    city: "Cúcuta",
-  },
-  {
-    name: "El Parche",
-    description:
-      "El lugar ideal para compartir con amigos. Gran variedad de asados, picadas y bebidas para pasar el rato.",
-    url: "https://el-parche.taviorders.com",
-    icon: UtensilsCrossed,
-    color: "text-emerald-500",
-    bg: "bg-emerald-500/10",
-    city: "Risaralda",
-  },
-];
+export type Miga = { nombre: string; href: string };
+export type EnlaceFiltro = { nombre: string; href: string; total: number };
 
-export function RestaurantsDirectory() {
+type Props = {
+  titulo: string;
+  intro: string;
+  migas: Miga[];
+  restaurantes: DirectorioItem[];
+  filtros?: { titulo: string; enlaces: EnlaceFiltro[] };
+};
+
+function RestaurantCard({ r }: { r: DirectorioItem }) {
+  const categoria = categoriaDe(r.categoria_negocio);
+  return (
+    <li className="group relative flex flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-primary/20 hover:shadow-xl">
+      <div className="mb-4 flex items-start justify-between gap-3">
+        {r.logo ? (
+          <img
+            src={r.logo}
+            alt={`Logo de ${r.nombre}`}
+            width={56}
+            height={56}
+            loading="lazy"
+            className="h-14 w-14 rounded-2xl border border-slate-100 object-cover"
+          />
+        ) : (
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <UtensilsCrossed className="h-7 w-7" />
+          </div>
+        )}
+        <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+          <MapPin className="h-3 w-3" /> {r.ciudad}
+        </span>
+      </div>
+      <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary">
+        <a href={r.ruta_publica} className="after:absolute after:inset-0">
+          {r.nombre}
+        </a>
+      </h3>
+      <p className="mt-1 text-sm font-medium text-slate-500">
+        {categoria?.plural ?? "Restaurante"} · {r.total_productos} platos con precio
+      </p>
+      {r.descripcion && <p className="mt-3 line-clamp-3 text-slate-600">{r.descripcion}</p>}
+      <span className="mt-5 text-sm font-bold text-primary">Ver menú de {r.nombre} →</span>
+    </li>
+  );
+}
+
+export function RestaurantsDirectory({ titulo, intro, migas, restaurantes, filtros }: Props) {
   const [showDemoModal, setShowDemoModal] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF9F6] selection:bg-primary/20 selection:text-primary">
+    <div className="flex min-h-screen flex-col bg-[#FAF9F6] selection:bg-primary/20 selection:text-primary">
       <Navbar onDemo={() => setShowDemoModal(true)} />
 
-      <main className="flex-1 pt-24 pb-20">
+      <main className="flex-1 pb-20 pt-10 md:pt-16">
         <div className="mx-auto max-w-6xl px-6">
-          {/* Header SEO de la página */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-primary mb-6">
-              Directorio TAVI
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tight text-slate-900 mb-6">
-              Descubre los mejores <span className="text-primary">restaurantes</span>
+          <nav aria-label="Migas de pan" className="mb-6 text-sm text-slate-500">
+            <ol className="flex flex-wrap items-center gap-1">
+              {migas.map((m, i) => (
+                <li key={m.href} className="flex items-center gap-1">
+                  {i > 0 && <span aria-hidden="true">/</span>}
+                  {i < migas.length - 1 ? (
+                    <a href={m.href} className="hover:text-primary">
+                      {m.nombre}
+                    </a>
+                  ) : (
+                    <span aria-current="page" className="text-slate-700">
+                      {m.nombre}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
+
+          <div className="mb-10 max-w-3xl">
+            <h1 className="mb-4 font-display text-4xl font-black tracking-tight text-slate-900 md:text-5xl">
+              {titulo}
             </h1>
-            <p className="text-lg md:text-xl text-slate-600 leading-relaxed">
-              Explora nuestra selección de sitios recomendados en diferentes ciudades. Conoce sus
-              menús digitales interactivos, pide a domicilio o reserva tu mesa al instante sin
-              descargar aplicaciones.
+            <p className="text-lg leading-relaxed text-slate-600">{intro}</p>
+          </div>
+
+          {filtros && filtros.enlaces.length > 0 && (
+            <section className="mb-10">
+              <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-slate-500">
+                {filtros.titulo}
+              </h2>
+              <ul className="flex flex-wrap gap-2">
+                {filtros.enlaces.map((e) => (
+                  <li key={e.href}>
+                    <a
+                      href={e.href}
+                      className="inline-flex rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-primary/40 hover:text-primary"
+                    >
+                      {e.nombre} <span className="ml-1 text-slate-400">({e.total})</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {restaurantes.length > 0 ? (
+            <section>
+              <h2 className="sr-only">Restaurantes</h2>
+              <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {restaurantes.map((r) => (
+                  <RestaurantCard key={r.slug} r={r} />
+                ))}
+              </ul>
+            </section>
+          ) : (
+            <p className="rounded-3xl border border-slate-200 bg-white p-8 text-slate-600">
+              Aún no hay restaurantes publicados aquí.{" "}
+              <Link to="/directorio" className="font-semibold text-primary">
+                Ver todo el directorio
+              </Link>
             </p>
-          </div>
+          )}
 
-          {/* Grid de Restaurantes */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {RESTAURANTS.map((restaurant, idx) => (
-              <div
-                key={idx}
-                className="group relative flex flex-col bg-white rounded-3xl border border-slate-200 p-8 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="flex items-start justify-between mb-6">
-                  <div
-                    className={`flex items-center justify-center w-16 h-16 rounded-2xl ${restaurant.bg} ${restaurant.color}`}
-                  >
-                    <restaurant.icon className="w-8 h-8" />
-                  </div>
-                  <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-                    📍 {restaurant.city}
-                  </span>
-                </div>
-
-                <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-primary transition-colors">
-                  {restaurant.name}
-                </h3>
-
-                <p className="text-slate-600 mb-8 flex-1 leading-relaxed">
-                  {restaurant.description}
-                </p>
-
-                <a
-                  href={restaurant.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 w-full rounded-full bg-slate-900 text-white font-bold py-4 hover:bg-primary transition-colors shadow-sm"
-                >
-                  Ver Menú y Pedir <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA para dueños de restaurantes */}
-          <div className="mt-24 bg-primary/5 rounded-[2.5rem] border border-primary/20 p-8 md:p-16 text-center max-w-4xl mx-auto relative overflow-hidden">
-            <div className="relative z-10">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">¿Tienes un restaurante?</h2>
-              <p className="text-slate-600 mb-8 text-lg">
-                Únete a TAVI, digitaliza tu menú en minutos y empieza a recibir pedidos directamente
-                por WhatsApp sin pagar comisiones por venta.
-              </p>
-              <a
-                href="/precios"
-                className="inline-flex rounded-full bg-primary px-8 py-4 text-base font-black text-white hover:bg-primary/90 transition-all shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-0.5"
-              >
-                Crear Menú Digital Ahora
-              </a>
-            </div>
+          <div className="relative mx-auto mt-24 max-w-4xl overflow-hidden rounded-[2.5rem] border border-primary/20 bg-primary/5 p-8 text-center md:p-16">
+            <h2 className="mb-4 text-3xl font-bold text-slate-900">¿Tienes un restaurante?</h2>
+            <p className="mb-8 text-lg text-slate-600">
+              Digitaliza tu menú con código QR, recibe pedidos en mesa y a domicilio sin comisiones
+              por venta y aparece en este directorio.
+            </p>
+            <a
+              href="/menu-digital-qr?utm_source=directorio&utm_medium=listado&utm_campaign=crea_tu_menu"
+              onClick={() => trackEvent("click_crea_tu_menu", { origen: "directorio" })}
+              className="inline-flex rounded-full bg-primary px-8 py-4 text-base font-black text-white shadow-lg shadow-primary/30 transition-all hover:-translate-y-0.5 hover:bg-primary/90"
+            >
+              Crear mi menú digital
+            </a>
           </div>
         </div>
       </main>
 
       <Footer />
-
       <DemoModal open={showDemoModal} onOpenChange={setShowDemoModal} />
     </div>
   );
