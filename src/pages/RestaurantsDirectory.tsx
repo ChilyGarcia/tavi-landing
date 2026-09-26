@@ -102,7 +102,7 @@ export function RestaurantsDirectory({ titulo, intro, migas, restaurantes, filtr
                       href={e.href}
                       className="inline-flex rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-primary/40 hover:text-primary"
                     >
-                      {e.nombre} <span className="ml-1 text-slate-400">({e.total})</span>
+                      {e.nombre} <span className="ml-1 text-slate-500">({e.total})</span>
                     </a>
                   </li>
                 ))}

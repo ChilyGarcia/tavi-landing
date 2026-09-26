@@ -102,7 +102,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
       <div className="mx-auto grid max-w-6xl gap-14 px-6 py-16 md:grid-cols-2 md:items-center md:py-24">
         {/* Left Side: Text & CTAs */}
         <div className="relative">
-          <Reveal delay={90}>
+          <Reveal cssOnly delay={90}>
             <div className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-[4rem]">
               {/* El H1 lleva un texto estable (lo que indexa Google); la palabra rotativa es solo visual. */}
               <h1 className="inline">
@@ -124,7 +124,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             </div>
           </Reveal>
 
-          <Reveal delay={170}>
+          <Reveal cssOnly delay={170}>
             <p className="mt-6 max-w-lg text-lg text-foreground font-medium leading-relaxed">
               Tavi Orders centraliza tu sistema POS de punto de venta, menús con código QR en mesas,
               pantallas de cocina (KDS), facturación electrónica DIAN y fidelización digital. La
@@ -132,7 +132,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             </p>
           </Reveal>
 
-          <Reveal delay={250}>
+          <Reveal cssOnly delay={250}>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <button
                 onClick={onDemo}
@@ -143,7 +143,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             </div>
           </Reveal>
 
-          <Reveal delay={330}>
+          <Reveal cssOnly delay={330}>
             <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-border/50 pt-6">
               <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                 <Check className="h-5 w-5 text-primary" /> Sin instalaciones complejas
@@ -158,6 +158,7 @@ function Hero({ onDemo }: { onDemo: () => void }) {
 
         {/* Right Side: Software Visuals (Ecosystem) */}
         <Reveal
+          cssOnly
           from="right"
           delay={200}
           className="relative mt-12 md:mt-0 lg:ml-4 w-full h-[350px] sm:h-[450px] md:h-[500px]"

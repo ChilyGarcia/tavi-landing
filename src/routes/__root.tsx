@@ -8,8 +8,6 @@ import { organizationLd, websiteLd } from "@/lib/structured-data";
 import { ga4Scripts, trackEvent } from "@/lib/analytics";
 import appCss from "@/styles.css?url";
 
-const FONTS_URL = "https://fonts.googleapis.com/css2?family=Inter:wght@400..900&display=swap";
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -22,9 +20,13 @@ export const Route = createRootRoute({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: FONTS_URL },
+      {
+        rel: "preload",
+        href: "/fonts/inter-latin-var.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", sizes: "48x48", href: "/favicon-v2-48x48.png" },
       { rel: "icon", type: "image/png", sizes: "96x96", href: "/favicon-v2-96x96.png" },

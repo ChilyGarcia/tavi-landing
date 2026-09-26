@@ -9,7 +9,17 @@ import path from "node:path";
 // genera la salida `.vercel/output` con funciones + estáticos; en local
 // produce `.output/` (servible con `bun run preview` / `node .output/server/index.mjs`).
 export default defineConfig({
-  plugins: [tailwindcss(), tanstackStart({ srcDirectory: "src" }), nitro(), react()],
+  plugins: [
+    tailwindcss(),
+    tanstackStart({ srcDirectory: "src" }),
+    nitro({
+      routeRules: {
+        // Fuentes autoalojadas: el nombre del archivo cambia si cambia la fuente.
+        "/fonts/**": { headers: { "cache-control": "public, max-age=31536000, immutable" } },
+      },
+    }),
+    react(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "./src"),
