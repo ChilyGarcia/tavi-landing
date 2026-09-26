@@ -11,10 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SoporteRouteImport } from './routes/soporte'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PreciosRouteImport } from './routes/precios'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RestaurantesIndexRouteImport } from './routes/restaurantes.index'
 import { Route as DirectorioIndexRouteImport } from './routes/directorio.index'
+import { Route as SitemapsRestaurantesDotxmlRouteImport } from './routes/sitemaps.restaurantes[.]xml'
+import { Route as SitemapsPaginasDotxmlRouteImport } from './routes/sitemaps.paginas[.]xml'
+import { Route as SitemapsDirectorioDotxmlRouteImport } from './routes/sitemaps.directorio[.]xml'
 import { Route as RestaurantesCiudadIndexRouteImport } from './routes/restaurantes.$ciudad.index'
 import { Route as DirectorioCiudadIndexRouteImport } from './routes/directorio.$ciudad.index'
 import { Route as RestaurantesCiudadSlugRouteImport } from './routes/restaurantes.$ciudad.$slug'
@@ -28,6 +32,11 @@ const SupportRoute = SupportRouteImport.update({
 const SoporteRoute = SoporteRouteImport.update({
   id: '/soporte',
   path: '/soporte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PreciosRoute = PreciosRouteImport.update({
@@ -50,6 +59,23 @@ const DirectorioIndexRoute = DirectorioIndexRouteImport.update({
   path: '/directorio/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapsRestaurantesDotxmlRoute =
+  SitemapsRestaurantesDotxmlRouteImport.update({
+    id: '/sitemaps/restaurantes.xml',
+    path: '/sitemaps/restaurantes.xml',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SitemapsPaginasDotxmlRoute = SitemapsPaginasDotxmlRouteImport.update({
+  id: '/sitemaps/paginas.xml',
+  path: '/sitemaps/paginas.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapsDirectorioDotxmlRoute =
+  SitemapsDirectorioDotxmlRouteImport.update({
+    id: '/sitemaps/directorio.xml',
+    path: '/sitemaps/directorio.xml',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const RestaurantesCiudadIndexRoute = RestaurantesCiudadIndexRouteImport.update({
   id: '/restaurantes/$ciudad/',
   path: '/restaurantes/$ciudad/',
@@ -75,8 +101,12 @@ const DirectorioCiudadCategoriaRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/precios': typeof PreciosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soporte': typeof SoporteRoute
   '/support': typeof SupportRoute
+  '/sitemaps/directorio.xml': typeof SitemapsDirectorioDotxmlRoute
+  '/sitemaps/paginas.xml': typeof SitemapsPaginasDotxmlRoute
+  '/sitemaps/restaurantes.xml': typeof SitemapsRestaurantesDotxmlRoute
   '/directorio/': typeof DirectorioIndexRoute
   '/restaurantes/': typeof RestaurantesIndexRoute
   '/directorio/$ciudad/$categoria': typeof DirectorioCiudadCategoriaRoute
@@ -87,8 +117,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/precios': typeof PreciosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soporte': typeof SoporteRoute
   '/support': typeof SupportRoute
+  '/sitemaps/directorio.xml': typeof SitemapsDirectorioDotxmlRoute
+  '/sitemaps/paginas.xml': typeof SitemapsPaginasDotxmlRoute
+  '/sitemaps/restaurantes.xml': typeof SitemapsRestaurantesDotxmlRoute
   '/directorio': typeof DirectorioIndexRoute
   '/restaurantes': typeof RestaurantesIndexRoute
   '/directorio/$ciudad/$categoria': typeof DirectorioCiudadCategoriaRoute
@@ -100,8 +134,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/precios': typeof PreciosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soporte': typeof SoporteRoute
   '/support': typeof SupportRoute
+  '/sitemaps/directorio.xml': typeof SitemapsDirectorioDotxmlRoute
+  '/sitemaps/paginas.xml': typeof SitemapsPaginasDotxmlRoute
+  '/sitemaps/restaurantes.xml': typeof SitemapsRestaurantesDotxmlRoute
   '/directorio/': typeof DirectorioIndexRoute
   '/restaurantes/': typeof RestaurantesIndexRoute
   '/directorio/$ciudad/$categoria': typeof DirectorioCiudadCategoriaRoute
@@ -114,8 +152,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/precios'
+    | '/sitemap.xml'
     | '/soporte'
     | '/support'
+    | '/sitemaps/directorio.xml'
+    | '/sitemaps/paginas.xml'
+    | '/sitemaps/restaurantes.xml'
     | '/directorio/'
     | '/restaurantes/'
     | '/directorio/$ciudad/$categoria'
@@ -126,8 +168,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/precios'
+    | '/sitemap.xml'
     | '/soporte'
     | '/support'
+    | '/sitemaps/directorio.xml'
+    | '/sitemaps/paginas.xml'
+    | '/sitemaps/restaurantes.xml'
     | '/directorio'
     | '/restaurantes'
     | '/directorio/$ciudad/$categoria'
@@ -138,8 +184,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/precios'
+    | '/sitemap.xml'
     | '/soporte'
     | '/support'
+    | '/sitemaps/directorio.xml'
+    | '/sitemaps/paginas.xml'
+    | '/sitemaps/restaurantes.xml'
     | '/directorio/'
     | '/restaurantes/'
     | '/directorio/$ciudad/$categoria'
@@ -151,8 +201,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PreciosRoute: typeof PreciosRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SoporteRoute: typeof SoporteRoute
   SupportRoute: typeof SupportRoute
+  SitemapsDirectorioDotxmlRoute: typeof SitemapsDirectorioDotxmlRoute
+  SitemapsPaginasDotxmlRoute: typeof SitemapsPaginasDotxmlRoute
+  SitemapsRestaurantesDotxmlRoute: typeof SitemapsRestaurantesDotxmlRoute
   DirectorioIndexRoute: typeof DirectorioIndexRoute
   RestaurantesIndexRoute: typeof RestaurantesIndexRoute
   DirectorioCiudadCategoriaRoute: typeof DirectorioCiudadCategoriaRoute
@@ -175,6 +229,13 @@ declare module '@tanstack/react-router' {
       path: '/soporte'
       fullPath: '/soporte'
       preLoaderRoute: typeof SoporteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/precios': {
@@ -203,6 +264,27 @@ declare module '@tanstack/react-router' {
       path: '/directorio'
       fullPath: '/directorio/'
       preLoaderRoute: typeof DirectorioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemaps/restaurantes.xml': {
+      id: '/sitemaps/restaurantes.xml'
+      path: '/sitemaps/restaurantes.xml'
+      fullPath: '/sitemaps/restaurantes.xml'
+      preLoaderRoute: typeof SitemapsRestaurantesDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemaps/paginas.xml': {
+      id: '/sitemaps/paginas.xml'
+      path: '/sitemaps/paginas.xml'
+      fullPath: '/sitemaps/paginas.xml'
+      preLoaderRoute: typeof SitemapsPaginasDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemaps/directorio.xml': {
+      id: '/sitemaps/directorio.xml'
+      path: '/sitemaps/directorio.xml'
+      fullPath: '/sitemaps/directorio.xml'
+      preLoaderRoute: typeof SitemapsDirectorioDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/restaurantes/$ciudad/': {
@@ -239,8 +321,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PreciosRoute: PreciosRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SoporteRoute: SoporteRoute,
   SupportRoute: SupportRoute,
+  SitemapsDirectorioDotxmlRoute: SitemapsDirectorioDotxmlRoute,
+  SitemapsPaginasDotxmlRoute: SitemapsPaginasDotxmlRoute,
+  SitemapsRestaurantesDotxmlRoute: SitemapsRestaurantesDotxmlRoute,
   DirectorioIndexRoute: DirectorioIndexRoute,
   RestaurantesIndexRoute: RestaurantesIndexRoute,
   DirectorioCiudadCategoriaRoute: DirectorioCiudadCategoriaRoute,

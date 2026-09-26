@@ -5,9 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/generate-sitemap.mjs",
     "build": "vite build",
-    "sitemap": "node scripts/generate-sitemap.mjs",
     "preview": "node .output/server/index.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",

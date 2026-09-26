@@ -21,10 +21,13 @@ async function getJson<T>(path: string): Promise<T | null> {
   return (await res.json()) as T;
 }
 
-export const obtenerDirectorio = createServerFn({ method: "GET" }).handler(async () => {
+/** Uso directo desde server routes (sitemaps); en componentes usa `obtenerDirectorio`. */
+export async function fetchDirectorio(): Promise<DirectorioItem[]> {
   const data = await getJson<{ restaurantes: DirectorioItem[] }>("/api/public/directorio/");
   return data?.restaurantes ?? [];
-});
+}
+
+export const obtenerDirectorio = createServerFn({ method: "GET" }).handler(fetchDirectorio);
 
 export const obtenerFicha = createServerFn({ method: "GET" })
   .inputValidator((slug: string) => {
