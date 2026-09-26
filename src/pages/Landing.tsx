@@ -24,13 +24,12 @@ import {
   ChevronDown,
   HelpCircle,
 } from "lucide-react";
-import taviDesktop from "@/assets/tavi-desktop.png";
-import taviTablet from "@/assets/tavi-tablet.png";
-import taviMobile from "@/assets/tavi-mobile.png";
-import heroImg from "@/assets/tavi-hero.jpg";
-import foodBurger from "@/assets/tavi-food-burger.jpg";
-import foodBowl from "@/assets/tavi-food-bowl.jpg";
-import foodDessert from "@/assets/tavi-food-dessert.jpg";
+import taviDesktop from "@/assets/tavi-desktop.webp";
+import taviTablet from "@/assets/tavi-tablet.webp";
+import taviMobile from "@/assets/tavi-mobile.webp";
+import foodBurger from "@/assets/tavi-food-burger.webp";
+import foodBowl from "@/assets/tavi-food-bowl.webp";
+import foodDessert from "@/assets/tavi-food-dessert.webp";
 import { DemoModal } from "@/components/DemoModal";
 import { TaviLogo } from "@/components/Logo";
 import { Reveal } from "@/components/Reveal";
@@ -168,6 +167,8 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             <img
               src={taviDesktop}
               alt="Panel de administración de Tavi en computador"
+              width={1024}
+              height={516}
               fetchPriority="high"
               className="w-full h-auto object-cover border-t border-border/30"
             />
@@ -179,6 +180,8 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             <img
               src={taviTablet}
               alt="Módulo de caja de Tavi en tablet"
+              width={1024}
+              height={516}
               className="w-full h-auto object-cover rounded-[0.5rem] sm:rounded-[0.75rem]"
             />
           </div>
@@ -189,6 +192,8 @@ function Hero({ onDemo }: { onDemo: () => void }) {
             <img
               src={taviMobile}
               alt="Menú QR interactivo en celular"
+              width={508}
+              height={958}
               className="w-full h-auto object-cover rounded-[0.75rem] sm:rounded-[1.25rem]"
             />
           </div>
@@ -321,6 +326,9 @@ function Marquee() {
               <img
                 src={item.image}
                 alt={`Software para ${item.name} Tavi Orders`}
+                width={176}
+                height={176}
+                loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 transition-colors group-hover:bg-black/40" />
@@ -383,8 +391,8 @@ function Showcase() {
             <img
               src={img}
               alt={alt}
-              width={1024}
-              height={1024}
+              width={800}
+              height={800}
               loading="lazy"
               className="aspect-[4/5] w-full object-cover transition duration-500 group-hover:scale-105"
             />
@@ -553,6 +561,9 @@ function Features() {
                 <img
                   src={mod.img}
                   alt={mod.title}
+                  width={800}
+                  height={240}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
